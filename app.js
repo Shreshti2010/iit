@@ -445,16 +445,22 @@ fetch('courseplanner.json')
     renderPlannerTable(getFilteredData());
     renderUpdates();
   })
-  .catch(err => {
-    console.error('Failed to load courseplanner.json:', err);
-    const tbody = document.getElementById('plannerTableBody');
-    if (tbody) tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;color:#ef4444;text-align:center">
-      ⚠️ Could not load course data. Open via a local server:<br>
-      <code style="font-size:0.85em;color:#94a3b8">python3 -m http.server 8080</code>
-    </td></tr>`;
+  .catch(() => {
+    // fallback to inline data (works when opened via file://)
+    plannerData = window.COURSE_PLANNER_DATA || [];
+    renderDashboard();
+    renderPlannerTable(getFilteredData());
+    renderUpdates();
   });
 
 fetch('aha-maths.json')
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-  .then(data => { ahaData = data; })
-  .catch(err => console.error('Failed to load aha-maths.json:', err));
+  .then(data => {
+    ahaData = data;
+    if (document.getElementById('ahaguruPage').style.display !== 'none') renderAhaGuru();
+  })
+  .catch(() => {
+    // fallback to inline data (works when opened via file://)
+    ahaData = window.AHA_MATHS_DATA || [];
+    if (document.getElementById('ahaguruPage').style.display !== 'none') renderAhaGuru();
+  });
