@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IIT Prep Planner</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <header class="brand">IIT Prep Planner</header>
+      <nav class="nav">
+        <button class="nav-btn" data-page="dashboard"><span>🏠</span> Dashboard</button>
+        <button class="nav-btn" data-page="planner"><span>📅</span> Course Planner</button>
+        <button class="nav-btn" data-page="updates"><span>📝</span> Daily Updates</button>
+        <button class="nav-btn" data-page="progress"><span>📊</span> Progress</button>
+        <div class="nav-group">
+          <div class="nav-group-title">Aha Guru</div>
+          <button class="nav-btn" data-page="ahaMaths"><span>📐</span> Maths</button>
+        </div>
+      </nav>
+    </aside>
+    <main class="main">
+      <section id="dashboardPage" class="page">
+        <h1>Dashboard</h1>
+        <div class="dashboard-grid">
+          <div class="card" id="todayLecturesCard">
+            <h2>Today's Lectures</h2>
+            <ul id="todayLectures"></ul>
+          </div>
+          <div class="card" id="completedLecturesCard">
+            <h2>Completed Lectures</h2>
+            <ul id="completedLectures"></ul>
+          </div>
+          <div class="card" id="pendingLecturesCard">
+            <h2>Pending Lectures</h2>
+            <ul id="pendingLectures"></ul>
+          </div>
+          <div class="card" id="streakCard">
+            <h2>Study Streak</h2>
+            <div id="studyStreak" class="streak-num">0 days</div>
+          </div>
+          <div class="card progress-card">
+            <h2>Progress</h2>
+            <div class="progress-bar-bg">
+              <div class="progress-bar" id="dashboardProgressBar"></div>
+            </div>
+            <div id="dashboardProgressText"></div>
+          </div>
+        </div>
+      </section>
+      <section id="plannerPage" class="page" style="display:none">
+        <h1>Course Planner</h1>
+        <div class="card">
+          <table class="planner-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Physics</th>
+                <th>Physical Chemistry</th>
+                <th>Organic Chemistry</th>
+                <th>Mathematics</th>
+              </tr>
+            </thead>
+            <tbody id="plannerTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+      <section id="updatesPage" class="page" style="display:none">
+        <h1>Daily Updates</h1>
+        <div class="card updates-card">
+          <form id="dailyUpdateForm">
+            <label for="updateText">What did you study today?</label>
+            <textarea id="updateText" required placeholder="Write your daily update..."></textarea>
+            <button type="submit" class="primary">Save Update</button>
+          </form>
+          <div class="updates-history">
+            <h2>Previous Updates</h2>
+            <ul id="updatesList"></ul>
+          </div>
+        </div>
+      </section>
+      <section id="progressPage" class="page" style="display:none">
+        <h1>Progress</h1>
+        <div class="card progress-summary">
+          <div class="progress-row">
+            <div>Total Lectures: <span id="totalLectures">0</span></div>
+            <div>Completed: <span id="completedLecturesCount">0</span></div>
+            <div>Pending: <span id="pendingLecturesCount">0</span></div>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar" id="mainProgressBar"></div>
+          </div>
+          <div id="mainProgressText"></div>
+        </div>
+      </section>
+      <section id="ahaMathsPage" class="page" style="display:none">
+        <h1>Aha Guru &ndash; Maths Syllabus</h1>
+        <div class="card" id="ahaMathsSyllabus"></div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

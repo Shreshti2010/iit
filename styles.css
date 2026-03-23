@@ -460,3 +460,102 @@ body {
   .stats-row, .progress-stats-row { grid-template-columns: 1fr 1fr; }
   .planner-controls { flex-direction: column; align-items: stretch; }
 }
+
+/* ===== AHAGURU PAGE ===== */
+.aha-header-row {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+  margin-bottom: 24px;
+}
+.aha-course-tag {
+  display: inline-block;
+  font-size: 0.78em; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--math);
+  background: var(--math-bg); padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 10px;
+}
+.aha-progress-row { display: flex; align-items: center; gap: 10px; }
+.aha-progress-track {
+  width: 220px; height: 7px;
+  background: var(--border); border-radius: 4px; overflow: hidden;
+}
+.aha-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--math), #c4b5fd);
+  border-radius: 4px; transition: width 0.6s cubic-bezier(.4,2,.6,1);
+  width: 0%;
+}
+.aha-progress-pct { font-size: 0.85em; font-weight: 700; color: var(--math); }
+.aha-stats-mini { display: flex; gap: 20px; }
+.aha-stat { text-align: center; }
+.aha-stat-val { font-size: 1.4em; font-weight: 800; color: var(--text); }
+.aha-stat-lbl { font-size: 0.72em; color: var(--text-muted); margin-top: 2px; }
+
+/* Lesson cards */
+.aha-lesson {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+.aha-lesson:hover { border-color: #2a3a55; }
+.aha-lesson.done { border-color: rgba(167,139,250,0.25); }
+.aha-lesson-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px; cursor: pointer;
+  user-select: none;
+}
+.aha-lesson-num {
+  font-size: 0.72em; font-weight: 700;
+  color: var(--math); background: var(--math-bg);
+  padding: 3px 9px; border-radius: 5px;
+  flex-shrink: 0; min-width: 36px; text-align: center;
+}
+.aha-lesson-title {
+  flex: 1; font-size: 0.95em; font-weight: 600; color: var(--text);
+}
+.aha-lesson.done .aha-lesson-title { color: var(--text-muted); }
+.aha-lesson-check {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; cursor: pointer;
+  transition: all var(--transition);
+  font-size: 0.8em;
+}
+.aha-lesson-check.checked {
+  background: var(--math); border-color: var(--math); color: #fff;
+}
+.aha-lesson-check:hover { border-color: var(--math); }
+.aha-expand-icon {
+  color: var(--text-muted); font-size: 0.8em; flex-shrink: 0;
+  transition: transform var(--transition);
+}
+.aha-lesson.expanded .aha-expand-icon { transform: rotate(180deg); }
+
+/* Chapters inside lesson */
+.aha-chapters {
+  display: none;
+  border-top: 1px solid var(--border);
+  padding: 8px 0;
+  background: var(--surface);
+}
+.aha-lesson.expanded .aha-chapters { display: block; }
+.aha-chapter {
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 20px 9px 52px;
+  transition: background var(--transition);
+}
+.aha-chapter:hover { background: var(--card); }
+.aha-chapter-badge {
+  font-size: 0.7em; font-weight: 700; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 4px; flex-shrink: 0;
+}
+.aha-chapter-badge.chapter { background: rgba(99,102,241,0.12); color: var(--accent-light); }
+.aha-chapter-badge.practice { background: rgba(34,197,94,0.12); color: var(--success); }
+.aha-chapter-badge.solved { background: rgba(56,189,248,0.12); color: var(--physics); }
+.aha-chapter-title { flex: 1; font-size: 0.88em; color: var(--text-soft); }
+.aha-chapter-meta { font-size: 0.75em; color: var(--text-muted); flex-shrink: 0; }

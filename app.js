@@ -1,9 +1,12 @@
 // ===== STATE =====
 const LECTURE_KEY = 'iit_lectures_v2';
 const UPDATES_KEY = 'iit_updates_v2';
+const AHA_KEY = 'iit_aha_v1';
 let plannerData = [];
 let completedLectures = {};
 let dailyUpdates = [];
+let ahaData = [];
+let ahaCompleted = {};
 
 const SUBJECTS = [
   { key: 'physics',     label: 'Physics',       cls: 'physics', short: 'PHY' },
@@ -16,12 +19,14 @@ const SUBJECTS = [
 function loadStorage() {
   try { completedLectures = JSON.parse(localStorage.getItem(LECTURE_KEY)) || {}; } catch { completedLectures = {}; }
   try { dailyUpdates = JSON.parse(localStorage.getItem(UPDATES_KEY)) || []; } catch { dailyUpdates = []; }
+  try { ahaCompleted = JSON.parse(localStorage.getItem(AHA_KEY)) || {}; } catch { ahaCompleted = {}; }
 }
 function saveLectures() { localStorage.setItem(LECTURE_KEY, JSON.stringify(completedLectures)); }
 function saveUpdates() { localStorage.setItem(UPDATES_KEY, JSON.stringify(dailyUpdates)); }
+function saveAha() { localStorage.setItem(AHA_KEY, JSON.stringify(ahaCompleted)); }
 
 // ===== NAVIGATION =====
-const PAGES = { dashboard: 'Dashboard', planner: 'Course Planner', updates: 'Daily Updates', progress: 'Progress' };
+const PAGES = { dashboard: 'Dashboard', planner: 'Course Planner', updates: 'Daily Updates', progress: 'Progress', ahaguru: 'AhaGuru – Maths' };
 function initNav() {
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => switchPage(btn.dataset.page));
@@ -40,6 +45,7 @@ function switchPage(page) {
   if (page === 'dashboard') renderDashboard();
   if (page === 'progress') renderProgress();
   if (page === 'planner') renderPlannerTable(getFilteredData());
+  if (page === 'ahaguru') renderAhaGuru();
 }
 
 // ===== HELPERS =====
@@ -353,6 +359,77 @@ function setTopbarDate() {
     new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
 
+// ===== AHAGURU =====
+function renderAhaGuru() {
+  const total = ahaData.length;
+  const done = ahaData.filter(l => ahaCompleted[l.id]).length;
+  const pct = total ? (done / total * 100) : 0;
+
+  document.getElementById('ahaProgressFill').style.width = pct.toFixed(1) + '%';
+  document.getElementById('ahaProgressPct').textContent = pct.toFixed(0) + '%';
+  document.getElementById('ahaStatsMini').innerHTML = `
+    <div class="aha-stat"><div class="aha-stat-val">${total}</div><div class="aha-stat-lbl">Lessons</div></div>
+    <div class="aha-stat"><div class="aha-stat-val" style="color:var(--success)">${done}</div><div class="aha-stat-lbl">Done</div></div>
+    <div class="aha-stat"><div class="aha-stat-val" style="color:var(--pchem)">${total - done}</div><div class="aha-stat-lbl">Remaining</div></div>`;
+
+  const list = document.getElementById('ahaLessonList');
+  list.innerHTML = '';
+  ahaData.forEach(lesson => {
+    const isDone = !!ahaCompleted[lesson.id];
+    const hasChapters = lesson.chapters && lesson.chapters.length;
+
+    const div = document.createElement('div');
+    div.className = 'aha-lesson' + (isDone ? ' done' : '');
+
+    const header = document.createElement('div');
+    header.className = 'aha-lesson-header';
+    header.innerHTML = `
+      <span class="aha-lesson-num">${lesson.id}</span>
+      <span class="aha-lesson-title">${lesson.title}</span>
+      ${hasChapters ? '<span class="aha-expand-icon">▼</span>' : ''}
+      <span class="aha-lesson-check ${isDone ? 'checked' : ''}" data-id="${lesson.id}" title="Mark complete">${isDone ? '✓' : ''}</span>`;
+
+    // toggle expand
+    if (hasChapters) {
+      header.addEventListener('click', e => {
+        if (e.target.classList.contains('aha-lesson-check')) return;
+        div.classList.toggle('expanded');
+      });
+    }
+
+    // check button
+    header.querySelector('.aha-lesson-check').addEventListener('click', e => {
+      e.stopPropagation();
+      const id = e.currentTarget.dataset.id;
+      ahaCompleted[id] = !ahaCompleted[id];
+      saveAha();
+      renderAhaGuru();
+    });
+
+    div.appendChild(header);
+
+    if (hasChapters) {
+      const chapDiv = document.createElement('div');
+      chapDiv.className = 'aha-chapters';
+      chapDiv.innerHTML = lesson.chapters.map(ch => {
+        const isPE = ch.id === 'PE';
+        const isSE = ch.id.startsWith('SE');
+        const badgeCls = isPE ? 'practice' : isSE ? 'solved' : 'chapter';
+        const badgeLabel = isPE ? 'Practice' : isSE ? 'Solved' : ch.id;
+        const meta = ch.questions ? `${ch.questions} questions` : ch.slides ? `${ch.slides} slide${ch.slides > 1 ? 's' : ''}` : '';
+        return `<div class="aha-chapter">
+          <span class="aha-chapter-badge ${badgeCls}">${badgeLabel}</span>
+          <span class="aha-chapter-title">${ch.title}</span>
+          <span class="aha-chapter-meta">${meta}</span>
+        </div>`;
+      }).join('');
+      div.appendChild(chapDiv);
+    }
+
+    list.appendChild(div);
+  });
+}
+
 // ===== INIT =====
 loadStorage();
 initNav();
@@ -376,3 +453,8 @@ fetch('courseplanner.json')
       <code style="font-size:0.85em;color:#94a3b8">python3 -m http.server 8080</code>
     </td></tr>`;
   });
+
+fetch('aha-maths.json')
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data => { ahaData = data; })
+  .catch(err => console.error('Failed to load aha-maths.json:', err));
