@@ -3,377 +3,165 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Pratham-II Planner</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>IIT Prep Planner</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="app">
-
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-top">
-        <div class="brand">
-          <div class="brand-icon">P</div>
-          <div class="brand-text">
-            <span class="brand-name">Pratham-II</span>
-            <span class="brand-sub">2026–27 Planner</span>
-          </div>
-        </div>
-        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">&#9776;</button>
-      </div>
+    <aside class="sidebar">
+      <header class="brand">IIT Prep Planner</header>
       <nav class="nav">
-        <button class="nav-btn active" data-page="dashboard">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-          <span class="nav-label">Dashboard</span>
-        </button>
-        <button class="nav-btn" data-page="planner">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <span class="nav-label">Course Planner</span>
-        </button>
-        <button class="nav-btn" data-page="updates">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          <span class="nav-label">Daily Updates</span>
-        </button>
-        <button class="nav-btn" data-page="progress">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          <span class="nav-label">Progress</span>
-        </button>
-        <button class="nav-btn" data-page="ahaguru">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          <span class="nav-label">AhaGuru</span>
-        </button>
-
-        <!-- NAV GROUP: Syllabus -->
+        <button class="nav-btn" data-page="dashboard"><span>🏠</span> Dashboard</button>
+        <button class="nav-btn" data-page="planner"><span>📅</span> Course Planner</button>
+        <button class="nav-btn" data-page="updates"><span>📝</span> Daily Updates</button>
+        <button class="nav-btn" data-page="progress"><span>📊</span> Progress</button>
         <div class="nav-group">
-          <button class="nav-group-header" data-group="syllabus">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            <span class="nav-label">Syllabus</span>
-            <span class="nav-group-arrow">▾</span>
-          </button>
-          <div class="nav-group-items" id="group-syllabus">
-            <button class="nav-btn nav-sub" data-page="syllabus-jee">JEE</button>
-            <button class="nav-btn nav-sub" data-page="syllabus-1st">1st Year</button>
-            <button class="nav-btn nav-sub" data-page="syllabus-2nd">2nd Year</button>
-            <button class="nav-btn nav-sub" data-page="syllabus-eapcet">EAPCET</button>
+          <div class="nav-group-title">Syllabus</div>
+          <button class="nav-btn sub-nav" data-page="syllabus-jee">JEE</button>
+          <button class="nav-btn sub-nav" data-page="syllabus-1st">1st year</button>
+          <button class="nav-btn sub-nav" data-page="syllabus-2nd">2nd year</button>
+          <button class="nav-btn sub-nav" data-page="syllabus-eapcet">EAPCET</button>
+        </div>
+        <div class="nav-group">
+          <div class="nav-group-title dropdown" id="jeeSupersetDropdown">
+            <span id="jeeSupersetCaret" class="caret">&#9654;</span> JEE Superset
+          </div>
+          <div id="jeeSupersetDropdownMenu" class="nav-dropdown-menu" style="display:none;">
+            <button class="nav-btn sub-nav jee-sub" data-page="jee-superset-maths">Maths</button>
+            <button class="nav-btn sub-nav jee-sub" data-page="jee-superset-physics">Physics</button>
+            <button class="nav-btn sub-nav jee-sub" data-page="jee-superset-chemistry">Chemistry</button>
           </div>
         </div>
-
-        <!-- NAV GROUP: JEE Superset -->
-        <button class="nav-btn" data-page="jee-superset">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <span class="nav-label">JEE Superset</span>
-        </button>
-
-        <!-- NAV GROUP: YTS -->
-        <button class="nav-btn" data-page="yts">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-          <span class="nav-label">YTS</span>
-        </button>
-
-        <!-- NAV GROUP: Timetable -->
-        <button class="nav-btn" data-page="timetable">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8" y2="18"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="16" y1="14" x2="16" y2="18"/></svg>
-          <span class="nav-label">Timetable</span>
-        </button>
+        <div class="nav-group">
+          <div class="nav-group-title">YTS</div>
+          <button class="nav-btn" data-page="yts">YTS Table</button>
+        </div>
+        <div class="nav-group">
+          <div class="nav-group-title">Timetable</div>
+          <button class="nav-btn" data-page="timetable">Plan Sheet</button>
+        </div>
+        <div class="nav-group">
+          <div class="nav-group-title">Aha Guru</div>
+          <button class="nav-btn" data-page="ahaMaths"><span>📐</span> Maths</button>
+        </div>
       </nav>
-      <div class="sidebar-footer">
-        <div class="batch-badge">BATCH: PRATHAM-II</div>
-        <div class="batch-badge-sub">JEE 2026–27</div>
-      </div>
     </aside>
-
-    <!-- Main -->
-    <div class="main-wrapper">
-
-      <!-- Top bar -->
-      <header class="topbar">
-        <div class="topbar-left">
-          <button class="topbar-menu" id="topbarMenu" aria-label="Menu">&#9776;</button>
-          <h1 class="page-title" id="pageTitle">Dashboard</h1>
+    <main class="main">
+      <section id="dashboardPage" class="page">
+        <h1>Dashboard</h1>
+        <div class="dashboard-grid">
+          <div class="card" id="todayLecturesCard">
+            <h2>Today's Lectures</h2>
+            <ul id="todayLectures"></ul>
+          </div>
+          <div class="card" id="completedLecturesCard">
+            <h2>Completed Lectures</h2>
+            <ul id="completedLectures"></ul>
+          </div>
+          <div class="card" id="pendingLecturesCard">
+            <h2>Pending Lectures</h2>
+            <ul id="pendingLectures"></ul>
+          </div>
+          <div class="card" id="streakCard">
+            <h2>Study Streak</h2>
+            <div id="studyStreak" class="streak-num">0 days</div>
+          </div>
+          <div class="card progress-card">
+            <h2>Progress</h2>
+            <div class="progress-bar-bg">
+              <div class="progress-bar" id="dashboardProgressBar"></div>
+            </div>
+            <div id="dashboardProgressText"></div>
+          </div>
         </div>
-        <div class="topbar-right">
-          <div class="topbar-date" id="topbarDate"></div>
-          <div class="topbar-avatar">S</div>
+      </section>
+      <section id="plannerPage" class="page" style="display:none">
+        <h1>Course Planner</h1>
+        <div class="card">
+          <table class="planner-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Physics</th>
+                <th>Physical Chemistry</th>
+                <th>Organic Chemistry</th>
+                <th>Mathematics</th>
+              </tr>
+            </thead>
+            <tbody id="plannerTableBody"></tbody>
+          </table>
         </div>
-      </header>
-
-      <main class="main">
-
-        <!-- DASHBOARD PAGE -->
-        <section id="dashboardPage" class="page">
-          <div class="stats-row" id="statsRow"></div>
-          <div class="dash-grid">
-            <div class="card today-card">
-              <div class="card-header">
-                <span class="card-title">Today's Schedule</span>
-                <span class="card-badge" id="todayDateBadge"></span>
-              </div>
-              <ul class="today-list" id="todayLectures"></ul>
-            </div>
-            <div class="card streak-card">
-              <div class="card-title">Study Streak</div>
-              <div class="streak-display">
-                <div class="streak-num" id="studyStreak">0</div>
-                <div class="streak-label">days in a row</div>
-              </div>
-              <div class="streak-fire">🔥</div>
-            </div>
-            <div class="card progress-overview-card">
-              <div class="card-title">Overall Progress</div>
-              <div class="progress-ring-wrap" id="progressRingWrap"></div>
-              <div class="subject-bars" id="subjectBars"></div>
-            </div>
-            <div class="card upcoming-card">
-              <div class="card-header">
-                <span class="card-title">Upcoming Lectures</span>
-                <span class="upcoming-count" id="upcomingCount"></span>
-              </div>
-              <ul class="upcoming-list" id="upcomingLectures"></ul>
-            </div>
+      </section>
+      <section id="updatesPage" class="page" style="display:none">
+        <h1>Daily Updates</h1>
+        <div class="card updates-card">
+          <form id="dailyUpdateForm">
+            <label for="updateText">What did you study today?</label>
+            <textarea id="updateText" required placeholder="Write your daily update..."></textarea>
+            <button type="submit" class="primary">Save Update</button>
+          </form>
+          <div class="updates-history">
+            <h2>Previous Updates</h2>
+            <ul id="updatesList"></ul>
           </div>
-        </section>
-
-        <!-- PLANNER PAGE -->
-        <section id="plannerPage" class="page" style="display:none">
-          <div class="planner-controls">
-            <div class="search-wrap">
-              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input type="text" id="plannerSearch" class="search-input" placeholder="Search lectures, topics…" />
-            </div>
-            <div class="filter-tabs" id="filterTabs">
-              <button class="filter-tab active" data-filter="all">All</button>
-              <button class="filter-tab" data-filter="pending">Pending</button>
-              <button class="filter-tab" data-filter="completed">Completed</button>
-            </div>
+        </div>
+      </section>
+      <section id="progressPage" class="page" style="display:none">
+        <h1>Progress</h1>
+        <div class="card progress-summary">
+          <div class="progress-row">
+            <div>Total Lectures: <span id="totalLectures">0</span></div>
+            <div>Completed: <span id="completedLecturesCount">0</span></div>
+            <div>Pending: <span id="pendingLecturesCount">0</span></div>
           </div>
-          <div class="card planner-card">
-            <div class="table-wrap">
-              <table class="planner-table">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th><span class="th-dot physics-dot"></span>Physics</th>
-                    <th><span class="th-dot pchem-dot"></span>Physical Chem</th>
-                    <th><span class="th-dot ochem-dot"></span>Organic Chem</th>
-                    <th><span class="th-dot math-dot"></span>Mathematics</th>
-                  </tr>
-                </thead>
-                <tbody id="plannerTableBody"></tbody>
-              </table>
-            </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar" id="mainProgressBar"></div>
           </div>
-        </section>
-
-        <!-- UPDATES PAGE -->
-        <section id="updatesPage" class="page" style="display:none">
-          <div class="updates-layout">
-            <div class="card update-form-card">
-              <div class="card-title">Log Today's Study</div>
-              <form id="dailyUpdateForm">
-                <textarea id="updateText" class="update-textarea" required placeholder="What did you study today? Any doubts? How was the session?"></textarea>
-                <button type="submit" class="btn-primary">Save Update</button>
-              </form>
-            </div>
-            <div class="card updates-history-card">
-              <div class="card-title">Study Log</div>
-              <ul class="updates-list" id="updatesList"></ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- PROGRESS PAGE -->
-        <section id="progressPage" class="page" style="display:none">
-          <div class="progress-stats-row" id="progressStatsRow"></div>
-          <div class="progress-grid">
-            <div class="card subject-progress-card">
-              <div class="card-title">Progress by Subject</div>
-              <div id="subjectProgressBars"></div>
-            </div>
-            <div class="card monthly-card">
-              <div class="card-title">Monthly Breakdown</div>
-              <div id="monthlyBreakdown"></div>
-            </div>
-          </div>
-        </section>
-
-        <!-- AHAGURU PAGE -->
-        <section id="ahaguruPage" class="page" style="display:none">
-          <div class="aha-header-row">
-            <div class="aha-meta">
-              <span class="aha-course-tag">Math Std 11 · IIT JEE + CBSE</span>
-              <div class="aha-progress-row">
-                <div class="aha-progress-track"><div class="aha-progress-fill" id="ahaProgressFill"></div></div>
-                <span class="aha-progress-pct" id="ahaProgressPct">0%</span>
-              </div>
-            </div>
-            <div class="aha-stats-mini" id="ahaStatsMini"></div>
-          </div>
-          <div id="ahaLessonList"></div>
-        </section>
-
-        <!-- SYLLABUS PAGES -->
-        <section id="syllabus-jeePage" class="page" style="display:none">
-          <div class="syllabus-placeholder"><div class="syl-icon">📋</div><p>JEE Syllabus — add content here</p></div>
-        </section>
-        <section id="syllabus-1stPage" class="page" style="display:none">
-          <div class="syllabus-placeholder"><div class="syl-icon">📗</div><p>1st Year Syllabus — add content here</p></div>
-        </section>
-        <section id="syllabus-2ndPage" class="page" style="display:none">
-          <div class="syllabus-placeholder"><div class="syl-icon">📘</div><p>2nd Year Syllabus — add content here</p></div>
-        </section>
-        <section id="syllabus-eapcetPage" class="page" style="display:none">
-          <div class="syllabus-placeholder"><div class="syl-icon">📙</div><p>EAPCET Syllabus — add content here</p></div>
-        </section>
-
-        <!-- JEE SUPERSET PAGE -->
-        <section id="jee-supersetPage" class="page" style="display:none">
-
-          <!-- MATHS -->
-          <div class="superset-subject-block">
-            <div class="superset-subject-heading math-heading">Maths</div>
-            <div class="superset-grid">
-              <div class="superset-col">
-                <div class="superset-col-title jee-title">JEE</div>
-                <div class="superset-body" id="ss-maths-jee"></div>
-                <div class="superset-add-row">
-                  <input type="text" class="superset-add-input" id="ss-maths-add-inp" placeholder="Add topic…">
-                  <button class="superset-add-btn" id="ss-maths-add-btn">Add</button>
-                </div>
-              </div>
-              <div class="superset-col">
-                <div class="superset-col-title yr1-title">1st Year</div>
-                <div class="superset-body" id="ss-maths-yr1"></div>
-              </div>
-              <div class="superset-col">
-                <div class="superset-col-title yr2-title">2nd Year</div>
-                <div class="superset-body" id="ss-maths-yr2"></div>
-              </div>
-              <div class="superset-col">
-                <div class="superset-col-title eapcet-title">EAPCET</div>
-                <div class="superset-body" id="ss-maths-eapcet"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- PHYSICS -->
-          <div class="superset-subject-block">
-            <div class="superset-subject-heading physics-heading">Physics</div>
-            <div class="superset-grid">
-              <div class="superset-col">
-                <div class="superset-col-title jee-title">JEE</div>
-                <div class="superset-body" id="ss-physics-jee"></div>
-                <div class="superset-add-row">
-                  <input type="text" class="superset-add-input" id="ss-physics-add-inp" placeholder="Add topic…">
-                  <button class="superset-add-btn" id="ss-physics-add-btn">Add</button>
-                </div>
-              </div>
-              <div class="superset-col">
-                <div class="superset-col-title yr1-title">1st Year</div>
-                <div class="superset-body" id="ss-physics-yr1"></div>
-              </div>
-              <div class="superset-col">
-                <div class="superset-col-title yr2-title">2nd Year</div>
-                <div class="superset-body" id="ss-physics-yr2"></div>
-              </div>
-              <div class="superset-col">
-                <div class="superset-col-title eapcet-title">EAPCET</div>
-                <div class="superset-body" id="ss-physics-eapcet"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CHEMISTRY -->
-          <div class="superset-subject-block">
-            <div class="superset-subject-heading chem-heading">Chemistry</div>
-            <div class="superset-grid">
-              <div class="superset-col">
-                <div class="superset-col-title jee-title">JEE</div>
-                <div class="superset-body" id="ss-chemistry-jee"></div>
-                <div class="superset-add-row">
-                  <input type="text" class="superset-add-input" id="ss-chemistry-add-inp" placeholder="Add topic…">
-                  <button class="superset-add-btn" id="ss-chemistry-add-btn">Add</button>
-                </div>
-              </div>
-              <div class="superset-col">
-                <div class="superset-col-title yr1-title">1st Year</div>
-                <div class="superset-body" id="ss-chemistry-yr1"></div>
-              </div>
-              <div class="superset-col">
-                <div class="superset-col-title yr2-title">2nd Year</div>
-                <div class="superset-body" id="ss-chemistry-yr2"></div>
-              </div>
-              <div class="superset-col">
-                <div class="superset-col-title eapcet-title">EAPCET</div>
-                <div class="superset-body" id="ss-chemistry-eapcet"></div>
-              </div>
-            </div>
-          </div>
-
-        </section>
-
-        <!-- YTS PAGE -->
-        <section id="ytsPage" class="page" style="display:none">
-          <div class="yts-controls">
-            <input type="text" class="yts-add-input" id="ytsSongInput" placeholder="Add song title…">
-            <button class="btn-primary" id="ytsAddBtn">+ Add Song</button>
-          </div>
-          <div class="card" style="padding:0;overflow:hidden">
-            <div class="yts-table-wrap">
-              <table class="yts-table">
-                <thead>
-                  <tr>
-                    <th class="col-song">Song</th>
-                    <th class="col-blank"></th>
-                    <th class="col-recorded">Recorded?</th>
-                    <th class="col-uploaded">Uploaded?</th>
-                    <th class="col-yts">YTS</th>
-                    <th class="col-insta">Insta</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody id="ytsTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <!-- TIMETABLE PAGE -->
-        <section id="timetablePage" class="page" style="display:none">
-          <div class="timetable-controls">
-            <span class="tt-label">Time slots:</span>
-            <input type="text" class="tt-input" id="ttSlotInput" placeholder="e.g. 6:00 AM" style="width:130px">
-            <button class="btn-primary" id="ttAddSlotBtn">+ Add Slot</button>
-          </div>
-          <div class="card" style="padding:0;overflow:hidden">
-            <div class="tt-table-wrap">
-              <table class="tt-table">
-                <thead>
-                  <tr>
-                    <th>Time</th>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wednesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
-                    <th>Saturday</th>
-                    <th>Sunday</th>
-                  </tr>
-                </thead>
-                <tbody id="ttTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-          <button class="tt-add-row-btn" id="ttAddRowBtn">+ Add Time Slot</button>
-        </section>
-
-      </main>
-    </div>
+          <div id="mainProgressText"></div>
+        </div>
+      </section>
+      <section id="syllabus-jee" class="page" style="display:none">
+        <h1>Syllabus &ndash; JEE</h1>
+        <div class="card" id="syllabusJEE"></div>
+      </section>
+      <section id="syllabus-1st" class="page" style="display:none">
+        <h1>Syllabus &ndash; 1st Year</h1>
+        <div class="card" id="syllabus1st"></div>
+      </section>
+      <section id="syllabus-2nd" class="page" style="display:none">
+        <h1>Syllabus &ndash; 2nd Year</h1>
+        <div class="card" id="syllabus2nd"></div>
+      </section>
+      <section id="syllabus-eapcet" class="page" style="display:none">
+        <h1>Syllabus &ndash; EAPCET</h1>
+        <div class="card" id="syllabusEAPCET"></div>
+      </section>
+      <section id="jee-superset-maths" class="page" style="display:none">
+        <h1>JEE Superset &ndash; Maths</h1>
+        <div class="card" id="jeeSupersetTableMaths"></div>
+      </section>
+      <section id="jee-superset-physics" class="page" style="display:none">
+        <h1>JEE Superset &ndash; Physics</h1>
+        <div class="card" id="jeeSupersetTablePhysics"></div>
+      </section>
+      <section id="jee-superset-chemistry" class="page" style="display:none">
+        <h1>JEE Superset &ndash; Chemistry</h1>
+        <div class="card" id="jeeSupersetTableChemistry"></div>
+      </section>
+      <section id="yts" class="page" style="display:none">
+        <h1>YTS Songs Table</h1>
+        <div class="card" id="ytsTable"></div>
+      </section>
+      <section id="timetable" class="page" style="display:none">
+        <h1>Timetable</h1>
+        <div class="card" id="timetableSheet"></div>
+      </section>
+      <section id="ahaMathsPage" class="page" style="display:none">
+        <h1>Aha Guru &ndash; Maths Syllabus</h1>
+        <div class="card" id="ahaMathsSyllabus"></div>
+      </section>
+    </main>
   </div>
-  <script src="course-planner-data.js"></script>
-  <script src="aha-maths-data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

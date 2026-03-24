@@ -1,258 +1,104 @@
-// ===== STATE =====
-const LECTURE_KEY = 'iit_lectures_v2';
-const UPDATES_KEY = 'iit_updates_v2';
-const AHA_KEY = 'iit_aha_v1';
+// IIT Prep Planner App
+// Modular, clean, vanilla JS
+
+// --- State & Constants ---
+const PAGES = ['dashboard', 'planner', 'updates', 'progress'];
+const LECTURE_KEY = 'iit_lectures_completed_v1';
+const UPDATES_KEY = 'iit_daily_updates_v1';
 let plannerData = [];
 let completedLectures = {};
 let dailyUpdates = [];
-let ahaData = [];
-let ahaCompleted = {};
 
-const SUBJECTS = [
-  { key: 'physics',     label: 'Physics',       cls: 'physics', short: 'PHY' },
-  { key: 'physicalChem',label: 'Physical Chem',  cls: 'pchem',   short: 'PCH' },
-  { key: 'organicChem', label: 'Organic Chem',   cls: 'ochem',   short: 'OCH' },
-  { key: 'math',        label: 'Mathematics',    cls: 'math',    short: 'MAT' },
-];
-
-// ===== STORAGE =====
-function loadStorage() {
-  try { completedLectures = JSON.parse(localStorage.getItem(LECTURE_KEY)) || {}; } catch { completedLectures = {}; }
-  try { dailyUpdates = JSON.parse(localStorage.getItem(UPDATES_KEY)) || []; } catch { dailyUpdates = []; }
-  try { ahaCompleted = JSON.parse(localStorage.getItem(AHA_KEY)) || {}; } catch { ahaCompleted = {}; }
-}
-function saveLectures() { localStorage.setItem(LECTURE_KEY, JSON.stringify(completedLectures)); }
-function saveUpdates() { localStorage.setItem(UPDATES_KEY, JSON.stringify(dailyUpdates)); }
-function saveAha() { localStorage.setItem(AHA_KEY, JSON.stringify(ahaCompleted)); }
-
-// ===== NAVIGATION =====
-const PAGES = {
-  dashboard: 'Dashboard', planner: 'Course Planner', updates: 'Daily Updates',
-  progress: 'Progress', ahaguru: 'AhaGuru – Maths',
-  'syllabus-jee': 'Syllabus – JEE', 'syllabus-1st': 'Syllabus – 1st Year',
-  'syllabus-2nd': 'Syllabus – 2nd Year', 'syllabus-eapcet': 'Syllabus – EAPCET',
-  'jee-superset': 'JEE Superset', yts: 'YTS', timetable: 'Timetable'
+// --- Navigation ---
+const navBtns = document.querySelectorAll('.nav-btn');
+const pageEls = {
+  dashboard: document.getElementById('dashboardPage'),
+  planner: document.getElementById('plannerPage'),
+  updates: document.getElementById('updatesPage'),
+  progress: document.getElementById('progressPage'),
+  ahaMaths: document.getElementById('ahaMathsPage'),
+  'syllabus-jee': document.getElementById('syllabus-jee'),
+  'syllabus-1st': document.getElementById('syllabus-1st'),
+  'syllabus-2nd': document.getElementById('syllabus-2nd'),
+  'syllabus-eapcet': document.getElementById('syllabus-eapcet'),
+  'jee-superset': document.getElementById('jee-superset'),
+  yts: document.getElementById('yts'),
+  timetable: document.getElementById('timetable'),
 };
-function initNav() {
-  document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => switchPage(btn.dataset.page));
-  });
-  document.getElementById('topbarMenu').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.toggle('open');
-  });
-  // collapsible nav groups
-  document.querySelectorAll('.nav-group-header').forEach(hdr => {
-    hdr.addEventListener('click', () => {
-      const id = hdr.dataset.group;
-      const items = document.getElementById('group-' + id);
-      hdr.classList.toggle('open');
-      items.classList.toggle('open');
+navBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    PAGES.forEach(p => {
+      if(pageEls[p]) pageEls[p].style.display = (btn.dataset.page === p) ? '' : 'none';
     });
+    navBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (btn.dataset.page === 'dashboard') renderDashboard();
+    if (btn.dataset.page === 'progress') renderProgress();
+    if (btn.dataset.page === 'ahaMaths') renderAhaMaths();
+    if (btn.dataset.page === 'jee-superset-maths') renderJeeSupersetTable('jeeSupersetTableMaths');
+    if (btn.dataset.page === 'jee-superset-physics') renderJeeSupersetTable('jeeSupersetTablePhysics');
+    if (btn.dataset.page === 'jee-superset-chemistry') renderJeeSupersetTable('jeeSupersetTableChemistry');
+    if (btn.dataset.page === 'jee-superset') renderJeeSuperset();
+    if (btn.dataset.page === 'yts') renderYtsTable();
+    if (btn.dataset.page === 'timetable') renderTimetable();
   });
-}
-function switchPage(page) {
-  Object.keys(PAGES).forEach(p => {
-    const el = document.getElementById(p + 'Page');
-    if (el) el.style.display = p === page ? '' : 'none';
-  });
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.page === page));
-  document.getElementById('pageTitle').textContent = PAGES[page];
-  if (page === 'dashboard') renderDashboard();
-  if (page === 'progress') renderProgress();
-  if (page === 'planner') renderPlannerTable(getFilteredData());
-  if (page === 'ahaguru') renderAhaGuru();
-  if (page === 'jee-superset') renderSuperset();
-  if (page === 'yts') renderYts();
-  if (page === 'timetable') renderTimetable();
-}
+});
+// Default page
+navBtns[0].classList.add('active');
 
-// ===== HELPERS =====
-function today() { return new Date().toISOString().slice(0, 10); }
-function fmtDate(iso) {
-  const d = new Date(iso + 'T00:00:00');
-  return d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
-}
-function dayName(iso) {
-  return new Date(iso + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long' });
-}
-function dateStr(iso) {
-  return new Date(iso + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-}
-function calcProgress() {
-  let total = 0, done = 0;
-  const bySubj = {};
-  SUBJECTS.forEach(s => { bySubj[s.key] = { total: 0, done: 0 }; });
-  plannerData.forEach(row => {
-    SUBJECTS.forEach(s => {
-      if (row[s.key]) {
-        total++; bySubj[s.key].total++;
-        if (completedLectures[row.date + '_' + s.key]) { done++; bySubj[s.key].done++; }
-      }
+// --- Data Loading ---
+function loadPlanner() {
+  return fetch('screenshots.json')
+    .then(r => r.json())
+    .then(data => {
+      plannerData = data;
+      renderPlannerTable();
+      renderDashboard();
+      renderProgress();
     });
-  });
-  return { total, done, pending: total - done, pct: total ? (done / total * 100) : 0, bySubj };
 }
-function calcStreak() {
-  const dates = [...new Set(plannerData.map(r => r.date))].sort().reverse();
-  let streak = 0;
-  for (const date of dates) {
-    const row = plannerData.find(r => r.date === date);
-    const anyDone = row && SUBJECTS.some(s => row[s.key] && completedLectures[date + '_' + s.key]);
-    if (anyDone) streak++;
-    else break;
-  }
-  return streak;
+function loadCompletedLectures() {
+  try {
+    completedLectures = JSON.parse(localStorage.getItem(LECTURE_KEY)) || {};
+  } catch { completedLectures = {}; }
 }
-
-// ===== DASHBOARD =====
-function renderDashboard() {
-  renderStats();
-  renderTodayCard();
-  renderStreakCard();
-  renderProgressOverview();
-  renderUpcoming();
+function saveCompletedLectures() {
+  localStorage.setItem(LECTURE_KEY, JSON.stringify(completedLectures));
+}
+function loadDailyUpdates() {
+  try {
+    dailyUpdates = JSON.parse(localStorage.getItem(UPDATES_KEY)) || [];
+  } catch { dailyUpdates = []; }
+}
+function saveDailyUpdates() {
+  localStorage.setItem(UPDATES_KEY, JSON.stringify(dailyUpdates));
 }
 
-function renderStats() {
-  const { total, done, pending } = calcProgress();
-  const streak = calcStreak();
-  const statsData = [
-    { icon: '📚', value: total, label: 'Total Lectures', color: '#6366f1', bg: 'rgba(99,102,241,0.12)' },
-    { icon: '✅', value: done, label: 'Completed', color: '#22c55e', bg: 'rgba(34,197,94,0.12)' },
-    { icon: '⏳', value: pending, label: 'Pending', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
-    { icon: '🔥', value: streak, label: 'Day Streak', color: '#ef4444', bg: 'rgba(239,68,68,0.12)' },
-  ];
-  const row = document.getElementById('statsRow');
-  row.innerHTML = statsData.map(s => `
-    <div class="stat-card">
-      <div class="stat-icon" style="background:${s.bg};color:${s.color}">${s.icon}</div>
-      <div class="stat-info">
-        <div class="stat-value" style="color:${s.color}">${s.value}</div>
-        <div class="stat-label">${s.label}</div>
-      </div>
-    </div>`).join('');
-}
-
-function renderTodayCard() {
-  const t = today();
-  const row = plannerData.find(r => r.date === t);
-  const badge = document.getElementById('todayDateBadge');
-  badge.textContent = new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' });
-  const ul = document.getElementById('todayLectures');
-  if (!row || !SUBJECTS.some(s => row[s.key])) {
-    ul.innerHTML = '<li class="no-lectures">No lectures scheduled today 🎉</li>';
-    return;
-  }
-  ul.innerHTML = SUBJECTS.filter(s => row[s.key]).map(s => {
-    const id = t + '_' + s.key;
-    const done = !!completedLectures[id];
-    return `<li class="today-item${done ? ' done' : ''}" id="ti_${id}">
-      <span class="today-subj ${s.cls}">${s.short}</span>
-      <span class="today-text">${row[s.key]}</span>
-      <input type="checkbox" class="today-cb" ${done ? 'checked' : ''} data-id="${id}" data-li="ti_${id}">
-    </li>`;
-  }).join('');
-  ul.querySelectorAll('.today-cb').forEach(cb => {
-    cb.addEventListener('change', () => {
-      completedLectures[cb.dataset.id] = cb.checked;
-      saveLectures();
-      const li = document.getElementById(cb.dataset.li);
-      if (li) li.classList.toggle('done', cb.checked);
-      renderStats();
-      renderProgressOverview();
-    });
-  });
-}
-
-function renderStreakCard() {
-  document.getElementById('studyStreak').textContent = calcStreak();
-}
-
-function renderProgressOverview() {
-  const { pct, bySubj } = calcProgress();
-  // Ring
-  const r = 54, circ = 2 * Math.PI * r;
-  const offset = circ - (pct / 100) * circ;
-  document.getElementById('progressRingWrap').innerHTML = `
-    <div class="ring-wrap-inner">
-      <svg class="progress-ring-svg" width="130" height="130" viewBox="0 0 130 130">
-        <defs>
-          <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#6366f1"/>
-            <stop offset="100%" stop-color="#818cf8"/>
-          </linearGradient>
-        </defs>
-        <circle class="progress-ring-bg" cx="65" cy="65" r="${r}"/>
-        <circle class="progress-ring-fill" cx="65" cy="65" r="${r}"
-          stroke-dasharray="${circ}" stroke-dashoffset="${offset}"/>
-      </svg>
-      <div class="ring-center" style="position:absolute;text-align:center">
-        <div class="ring-pct">${pct.toFixed(0)}%</div>
-        <div class="ring-sub">done</div>
-      </div>
-    </div>`;
-  // Subject bars
-  const colors = { physics: '#38bdf8', physicalChem: '#f59e0b', organicChem: '#10b981', math: '#a78bfa' };
-  document.getElementById('subjectBars').innerHTML = SUBJECTS.map(s => {
-    const d = bySubj[s.key];
-    const p = d.total ? (d.done / d.total * 100) : 0;
-    return `<div class="subj-bar-row">
-      <span class="subj-bar-label">${s.label}</span>
-      <div class="subj-bar-track"><div class="subj-bar-fill" style="width:${p}%;background:${colors[s.key]}"></div></div>
-      <span class="subj-bar-pct">${p.toFixed(0)}%</span>
-    </div>`;
-  }).join('');
-}
-
-function renderUpcoming() {
-  const t = today();
-  const upcoming = plannerData.filter(r => r.date >= t && SUBJECTS.some(s => r[s.key] && !completedLectures[r.date + '_' + s.key])).slice(0, 10);
-  document.getElementById('upcomingCount').textContent = upcoming.length + ' lectures';
-  const ul = document.getElementById('upcomingLectures');
-  if (!upcoming.length) { ul.innerHTML = '<li class="no-lectures">All caught up!</li>'; return; }
-  ul.innerHTML = upcoming.flatMap(row =>
-    SUBJECTS.filter(s => row[s.key] && !completedLectures[row.date + '_' + s.key]).map(s => `
-      <li class="upcoming-item">
-        <span class="subj-dot ${s.cls}"></span>
-        <span class="upcoming-text">${row[s.key]}</span>
-        <span class="upcoming-date">${fmtDate(row.date)}</span>
-      </li>`)
-  ).join('');
-}
-
-// ===== PLANNER TABLE =====
-let currentFilter = 'all';
-let currentSearch = '';
-
-function renderPlannerTable(data) {
-  const t = today();
+// --- Planner Table ---
+function renderPlannerTable() {
   const tbody = document.getElementById('plannerTableBody');
   tbody.innerHTML = '';
-  data.forEach(row => {
-    const hasAny = SUBJECTS.some(s => row[s.key]);
-    if (!hasAny) return;
-    const isToday = row.date === t;
+  plannerData.forEach((row, idx) => {
     const tr = document.createElement('tr');
-    if (isToday) tr.classList.add('today-row');
-    tr.innerHTML = `<td class="td-date">
-      <span class="day-name">${dayName(row.date)}</span>
-      <span class="date-str">${dateStr(row.date)}</span>
-    </td>`;
-    SUBJECTS.forEach(s => {
+    // Date
+    const tdDate = document.createElement('td');
+    tdDate.textContent = row.date;
+    tr.appendChild(tdDate);
+    // For each subject
+    ['physics','physicalChem','organicChem','math'].forEach(subj => {
       const td = document.createElement('td');
-      if (row[s.key]) {
-        const id = row.date + '_' + s.key;
-        const done = !!completedLectures[id];
+      if (row[subj]) {
+        const id = `${row.date}_${subj}`;
+        const checked = completedLectures[id];
         const label = document.createElement('label');
-        label.className = 'lecture-label' + (done ? ' done' : '');
-        label.innerHTML = `<input type="checkbox" ${done ? 'checked' : ''} data-id="${id}">
-          <span class="lecture-chip ${s.cls}">${row[s.key]}</span>`;
-        label.querySelector('input').addEventListener('change', e => {
-          completedLectures[id] = e.target.checked;
-          saveLectures();
-          label.classList.toggle('done', e.target.checked);
-          renderStats && renderStats();
-        });
+        label.className = checked ? 'lecture-completed' : 'lecture-pending';
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.className = 'lecture-checkbox';
+        cb.checked = !!checked;
+        cb.addEventListener('change', () => toggleLectureComplete(id, cb, label));
+        label.appendChild(cb);
+        label.appendChild(document.createTextNode(row[subj]));
         td.appendChild(label);
       }
       tr.appendChild(td);
@@ -260,421 +106,325 @@ function renderPlannerTable(data) {
     tbody.appendChild(tr);
   });
 }
-
-function getFilteredData() {
-  return plannerData.filter(row => {
-    const matchSearch = !currentSearch || SUBJECTS.some(s =>
-      row[s.key] && row[s.key].toLowerCase().includes(currentSearch.toLowerCase())
-    ) || row.date.includes(currentSearch);
-    const matchFilter = currentFilter === 'all' ? true :
-      SUBJECTS.some(s => {
-        if (!row[s.key]) return false;
-        const done = !!completedLectures[row.date + '_' + s.key];
-        return currentFilter === 'completed' ? done : !done;
-      });
-    return matchSearch && matchFilter;
-  });
+function toggleLectureComplete(id, cb, label) {
+  completedLectures[id] = cb.checked;
+  saveCompletedLectures();
+  label.className = cb.checked ? 'lecture-completed' : 'lecture-pending';
+  renderDashboard();
+  renderProgress();
 }
 
-function initPlanner() {
-  document.getElementById('plannerSearch').addEventListener('input', e => {
-    currentSearch = e.target.value;
-    renderPlannerTable(getFilteredData());
+// --- Daily Updates ---
+function renderDailyUpdates() {
+  loadDailyUpdates();
+  const list = document.getElementById('updatesList');
+  list.innerHTML = '';
+  dailyUpdates.slice().reverse().forEach(update => {
+    const li = document.createElement('li');
+    const date = document.createElement('div');
+    date.className = 'update-date';
+    date.textContent = update.date;
+    const text = document.createElement('div');
+    text.textContent = update.text;
+    li.appendChild(date);
+    li.appendChild(text);
+    list.appendChild(li);
   });
-  document.querySelectorAll('.filter-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      currentFilter = tab.dataset.filter;
-      renderPlannerTable(getFilteredData());
+}
+document.getElementById('dailyUpdateForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const text = document.getElementById('updateText').value.trim();
+  if (!text) return;
+  const today = new Date().toISOString().slice(0,10);
+  dailyUpdates.push({ date: today, text });
+  saveDailyUpdates();
+  document.getElementById('updateText').value = '';
+  renderDailyUpdates();
+});
+
+// --- Dashboard ---
+function renderDashboard() {
+  // Today's lectures
+  const today = new Date().toISOString().slice(0,10);
+  const todayRow = plannerData.find(r => r.date === today);
+  const todayLectures = document.getElementById('todayLectures');
+  todayLectures.innerHTML = '';
+  if (todayRow) {
+    ['physics','physicalChem','organicChem','math'].forEach(subj => {
+      if (todayRow[subj]) {
+        const id = `${todayRow.date}_${subj}`;
+        const li = document.createElement('li');
+        li.textContent = todayRow[subj];
+        if (completedLectures[id]) li.className = 'lecture-completed';
+        todayLectures.appendChild(li);
+      }
     });
+  } else {
+    todayLectures.innerHTML = '<li>No lectures scheduled today.</li>';
+  }
+  // Completed lectures
+  const completed = Object.keys(completedLectures).filter(k => completedLectures[k]);
+  const completedLecturesList = document.getElementById('completedLectures');
+  completedLecturesList.innerHTML = '';
+  completed.forEach(id => {
+    const [date, subj] = id.split('_');
+    const row = plannerData.find(r => r.date === date);
+    if (row && row[subj]) {
+      const li = document.createElement('li');
+      li.textContent = `${row[subj]} (${date})`;
+      li.className = 'lecture-completed';
+      completedLecturesList.appendChild(li);
+    }
   });
-}
-
-// ===== UPDATES =====
-function renderUpdates() {
-  const ul = document.getElementById('updatesList');
-  ul.innerHTML = dailyUpdates.length ? [...dailyUpdates].reverse().map(u => `
-    <li class="update-item">
-      <div class="update-item-date">${new Date(u.date).toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</div>
-      <div class="update-item-text">${u.text}</div>
-    </li>`).join('') : '<li class="no-lectures">No updates yet. Start logging your study sessions!</li>';
-}
-
-function initUpdates() {
-  document.getElementById('dailyUpdateForm').addEventListener('submit', e => {
-    e.preventDefault();
-    const text = document.getElementById('updateText').value.trim();
-    if (!text) return;
-    dailyUpdates.push({ date: today(), text });
-    saveUpdates();
-    document.getElementById('updateText').value = '';
-    renderUpdates();
-  });
-}
-
-// ===== PROGRESS PAGE =====
-function renderProgress() {
-  const { total, done, pending, pct, bySubj } = calcProgress();
-  const streak = calcStreak();
-  const statsData = [
-    { icon: '📚', value: total, label: 'Total Lectures', color: '#6366f1', bg: 'rgba(99,102,241,0.12)' },
-    { icon: '✅', value: done, label: 'Completed', color: '#22c55e', bg: 'rgba(34,197,94,0.12)' },
-    { icon: '⏳', value: pending, label: 'Remaining', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
-    { icon: '📈', value: pct.toFixed(1) + '%', label: 'Completion', color: '#a78bfa', bg: 'rgba(167,139,250,0.12)' },
-  ];
-  document.getElementById('progressStatsRow').innerHTML = statsData.map(s => `
-    <div class="stat-card">
-      <div class="stat-icon" style="background:${s.bg};color:${s.color}">${s.icon}</div>
-      <div class="stat-info">
-        <div class="stat-value" style="color:${s.color}">${s.value}</div>
-        <div class="stat-label">${s.label}</div>
-      </div>
-    </div>`).join('');
-
-  const colors = { physics: '#38bdf8', physicalChem: '#f59e0b', organicChem: '#10b981', math: '#a78bfa' };
-  document.getElementById('subjectProgressBars').innerHTML = SUBJECTS.map(s => {
-    const d = bySubj[s.key];
-    const p = d.total ? (d.done / d.total * 100) : 0;
-    return `<div class="subj-prog-row">
-      <div class="subj-prog-header">
-        <span class="subj-prog-name" style="color:${colors[s.key]}">${s.label}</span>
-        <span class="subj-prog-count">${d.done} / ${d.total}</span>
-      </div>
-      <div class="subj-prog-track">
-        <div class="subj-prog-fill" style="width:${p}%;background:${colors[s.key]}"></div>
-      </div>
-    </div>`;
-  }).join('');
-
-  // Monthly breakdown
-  const months = {};
+  // Pending lectures
+  const pendingLecturesList = document.getElementById('pendingLectures');
+  pendingLecturesList.innerHTML = '';
   plannerData.forEach(row => {
-    const m = row.date.slice(0, 7);
-    if (!months[m]) months[m] = { total: 0, done: 0 };
-    SUBJECTS.forEach(s => {
-      if (row[s.key]) {
-        months[m].total++;
-        if (completedLectures[row.date + '_' + s.key]) months[m].done++;
+    ['physics','physicalChem','organicChem','math'].forEach(subj => {
+      if (row[subj]) {
+        const id = `${row.date}_${subj}`;
+        if (!completedLectures[id]) {
+          const li = document.createElement('li');
+          li.textContent = `${row[subj]} (${row.date})`;
+          li.className = 'lecture-pending';
+          pendingLecturesList.appendChild(li);
+        }
       }
     });
   });
-  const maxTotal = Math.max(...Object.values(months).map(m => m.total), 1);
-  document.getElementById('monthlyBreakdown').innerHTML = Object.entries(months).map(([m, d]) => {
-    const label = new Date(m + '-01').toLocaleDateString('en-IN', { month: 'short', year: '2-digit' });
-    const w = (d.total / maxTotal * 100).toFixed(1);
-    return `<div class="month-row">
-      <span class="month-name">${label}</span>
-      <div class="month-bar-track"><div class="month-bar-fill" style="width:${w}%"></div></div>
-      <span class="month-count">${d.done}/${d.total}</span>
-    </div>`;
-  }).join('');
+  // Study streak
+  const streak = calculateStreak();
+  document.getElementById('studyStreak').textContent = streak + ' days';
+  // Progress bar
+  const { percent } = calculateProgress();
+  document.getElementById('dashboardProgressBar').style.width = percent + '%';
+  document.getElementById('dashboardProgressText').textContent = percent.toFixed(1) + '% completed';
 }
 
-// ===== TOPBAR DATE =====
-function setTopbarDate() {
-  document.getElementById('topbarDate').textContent =
-    new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+// --- Progress Page ---
+function renderProgress() {
+  const { total, completed, pending, percent } = calculateProgress();
+  document.getElementById('totalLectures').textContent = total;
+  document.getElementById('completedLecturesCount').textContent = completed;
+  document.getElementById('pendingLecturesCount').textContent = pending;
+  document.getElementById('mainProgressBar').style.width = percent + '%';
+  document.getElementById('mainProgressText').textContent = percent.toFixed(1) + '% completed';
 }
 
-// ===== AHAGURU =====
-function renderAhaGuru() {
-  const total = ahaData.length;
-  const done = ahaData.filter(l => ahaCompleted[l.id]).length;
-  const pct = total ? (done / total * 100) : 0;
-
-  document.getElementById('ahaProgressFill').style.width = pct.toFixed(1) + '%';
-  document.getElementById('ahaProgressPct').textContent = pct.toFixed(0) + '%';
-  document.getElementById('ahaStatsMini').innerHTML = `
-    <div class="aha-stat"><div class="aha-stat-val">${total}</div><div class="aha-stat-lbl">Lessons</div></div>
-    <div class="aha-stat"><div class="aha-stat-val" style="color:var(--success)">${done}</div><div class="aha-stat-lbl">Done</div></div>
-    <div class="aha-stat"><div class="aha-stat-val" style="color:var(--pchem)">${total - done}</div><div class="aha-stat-lbl">Remaining</div></div>`;
-
-  const list = document.getElementById('ahaLessonList');
-  list.innerHTML = '';
-  ahaData.forEach(lesson => {
-    const isDone = !!ahaCompleted[lesson.id];
-    const hasChapters = lesson.chapters && lesson.chapters.length;
-
-    const div = document.createElement('div');
-    div.className = 'aha-lesson' + (isDone ? ' done' : '');
-
-    const header = document.createElement('div');
-    header.className = 'aha-lesson-header';
-    header.innerHTML = `
-      <span class="aha-lesson-num">${lesson.id}</span>
-      <span class="aha-lesson-title">${lesson.title}</span>
-      ${hasChapters ? '<span class="aha-expand-icon">▼</span>' : ''}
-      <span class="aha-lesson-check ${isDone ? 'checked' : ''}" data-id="${lesson.id}" title="Mark complete">${isDone ? '✓' : ''}</span>`;
-
-    // toggle expand
-    if (hasChapters) {
-      header.addEventListener('click', e => {
-        if (e.target.classList.contains('aha-lesson-check')) return;
-        div.classList.toggle('expanded');
-      });
-    }
-
-    // check button
-    header.querySelector('.aha-lesson-check').addEventListener('click', e => {
-      e.stopPropagation();
-      const id = e.currentTarget.dataset.id;
-      ahaCompleted[id] = !ahaCompleted[id];
-      saveAha();
-      renderAhaGuru();
+// --- Progress Calculation ---
+function calculateProgress() {
+  let total = 0, completed = 0;
+  plannerData.forEach(row => {
+    ['physics','physicalChem','organicChem','math'].forEach(subj => {
+      if (row[subj]) {
+        total++;
+        const id = `${row.date}_${subj}`;
+        if (completedLectures[id]) completed++;
+      }
     });
-
-    div.appendChild(header);
-
-    if (hasChapters) {
-      const chapDiv = document.createElement('div');
-      chapDiv.className = 'aha-chapters';
-      chapDiv.innerHTML = lesson.chapters.map(ch => {
-        const isPE = ch.id === 'PE';
-        const isSE = ch.id.startsWith('SE');
-        const badgeCls = isPE ? 'practice' : isSE ? 'solved' : 'chapter';
-        const badgeLabel = isPE ? 'Practice' : isSE ? 'Solved' : ch.id;
-        const meta = ch.questions ? `${ch.questions} questions` : ch.slides ? `${ch.slides} slide${ch.slides > 1 ? 's' : ''}` : '';
-        return `<div class="aha-chapter">
-          <span class="aha-chapter-badge ${badgeCls}">${badgeLabel}</span>
-          <span class="aha-chapter-title">${ch.title}</span>
-          <span class="aha-chapter-meta">${meta}</span>
-        </div>`;
-      }).join('');
-      div.appendChild(chapDiv);
-    }
-
-    list.appendChild(div);
   });
+  const pending = total - completed;
+  const percent = total ? (completed / total) * 100 : 0;
+  return { total, completed, pending, percent };
 }
 
-// ===== INIT =====
-loadStorage();
-initNav();
-initPlanner();
-initUpdates();
-setTopbarDate();
-initSuperset();
-initYts();
-initTimetable();
+// --- Study Streak Calculation ---
+function calculateStreak() {
+  // Count consecutive days with at least one lecture completed
+  const dates = plannerData.map(r => r.date).sort();
+  let streak = 0;
+  for (let i = dates.length - 1; i >= 0; i--) {
+    const date = dates[i];
+    let anyCompleted = false;
+    ['physics','physicalChem','organicChem','math'].forEach(subj => {
+      const id = `${date}_${subj}`;
+      if (completedLectures[id]) anyCompleted = true;
+    });
+    if (anyCompleted) streak++;
+    else break;
+  }
+  return streak;
+}
 
-fetch('courseplanner.json')
-  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-  .then(data => {
-    plannerData = data;
-    renderDashboard();
-    renderPlannerTable(getFilteredData());
-    renderUpdates();
-  })
-  .catch(() => {
-    // fallback to inline data (works when opened via file://)
-    plannerData = window.COURSE_PLANNER_DATA || [];
-    renderDashboard();
-    renderPlannerTable(getFilteredData());
-    renderUpdates();
-  });
+// --- Aha Guru Maths Syllabus ---
+function renderAhaMaths() {
+  const el = document.getElementById('ahaMathsSyllabus');
+  el.innerHTML = `
+    <div class="aha-section-title">Trigonometry</div>
+    <ul class="aha-list">
+      <li class="aha-topic">L1 Trigonometry I</li>
+      <li class="aha-topic">L2 Trigonometry II</li>
+      <li class="aha-topic">L3 Trigonometry Extra Practice</li>
+      <li class="aha-topic">L4 Trigonometry III</li>
+      <li class="aha-topic">L5 Trigonometry IV</li>
+      <li class="aha-topic">C1: General Solution of Trigonometric Equations (1 slide)</li>
+      <li class="aha-topic">C1: Solved Examples (4 slides)</li>
+      <li class="aha-topic">C2: Equations of the form a cosθ + b sinθ = c (1 slide)</li>
+      <li class="aha-topic">C2: Solved Examples (4 slides)</li>
+      <li class="aha-topic">C3: General theorem using Tangent and Euler’s formula [JEE] (1 slide)</li>
+      <li class="aha-topic">C3: Solved Examples (5 slides)</li>
+      <li class="aha-topic">C4: Trigonometric Series [JEE] (3 slides)</li>
+      <li class="aha-topic">C4: Solved Examples (3 slides)</li>
+      <li class="aha-topic">PE: Practice Exercise (15 questions)</li>
+    </ul>
+    <div class="aha-section-title">Algebra &amp; Series</div>
+    <ul class="aha-list">
+      <li class="aha-topic">L6 Solution of Triangles</li>
+      <li class="aha-topic">L7 Logarithms</li>
+      <li class="aha-topic">L8 Sequence and Series</li>
+      <li class="aha-topic">L9 Sequence and Series I – Arithmetic Progression</li>
+      <li class="aha-topic">L10 Sequence and Series II – Geometric Progression (Extra Lesson)</li>
+      <li class="aha-topic">L11 Sequence and Series III (Extra Lesson)</li>
+      <li class="aha-topic">L12 Complex Numbers I</li>
+      <li class="aha-topic">L13 Complex Numbers II</li>
+      <li class="aha-topic">L14 Complex Numbers III</li>
+      <li class="aha-topic">L15 Complex Numbers IV</li>
+      <li class="aha-topic">L16 Quadratic Equations I</li>
+      <li class="aha-topic">L17 Quadratic Equations II</li>
+      <li class="aha-topic">L18 Quadratic Equations III</li>
+    </ul>
+    <div class="aha-section-title">Coordinate Geometry</div>
+    <ul class="aha-list">
+      <li class="aha-topic">L19 Coordinate Geometry - Straight lines I</li>
+      <li class="aha-topic">L20 Coordinate Geometry - Straight lines II</li>
+      <li class="aha-topic">L21 Coordinate Geometry - Straight lines III</li>
+    </ul>
+    <div class="aha-section-title">More Topics</div>
+    <ul class="aha-list">
+      <li class="aha-topic">L22 Binomial Theorem</li>
+      <li class="aha-topic">L23 Inequalities</li>
+      <li class="aha-topic">L24 Linear Inequalities</li>
+      <li class="aha-topic">L25 Mathematical Induction</li>
+      <li class="aha-topic">L26 Mathematical Reasoning</li>
+      <li class="aha-topic">L27 Limits I</li>
+      <li class="aha-topic">L28 Limits II</li>
+      <li class="aha-topic">L29 Differentiation in Limits</li>
+      <li class="aha-topic">L30 Fun with Differentiation I</li>
+      <li class="aha-topic">L31 Fun with Differentiation II</li>
+      <li class="aha-topic">L32 Sets</li>
+      <li class="aha-topic">L33 Relations</li>
+      <li class="aha-topic">L34 Functions</li>
+      <li class="aha-topic">L35 Sets, Relations and Functions (Extra Lesson)</li>
+      <li class="aha-topic">L36 Permutations</li>
+      <li class="aha-topic">L37 Combinations</li>
+      <li class="aha-topic">L38 Permutations and Combinations I (Extra Lesson)</li>
+      <li class="aha-topic">L39 Permutations and Combinations II (Extra Lesson)</li>
+      <li class="aha-topic">L40 Permutations and Combinations III (Extra Lesson)</li>
+      <li class="aha-topic">L41 Circles I</li>
+      <li class="aha-topic">L42 Circles II</li>
+      <li class="aha-topic">L43 Conics I</li>
+      <li class="aha-topic">L44 Conics II</li>
+      <li class="aha-topic">L45 Conics (Extra Lesson)</li>
+      <li class="aha-topic">L46 Introduction to 3D Geometry</li>
+      <li class="aha-topic">L47 Probability</li>
+    </ul>
+    <div class="aha-section-title">Probability &amp; Statistics</div>
+    <ul class="aha-list">
+      <li class="aha-topic">C1: Probability of an event (1 slide)</li>
+      <li class="aha-topic">C1: Solved Examples (3 slides)</li>
+      <li class="aha-topic">C2: Rules of Probability (2 slides)</li>
+      <li class="aha-topic">C2: Solved Examples (7 slides)</li>
+      <li class="aha-topic">PE: Practice Exercise (8 questions)</li>
+      <li class="aha-topic">L48 Theory of Equations</li>
+      <li class="aha-topic">C1: Solving Quadratic Equations (1 slide)</li>
+      <li class="aha-topic">C2: Complex roots of Quadratic Equations (1 slide)</li>
+      <li class="aha-topic">SE: Solved Examples (8 slides)</li>
+      <li class="aha-topic">C3: Plotting graph of Quadratic Equation (1 slide)</li>
+      <li class="aha-topic">C4: Solving Quadratic Inequalities (1 slide)</li>
+      <li class="aha-topic">C5: Range of Quadratic Expressions (1 slide)</li>
+      <li class="aha-topic">SE: Solved Examples (6 slides)</li>
+      <li class="aha-topic">C6: Solution of other types of equations (1 slide)</li>
+      <li class="aha-topic">C7: Equations with absolute value (1 slide)</li>
+      <li class="aha-topic">C8: Solving special fourth degree equations (1 slide)</li>
+      <li class="aha-topic">SE: Solved Examples (7 slides)</li>
+      <li class="aha-topic">PE: Practice Exercise (13 questions)</li>
+      <li class="aha-topic">L49 Statistics</li>
+      <li class="aha-topic">C1: Mean deviation about Mean and Median (1 slide)</li>
+      <li class="aha-topic">C1: Solved Examples (6 slides)</li>
+      <li class="aha-topic">C2: Variance and Standard Deviation (1 slide)</li>
+      <li class="aha-topic">C2: Solved Examples (8 slides)</li>
+      <li class="aha-topic">C3: Coefficient of Variation (1 slide)</li>
+      <li class="aha-topic">C3: Solved Examples (3 slides)</li>
+      <li class="aha-topic">PE: Practice Exercise (7 questions)</li>
+    </ul>
+  `;
+}
 
-fetch('aha-maths.json')
-  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-  .then(data => {
-    ahaData = data;
-    if (document.getElementById('ahaguruPage').style.display !== 'none') renderAhaGuru();
-  })
-  .catch(() => {
-    // fallback to inline data (works when opened via file://)
-    ahaData = window.AHA_MATHS_DATA || [];
-    if (document.getElementById('ahaguruPage').style.display !== 'none') renderAhaGuru();
-  });
-
-// ===== JEE SUPERSET =====
-const SUPERSET_KEY = 'iit_superset_v2';
-const SUPERSET_SUBJECTS = [
-  { key: 'maths',     label: 'Maths',     color: 'var(--math)' },
-  { key: 'physics',   label: 'Physics',   color: 'var(--physics)' },
-  { key: 'chemistry', label: 'Chemistry', color: 'var(--ochem)' },
-];
-const EMPTY_SUPERSET = () => ({
-  maths:     { jee: [], yr1: [], yr2: [], eapcet: [] },
-  physics:   { jee: [], yr1: [], yr2: [], eapcet: [] },
-  chemistry: { jee: [], yr1: [], yr2: [], eapcet: [] },
+// Dropdown logic for JEE Superset
+const jeeDropdown = document.getElementById('jeeSupersetDropdown');
+const jeeDropdownMenu = document.getElementById('jeeSupersetDropdownMenu');
+const jeeCaret = document.getElementById('jeeSupersetCaret');
+jeeDropdown.addEventListener('click', () => {
+  const isClosed = jeeDropdownMenu.style.display === 'none';
+  jeeDropdownMenu.style.display = isClosed ? '' : 'none';
+  jeeCaret.innerHTML = isClosed ? '&#9660;' : '&#9654;'; // ▼ or ▶
+  jeeDropdown.classList.toggle('closed', !isClosed);
 });
-let supersetData = EMPTY_SUPERSET();
-function loadSuperset() {
-  try { supersetData = JSON.parse(localStorage.getItem(SUPERSET_KEY)) || EMPTY_SUPERSET(); } catch { supersetData = EMPTY_SUPERSET(); }
-  // ensure all keys exist
-  SUPERSET_SUBJECTS.forEach(s => { if (!supersetData[s.key]) supersetData[s.key] = { jee: [], yr1: [], yr2: [], eapcet: [] }; });
-}
-function saveSuperset() { localStorage.setItem(SUPERSET_KEY, JSON.stringify(supersetData)); }
+// Start closed
+jeeDropdownMenu.style.display = 'none';
+jeeCaret.innerHTML = '&#9654;';
+jeeDropdown.classList.add('closed');
 
-function renderSupersetCol(bodyId, subjKey, colKey, isChecklist) {
-  const body = document.getElementById(bodyId);
-  if (!body) return;
-  const items = supersetData[subjKey][colKey];
-  const jeeItems = supersetData[subjKey].jee;
-  if (items.length === 0) {
-    body.innerHTML = `<div style="padding:16px;color:var(--text-muted);font-size:0.85em">No items yet</div>`;
-    return;
-  }
-  body.innerHTML = items.map((item, i) => isChecklist
-    ? `<div class="superset-check-item${item.done ? ' done' : ''}">
-        <input type="checkbox" ${item.done ? 'checked' : ''} data-subj="${subjKey}" data-col="${colKey}" data-i="${i}">
-        <span>${jeeItems[i] ? jeeItems[i].text : ''}</span>
-       </div>`
-    : `<div class="superset-jee-item">
-        <span class="superset-num">${i + 1}.</span>
-        <span>${item.text}</span>
-       </div>`
-  ).join('');
-  if (isChecklist) {
-    body.querySelectorAll('input[type=checkbox]').forEach(cb => {
-      cb.addEventListener('change', () => {
-        supersetData[cb.dataset.subj][cb.dataset.col][cb.dataset.i].done = cb.checked;
-        saveSuperset();
-        renderSupersetCol(bodyId, subjKey, colKey, true);
-      });
-    });
-  }
-}
-
-function renderSupersetSubject(subjKey) {
-  const d = supersetData[subjKey];
-  // sync checklist lengths to jee
-  ['yr1','yr2','eapcet'].forEach(col => {
-    while (d[col].length < d.jee.length) d[col].push({ done: false });
-  });
-  renderSupersetCol(`ss-${subjKey}-jee`,   subjKey, 'jee',   false);
-  renderSupersetCol(`ss-${subjKey}-yr1`,   subjKey, 'yr1',   true);
-  renderSupersetCol(`ss-${subjKey}-yr2`,   subjKey, 'yr2',   true);
-  renderSupersetCol(`ss-${subjKey}-eapcet`,subjKey, 'eapcet',true);
-}
-
-function renderSuperset() {
-  loadSuperset();
-  SUPERSET_SUBJECTS.forEach(s => renderSupersetSubject(s.key));
-}
-
-function initSuperset() {
-  SUPERSET_SUBJECTS.forEach(({ key }) => {
-    const btn = document.getElementById(`ss-${key}-add-btn`);
-    const inp = document.getElementById(`ss-${key}-add-inp`);
-    if (!btn || !inp) return;
-    const add = () => {
-      const val = inp.value.trim();
-      if (!val) return;
-      supersetData[key].jee.push({ text: val });
-      saveSuperset();
-      inp.value = '';
-      renderSupersetSubject(key);
-    };
-    btn.addEventListener('click', add);
-    inp.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
-  });
-}
-
-// ===== YTS =====
-const YTS_KEY = 'iit_yts_v1';
-let ytsSongs = [];
-function loadYts() { try { ytsSongs = JSON.parse(localStorage.getItem(YTS_KEY)) || []; } catch { ytsSongs = []; } }
-function saveYts() { localStorage.setItem(YTS_KEY, JSON.stringify(ytsSongs)); }
-
-function renderYts() {
-  loadYts();
-  const tbody = document.getElementById('ytsTableBody');
-  tbody.innerHTML = ytsSongs.length === 0
-    ? `<tr><td colspan="7" style="padding:24px;text-align:center;color:var(--text-muted)">No songs yet. Add one above.</td></tr>`
-    : ytsSongs.map((s, i) => `
-      <tr>
-        <td class="col-song">${s.title}</td>
-        <td class="col-blank"></td>
-        <td><input type="checkbox" ${s.recorded?'checked':''} data-i="${i}" data-f="recorded"></td>
-        <td><input type="checkbox" ${s.uploaded?'checked':''} data-i="${i}" data-f="uploaded"></td>
-        <td><input type="checkbox" ${s.yts?'checked':''} data-i="${i}" data-f="yts"></td>
-        <td><input type="checkbox" ${s.insta?'checked':''} data-i="${i}" data-f="insta"></td>
-        <td><button class="yts-del-btn" data-i="${i}" title="Delete">✕</button></td>
-      </tr>`).join('');
-  tbody.querySelectorAll('input[type=checkbox]').forEach(cb => {
-    cb.addEventListener('change', () => {
-      ytsSongs[cb.dataset.i][cb.dataset.f] = cb.checked;
-      saveYts();
-    });
-  });
-  tbody.querySelectorAll('.yts-del-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      ytsSongs.splice(btn.dataset.i, 1);
-      saveYts(); renderYts();
-    });
-  });
-}
-
-function initYts() {
-  const inp = document.getElementById('ytsSongInput');
-  const btn = document.getElementById('ytsAddBtn');
-  if (!btn || !inp) return;
-  const add = () => {
-    const val = inp.value.trim();
-    if (!val) return;
-    ytsSongs.push({ title: val, recorded: false, uploaded: false, yts: false, insta: false });
-    saveYts(); inp.value = ''; renderYts();
-  };
-  btn.addEventListener('click', add);
-  inp.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
-}
-
-// ===== TIMETABLE =====
-const TT_KEY = 'iit_timetable_v1';
-const TT_DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-let ttRows = [];
-function loadTt() { try { ttRows = JSON.parse(localStorage.getItem(TT_KEY)) || []; } catch { ttRows = []; }
-  if (!ttRows.length) ttRows = [
-    { time: '6:00 AM', cells: Array(7).fill('') },
-    { time: '8:00 AM', cells: Array(7).fill('') },
-    { time: '10:00 AM', cells: Array(7).fill('') },
-    { time: '12:00 PM', cells: Array(7).fill('') },
-    { time: '2:00 PM', cells: Array(7).fill('') },
-    { time: '4:00 PM', cells: Array(7).fill('') },
-    { time: '6:00 PM', cells: Array(7).fill('') },
-    { time: '8:00 PM', cells: Array(7).fill('') },
+function renderJeeSupersetTable(tableId) {
+  const el = document.getElementById(tableId);
+  // Example topics for each subject
+  let topics = [];
+  if (tableId === 'jeeSupersetTableMaths') topics = [
+    'Quadratic Equations','Complex Numbers','Binomial Theorem','Probability','Matrices','Determinants','Sequences & Series','Limits','Continuity','Differentiability','Integration','Differential Equations','Vectors','3D Geometry','Straight Lines','Circles','Conic Sections','Statistics','Mathematical Reasoning','Relations & Functions','Trigonometry'
   ];
-}
-function saveTt() { localStorage.setItem(TT_KEY, JSON.stringify(ttRows)); }
-
-function renderTimetable() {
-  loadTt();
-  const tbody = document.getElementById('ttTableBody');
-  tbody.innerHTML = ttRows.map((row, ri) => `
-    <tr>
-      <td>${row.time}</td>
-      ${row.cells.map((cell, ci) => `
-        <td><input class="tt-cell-input" value="${cell}" data-ri="${ri}" data-ci="${ci}" placeholder="—"></td>
-      `).join('')}
-    </tr>`).join('');
-  tbody.querySelectorAll('.tt-cell-input').forEach(inp => {
-    inp.addEventListener('change', () => {
-      ttRows[inp.dataset.ri].cells[inp.dataset.ci] = inp.value;
-      saveTt();
+  if (tableId === 'jeeSupersetTablePhysics') topics = [
+    'Kinematics','Laws of Motion','Work, Energy & Power','Rotational Motion','Gravitation','Properties of Matter','Thermodynamics','Kinetic Theory','Oscillations','Waves','Electrostatics','Current Electricity','Magnetism','Electromagnetic Induction','Alternating Current','Optics','Dual Nature','Atoms & Nuclei','Electronic Devices','Communication Systems'
+  ];
+  if (tableId === 'jeeSupersetTableChemistry') topics = [
+    'Basic Concepts','Atomic Structure','Chemical Bonding','States of Matter','Thermodynamics','Equilibrium','Redox Reactions','Electrochemistry','Chemical Kinetics','Surface Chemistry','Periodic Table','Hydrogen','s-Block','p-Block','d & f Block','Coordination Compounds','Organic Chemistry Basics','Hydrocarbons','Haloalkanes & Haloarenes','Alcohols, Phenols, Ethers','Aldehydes, Ketones, Carboxylic Acids'
+  ];
+  let html = `<table class="superset-table"><thead><tr><th style="min-width:220px">JEE Topic</th><th>1st Year</th><th>2nd Year</th><th>EAPCET</th></tr></thead><tbody>`;
+  topics.forEach(topic => {
+    html += `<tr><td>${topic}</td>`;
+    ['y1','y2','eapcet'].forEach(() => {
+      html += `<td class="check-col"><input type="checkbox"></td>`;
     });
+    html += `</tr>`;
   });
+  html += `</tbody></table>`;
+  el.innerHTML = html;
 }
 
-function initTimetable() {
-  const inp = document.getElementById('ttSlotInput');
-  const btn = document.getElementById('ttAddSlotBtn');
-  const addRowBtn = document.getElementById('ttAddRowBtn');
-  if (btn && inp) {
-    const add = () => {
-      const val = inp.value.trim();
-      if (!val) return;
-      ttRows.push({ time: val, cells: Array(7).fill('') });
-      saveTt(); inp.value = ''; renderTimetable();
-    };
-    btn.addEventListener('click', add);
-    inp.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
-  }
-  if (addRowBtn) {
-    addRowBtn.addEventListener('click', () => {
-      ttRows.push({ time: 'New Slot', cells: Array(7).fill('') });
-      saveTt(); renderTimetable();
+// --- JEE Superset Table ---
+function renderJeeSuperset() {
+  const el = document.getElementById('jeeSupersetTable');
+  // 20 empty rows for user to fill topics and checklists
+  let html = `<table class="superset-table"><thead><tr><th style="width:40px">#</th><th style="min-width:220px">JEE Topic</th><th>1st Year</th><th>2nd Year</th><th>EAPCET</th></tr></thead><tbody>`;
+  for(let i=1; i<=20; i++) {
+    html += `<tr><td>${i}.</td><td contenteditable="true" class="jee-topic-cell"></td>`;
+    ['y1','y2','eapcet'].forEach(() => {
+      html += `<td class="check-col"><input type="checkbox"></td>`;
     });
+    html += `</tr>`;
   }
+  html += `</tbody></table>`;
+  el.innerHTML = html;
 }
 
+// --- YTS Table ---
+function renderYtsTable() {
+  const el = document.getElementById('ytsTable');
+  // Example data, replace with your own
+  const rows = [
+    { song: 'Song 1', blank: '', vg: '', recorded: true, uploaded: false, yts: true, insta: false },
+    { song: 'Song 2', blank: '', vg: '', recorded: false, uploaded: false, yts: false, insta: false },
+    { song: 'Song 3', blank: '', vg: '', recorded: true, uploaded: true, yts: true, insta: true },
+  ];
+  let html = `<table class="yts-table"><thead><tr><th>Songs</th><th></th><th>V/G?</th><th>Recorded?</th><th>Uploaded?</th><th>YTS</th><th>Insta</th></tr></thead><tbody>`;
+  rows.forEach(row => {
+    html += `<tr><td>${row.song}</td><td></td>`;
+    // V/G select
+    html += `<td><select><option value=""></option><option value="V">V</option><option value="G">G</option></select></td>`;
+    ['recorded','uploaded','yts','insta'].forEach(col => {
+      html += `<td><input type="checkbox" disabled ${row[col] ? 'checked' : ''}></td>`;
+    });
+    html += `</tr>`;
+  });
+  html += `</tbody></table>`;
+  el.innerHTML = html;
+}
