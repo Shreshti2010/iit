@@ -2,49 +2,54 @@
   {
     "sno": 1,
     "song": "MahaGanapthim",
-    "recorded": "yes",
     "insta": "uploaded",
     "youtube": "uploaded"
   },
   {
     "sno": 2,
     "song": "Oorum Blood",
-    "recorded": "yes",
     "insta": "uploaded",
     "youtube": "uploaded"
   },
   {
     "sno": 3,
     "song": "Sundari Neeve",
-    "recorded": "yes",
     "insta": "uploaded",
     "youtube": "uploaded"
   },
   {
     "sno": 4,
     "song": "Bahubali",
-    "recorded": "yes",
     "insta": "uploaded",
     "youtube": "uploaded"
   },
   {
     "sno": 5,
     "song": "Amaran",
-    "recorded": "yes",
     "insta": "uploaded",
     "youtube": "uploaded"
   },
   {
     "sno": 6,
     "song": "Tandel",
-    "recorded": "yes",
     "insta": "",
     "youtube": ""
   },
   {
     "sno": 7,
     "song": "AlaVaikuntapuram",
-    "recorded": "yes",
+    "insta": "",
+    "youtube": ""
+  },
+  {
+    "sno": 8,
+    "song": "Durandhar",
+    "insta": "",
+    "youtube": ""
+  },
+  {
+    "sno": 9,
+    "song": "Pusindi Pusindi",
     "insta": "",
     "youtube": ""
   }
