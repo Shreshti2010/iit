@@ -4,16 +4,25 @@ import './App.css';
 function App() {
   const [activePage, setActivePage] = useState('dashboard');
   const [maths, setMaths] = useState([]);
+  const [physics, setPhysics] = useState([]);
+  const [chemistry, setChemistry] = useState([]);
   const [planner, setPlanner] = useState([]);
   const [yts, setYts] = useState([]);
   const [expandedLessons, setExpandedLessons] = useState({});
   const [filterDropdown, setFilterDropdown] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState('all');
+  const [ahaGuruSubject, setAhaGuruSubject] = useState('maths');
 
   useEffect(() => {
     fetch(process.env.PUBLIC_URL + '/data/aha-maths.json')
       .then(res => res.json())
       .then(setMaths);
+    fetch(process.env.PUBLIC_URL + '/data/aha-physics.json')
+      .then(res => res.json())
+      .then(setPhysics);
+    fetch(process.env.PUBLIC_URL + '/data/aha-chemistry.json')
+      .then(res => res.json())
+      .then(setChemistry);
     fetch(process.env.PUBLIC_URL + '/data/courseplanner.json')
       .then(res => res.json())
       .then(setPlanner);
@@ -41,7 +50,7 @@ function App() {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: '🏠' },
     { id: 'planner', label: 'Course Planner', icon: '📅' },
-    { id: 'maths', label: 'Aha Maths', icon: '📐' },
+    { id: 'guru', label: 'Aha Guru', icon: '🎓' },
     { id: 'yts', label: 'YTS', icon: '🎬' },
   ];
 
@@ -90,6 +99,52 @@ function App() {
               {maths.length > 5 && (
                 <div style={{ color: 'var(--accent)', marginTop: '16px', fontSize: '0.95em', fontWeight: 'bold' }}>
                   +{maths.length - 5} more lessons →
+                </div>
+              )}
+            </div>
+
+            <div className="card">
+              <h2>⚡ Physics Lessons</h2>
+              <div className="stat-box">
+                <div className="stat-number">{physics.length}</div>
+                <div className="stat-label">Total Lessons Available</div>
+              </div>
+              <ul style={{ marginTop: '20px' }}>
+                {physics.slice(0, 5).map(lesson => (
+                  <li key={lesson.id} style={{ paddingLeft: '8px' }}>
+                    <strong>{lesson.title}</strong>
+                    <div style={{ fontSize: '0.9em', color: 'var(--muted)', marginTop: '4px' }}>
+                      {lesson.chapters.length} chapters
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              {physics.length > 5 && (
+                <div style={{ color: '#f59e0b', marginTop: '16px', fontSize: '0.95em', fontWeight: 'bold' }}>
+                  +{physics.length - 5} more lessons →
+                </div>
+              )}
+            </div>
+
+            <div className="card">
+              <h2>🧪 Chemistry Lessons</h2>
+              <div className="stat-box">
+                <div className="stat-number">{chemistry.length}</div>
+                <div className="stat-label">Total Lessons Available</div>
+              </div>
+              <ul style={{ marginTop: '20px' }}>
+                {chemistry.slice(0, 5).map(lesson => (
+                  <li key={lesson.id} style={{ paddingLeft: '8px' }}>
+                    <strong>{lesson.title}</strong>
+                    <div style={{ fontSize: '0.9em', color: 'var(--muted)', marginTop: '4px' }}>
+                      {lesson.chapters.length} chapters
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              {chemistry.length > 5 && (
+                <div style={{ color: '#ef4444', marginTop: '16px', fontSize: '0.95em', fontWeight: 'bold' }}>
+                  +{chemistry.length - 5} more lessons →
                 </div>
               )}
             </div>
@@ -210,46 +265,160 @@ function App() {
           </div>
         </div>
 
-        {/* Aha Maths Page */}
-        <div className={`page ${activePage === 'maths' ? 'active' : ''}`}>
-          <h1>📐 Aha Guru Mathematics</h1>
-          <div style={{ marginBottom: '20px', padding: '16px', backgroundColor: '#dbeafe', borderRadius: 'var(--radius)', borderLeft: '4px solid var(--accent)', color: '#0c2d6b' }}>
-            <strong>{maths.length} Comprehensive Lessons</strong> with {maths.reduce((sum, l) => sum + l.chapters.length, 0)} chapters covering all topics
-          </div>
+        {/* Aha Guru Page */}
+        <div className={`page ${activePage === 'guru' ? 'active' : ''}`}>
+          <h1>🎓 Aha Guru</h1>
           
-          {maths.map((lesson, idx) => (
-            <div key={lesson.id} className="expandable-section">
-              <div
-                className={`expandable-header ${expandedLessons[lesson.id] ? 'expanded' : ''}`}
-                onClick={() => toggleExpanded(lesson.id)}
+          {/* Subject Tabs */}
+          <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', borderBottom: '2px solid var(--border)', paddingBottom: '8px', flexWrap: 'wrap' }}>
+            {[
+              { id: 'maths', label: '📐 Mathematics', data: maths },
+              { id: 'physics', label: '⚡ Physics', data: physics },
+              { id: 'chemistry', label: '🧪 Chemistry', data: chemistry }
+            ].map(subj => (
+              <button
+                key={subj.id}
+                onClick={() => setAhaGuruSubject(subj.id)}
+                style={{
+                  padding: '12px 20px',
+                  border: 'none',
+                  borderBottom: ahaGuruSubject === subj.id ? '3px solid var(--accent)' : 'none',
+                  backgroundColor: 'transparent',
+                  color: ahaGuruSubject === subj.id ? 'var(--accent)' : 'var(--muted)',
+                  cursor: 'pointer',
+                  fontSize: '1em',
+                  fontWeight: ahaGuruSubject === subj.id ? '600' : '400',
+                  transition: 'all 0.3s'
+                }}
               >
-                <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span style={{ fontSize: '1.2em' }}>L{idx + 1}</span>
-                  <span>{lesson.title}</span>
-                </span>
-                <span className="expandable-toggle">▼</span>
+                {subj.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Content */}
+          {ahaGuruSubject === 'maths' && (
+            <>
+              <div style={{ marginBottom: '20px', padding: '16px', backgroundColor: '#dbeafe', borderRadius: 'var(--radius)', borderLeft: '4px solid var(--accent)', color: '#0c2d6b' }}>
+                <strong>{maths.length} Comprehensive Lessons</strong> with {maths.reduce((sum, l) => sum + l.chapters.length, 0)} chapters covering all topics
               </div>
-              <div className={`expandable-content ${expandedLessons[lesson.id] ? 'expanded' : ''}`}>
-                <ul className="chapter-list">
-                  {lesson.chapters.map((chap, chapIdx) => (
-                    <li key={chap.id} className="chapter-item">
-                      <div className="chapter-name">
-                        <span style={{ color: 'var(--muted)', marginRight: '12px', fontSize: '0.9em' }}>
-                          C{chapIdx + 1}
-                        </span>
-                        {chap.title}
-                      </div>
-                      <div className="chapter-meta">
-                        {chap.slides && `${chap.slides} slides`}
-                        {chap.questions && `${chap.questions} Qs`}
-                        {!chap.slides && !chap.questions && '∀'}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+              {maths.map((lesson, idx) => (
+                <div key={lesson.id} className="expandable-section">
+                  <div
+                    className={`expandable-header ${expandedLessons[lesson.id] ? 'expanded' : ''}`}
+                    onClick={() => toggleExpanded(lesson.id)}
+                  >
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <span style={{ fontSize: '1.2em' }}>L{idx + 1}</span>
+                      <span>{lesson.title}</span>
+                    </span>
+                    <span className="expandable-toggle">▼</span>
+                  </div>
+                  <div className={`expandable-content ${expandedLessons[lesson.id] ? 'expanded' : ''}`}>
+                    <ul className="chapter-list">
+                      {lesson.chapters.map((chap, chapIdx) => (
+                        <li key={chap.id} className="chapter-item">
+                          <div className="chapter-name">
+                            <span style={{ color: 'var(--muted)', marginRight: '12px', fontSize: '0.9em' }}>
+                              C{chapIdx + 1}
+                            </span>
+                            {chap.title}
+                          </div>
+                          <div className="chapter-meta">
+                            {chap.slides && `${chap.slides} slides`}
+                            {chap.questions && `${chap.questions} Qs`}
+                            {!chap.slides && !chap.questions && '∀'}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+
+          {ahaGuruSubject === 'physics' && (
+            <>
+              <div style={{ marginBottom: '20px', padding: '16px', backgroundColor: '#fef3c7', borderRadius: 'var(--radius)', borderLeft: '4px solid #f59e0b', color: '#92400e' }}>
+                <strong>{physics.length} Physics Lessons</strong> with {physics.reduce((sum, l) => sum + l.chapters.length, 0)} chapters
               </div>
-            </div>
-          ))}
+              {physics.map((lesson, idx) => (
+                <div key={lesson.id} className="expandable-section">
+                  <div
+                    className={`expandable-header ${expandedLessons[lesson.id] ? 'expanded' : ''}`}
+                    onClick={() => toggleExpanded(lesson.id)}
+                  >
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <span style={{ fontSize: '1.2em' }}>L{idx + 1}</span>
+                      <span>{lesson.title}</span>
+                    </span>
+                    <span className="expandable-toggle">▼</span>
+                  </div>
+                  <div className={`expandable-content ${expandedLessons[lesson.id] ? 'expanded' : ''}`}>
+                    <ul className="chapter-list">
+                      {lesson.chapters.map((chap, chapIdx) => (
+                        <li key={chap.id} className="chapter-item">
+                          <div className="chapter-name">
+                            <span style={{ color: 'var(--muted)', marginRight: '12px', fontSize: '0.9em' }}>
+                              C{chapIdx + 1}
+                            </span>
+                            {chap.title}
+                          </div>
+                          <div className="chapter-meta">
+                            {chap.slides && `${chap.slides} slides`}
+                            {chap.questions && `${chap.questions} Qs`}
+                            {!chap.slides && !chap.questions && '∀'}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+
+          {ahaGuruSubject === 'chemistry' && (
+            <>
+              <div style={{ marginBottom: '20px', padding: '16px', backgroundColor: '#fecdd3', borderRadius: 'var(--radius)', borderLeft: '4px solid #ef4444', color: '#7f1d1d' }}>
+                <strong>{chemistry.length} Chemistry Lessons</strong> with {chemistry.reduce((sum, l) => sum + l.chapters.length, 0)} chapters
+              </div>
+              {chemistry.map((lesson, idx) => (
+                <div key={lesson.id} className="expandable-section">
+                  <div
+                    className={`expandable-header ${expandedLessons[lesson.id] ? 'expanded' : ''}`}
+                    onClick={() => toggleExpanded(lesson.id)}
+                  >
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <span style={{ fontSize: '1.2em' }}>L{idx + 1}</span>
+                      <span>{lesson.title}</span>
+                    </span>
+                    <span className="expandable-toggle">▼</span>
+                  </div>
+                  <div className={`expandable-content ${expandedLessons[lesson.id] ? 'expanded' : ''}`}>
+                    <ul className="chapter-list">
+                      {lesson.chapters.map((chap, chapIdx) => (
+                        <li key={chap.id} className="chapter-item">
+                          <div className="chapter-name">
+                            <span style={{ color: 'var(--muted)', marginRight: '12px', fontSize: '0.9em' }}>
+                              C{chapIdx + 1}
+                            </span>
+                            {chap.title}
+                          </div>
+                          <div className="chapter-meta">
+                            {chap.slides && `${chap.slides} slides`}
+                            {chap.questions && `${chap.questions} Qs`}
+                            {!chap.slides && !chap.questions && '∀'}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
         </div>
 
         {/* YTS Page */}
