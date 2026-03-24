@@ -1,0 +1,17 @@
+name = "iit-prep"
+main = "src/index.js"
+type = "javascript"
+
+[env.production]
+name = "iit-prep-prod"
+
+[build]
+command = "npm run build"
+cwd = "./"
+watch_paths = ["src/**/*.{js,css,jsx}"]
+
+[env.production.build]
+command = "npm run build"
+
+[site]
+bucket = "./build"
