@@ -368,36 +368,20 @@ function renderYtsTable() {
   const el = document.getElementById('ytsTable');
   // Example data, replace with your own
   const rows = [
-    { song: 'Song 1', blank: '', recorded: true, uploaded: false, yts: true, insta: false },
-    { song: 'Song 2', blank: '', recorded: false, uploaded: false, yts: false, insta: false },
-    { song: 'Song 3', blank: '', recorded: true, uploaded: true, yts: true, insta: true },
+    { song: 'Song 1', blank: '', vg: '', recorded: true, uploaded: false, yts: true, insta: false },
+    { song: 'Song 2', blank: '', vg: '', recorded: false, uploaded: false, yts: false, insta: false },
+    { song: 'Song 3', blank: '', vg: '', recorded: true, uploaded: true, yts: true, insta: true },
   ];
-  // Clear existing table
-  el.innerHTML = '';
-  // Create table rows
-  rows.forEach((row, idx) => {
-    const tr = document.createElement('tr');
-    // Song title
-    const tdSong = document.createElement('td');
-    tdSong.textContent = row.song;
-    tr.appendChild(tdSong);
-    // Blank column
-    const tdBlank = document.createElement('td');
-    tdBlank.textContent = row.blank;
-    tr.appendChild(tdBlank);
-    // Recorded, Uploaded, YTS, Insta columns as checkboxes
-    ['recorded', 'uploaded', 'yts', 'insta'].forEach(key => {
-      const td = document.createElement('td');
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.checked = row[key];
-      checkbox.addEventListener('change', () => {
-        row[key] = checkbox.checked;
-        console.log(`${key} for "${row.song}" is now ${row[key]}`);
-      });
-      td.appendChild(checkbox);
-      tr.appendChild(td);
+  let html = `<table class="yts-table"><thead><tr><th>Songs</th><th></th><th>V/G?</th><th>Recorded?</th><th>Uploaded?</th><th>YTS</th><th>Insta</th></tr></thead><tbody>`;
+  rows.forEach(row => {
+    html += `<tr><td>${row.song}</td><td></td>`;
+    // V/G select
+    html += `<td><select><option value=""></option><option value="V">V</option><option value="G">G</option></select></td>`;
+    ['recorded','uploaded','yts','insta'].forEach(col => {
+      html += `<td><input type="checkbox" disabled ${row[col] ? 'checked' : ''}></td>`;
     });
-    el.appendChild(tr);
+    html += `</tr>`;
   });
+  html += `</tbody></table>`;
+  el.innerHTML = html;
 }
