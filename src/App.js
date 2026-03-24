@@ -5,6 +5,7 @@ function App() {
   const [activePage, setActivePage] = useState('dashboard');
   const [maths, setMaths] = useState([]);
   const [planner, setPlanner] = useState([]);
+  const [yts, setYts] = useState([]);
   const [expandedLessons, setExpandedLessons] = useState({});
   const [filterDropdown, setFilterDropdown] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState('all');
@@ -16,6 +17,9 @@ function App() {
     fetch(process.env.PUBLIC_URL + '/data/courseplanner.json')
       .then(res => res.json())
       .then(setPlanner);
+    fetch(process.env.PUBLIC_URL + '/data/yts.json')
+      .then(res => res.json())
+      .then(setYts);
   }, []);
 
   const toggleLesson = (lessonId) => {
@@ -45,6 +49,7 @@ function App() {
     { id: 'dashboard', label: 'Dashboard', icon: '🏠' },
     { id: 'planner', label: 'Course Planner', icon: '📅' },
     { id: 'maths', label: 'Aha Maths', icon: '📐' },
+    { id: 'yts', label: 'YTS', icon: '🎬' },
   ];
 
   return (
@@ -243,6 +248,53 @@ function App() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* YTS Page */}
+        <div className={`page ${activePage === 'yts' ? 'active' : ''}`}>
+          <h1>🎬 YouTube Shorts (YTS)</h1>
+          <div className="card">
+            <div style={{ overflowX: 'auto' }}>
+              <table className="yts-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Song Name</th>
+                    <th>Recorded</th>
+                    <th>Instagram</th>
+                    <th>YouTube</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {yts.map((row, i) => (
+                    <tr key={i}>
+                      <td className="yts-sno"><strong>{row.sno}</strong></td>
+                      <td className="yts-song"><strong>{row.song}</strong></td>
+                      <td className="yts-status">
+                        <span className={`status-badge ${row.recorded === 'yes' ? 'status-yes' : 'status-no'}`}>
+                          {row.recorded === 'yes' ? '✓ Yes' : 'No'}
+                        </span>
+                      </td>
+                      <td className="yts-status">
+                        <span className={`status-badge ${row.insta === 'uploaded' ? 'status-uploaded' : 'status-pending'}`}>
+                          {row.insta === 'uploaded' ? '✓ Uploaded' : row.insta || '—'}
+                        </span>
+                      </td>
+                      <td className="yts-status">
+                        <span className={`status-badge ${row.youtube === 'uploaded' ? 'status-uploaded' : 'status-pending'}`}>
+                          {row.youtube === 'uploaded' ? '✓ Uploaded' : row.youtube || '—'}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div style={{ marginTop: '20px', padding: '16px', backgroundColor: '#f3f4f6', borderRadius: 'var(--radius)', color: 'var(--muted)', fontSize: '0.95em' }}>
+              📊 Total Songs: <strong style={{ color: 'var(--accent)' }}>{yts.length}</strong> | 
+              Recorded: <strong style={{ color: 'var(--success)' }}>{yts.filter(s => s.recorded === 'yes').length}</strong>
+            </div>
+          </div>
         </div>
       </main>
     </div>
