@@ -88,6 +88,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  overflow-y: auto;
 }
 .nav-btn {
   display: flex; align-items: center; gap: 12px;
@@ -559,3 +560,168 @@ body {
 .aha-chapter-badge.solved { background: rgba(56,189,248,0.12); color: var(--physics); }
 .aha-chapter-title { flex: 1; font-size: 0.88em; color: var(--text-soft); }
 .aha-chapter-meta { font-size: 0.75em; color: var(--text-muted); flex-shrink: 0; }
+
+/* ===== NAV GROUPS (collapsible) ===== */
+.nav-group { display: flex; flex-direction: column; }
+.nav-group-header {
+  display: flex; align-items: center; gap: 12px;
+  background: none; border: none;
+  color: var(--text-soft); font-size: 0.95em; font-weight: 500;
+  padding: 11px 14px; border-radius: var(--radius-sm);
+  cursor: pointer; text-align: left; width: 100%;
+  transition: background var(--transition), color var(--transition);
+}
+.nav-group-header:hover { background: var(--card); color: var(--text); }
+.nav-group-header.open { color: var(--text); }
+.nav-group-arrow { margin-left: auto; font-size: 0.75em; color: var(--text-muted); transition: transform var(--transition); }
+.nav-group-header.open .nav-group-arrow { transform: rotate(180deg); }
+.nav-group-items { display: none; flex-direction: column; gap: 2px; padding-left: 12px; }
+.nav-group-items.open { display: flex; }
+.nav-sub { padding: 8px 14px; font-size: 0.88em; color: var(--text-muted); }
+.nav-sub:hover { color: var(--text); }
+.nav-sub.active { color: var(--accent-light); background: var(--accent-glow); font-weight: 600; }
+
+/* ===== SYLLABUS PAGE ===== */
+.syllabus-placeholder {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 300px; color: var(--text-muted); gap: 12px;
+}
+.syllabus-placeholder .syl-icon { font-size: 3em; opacity: 0.4; }
+.syllabus-placeholder p { font-size: 0.95em; }
+
+/* ===== JEE SUPERSET PAGE ===== */
+.superset-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.superset-col { }
+.superset-col-title {
+  font-size: 0.78em; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--text-muted);
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.superset-col-title.jee-title { color: var(--accent-light); }
+.superset-col-title.yr1-title { color: var(--physics); }
+.superset-col-title.yr2-title { color: var(--ochem); }
+.superset-col-title.eapcet-title { color: var(--pchem); }
+.superset-body {
+  background: var(--card); border: 1px solid var(--border);
+  border-top: none; border-radius: 0 0 var(--radius) var(--radius);
+  min-height: 400px;
+}
+.superset-jee-item {
+  padding: 10px 16px; border-bottom: 1px solid var(--border);
+  font-size: 0.88em; color: var(--text-soft);
+}
+.superset-jee-item:last-child { border-bottom: none; }
+.superset-check-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; border-bottom: 1px solid var(--border);
+  font-size: 0.85em; color: var(--text-soft);
+}
+.superset-check-item:last-child { border-bottom: none; }
+.superset-check-item input[type=checkbox] { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; flex-shrink: 0; }
+.superset-add-row {
+  display: flex; gap: 8px; padding: 12px 16px;
+  border-top: 1px solid var(--border);
+}
+.superset-add-input {
+  flex: 1; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text);
+  font-size: 0.85em; padding: 7px 10px; outline: none;
+  transition: border-color var(--transition);
+}
+.superset-add-input:focus { border-color: var(--accent); }
+.superset-add-btn {
+  background: var(--accent); color: #fff; border: none;
+  border-radius: var(--radius-sm); padding: 7px 14px;
+  font-size: 0.82em; font-weight: 600; cursor: pointer;
+  transition: background var(--transition);
+}
+.superset-add-btn:hover { background: var(--accent-light); }
+
+/* ===== YTS PAGE ===== */
+.yts-controls {
+  display: flex; gap: 10px; margin-bottom: 16px; align-items: center;
+}
+.yts-add-input {
+  flex: 1; background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text);
+  font-size: 0.9em; padding: 9px 14px; outline: none;
+  transition: border-color var(--transition);
+}
+.yts-add-input:focus { border-color: var(--accent); }
+.yts-table-wrap { overflow-x: auto; }
+.yts-table { width: 100%; border-collapse: collapse; }
+.yts-table thead { background: var(--surface); }
+.yts-table th {
+  padding: 12px 14px; text-align: left;
+  font-size: 0.75em; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-muted);
+  border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+.yts-table th.col-song { min-width: 200px; color: var(--text-soft); }
+.yts-table th.col-blank { min-width: 80px; }
+.yts-table th.col-recorded { color: var(--physics); }
+.yts-table th.col-uploaded { color: var(--ochem); }
+.yts-table th.col-yts { color: var(--pchem); }
+.yts-table th.col-insta { color: #f472b6; }
+.yts-table tbody tr { border-bottom: 1px solid var(--border); transition: background var(--transition); }
+.yts-table tbody tr:hover { background: var(--card-hover); }
+.yts-table td { padding: 11px 14px; font-size: 0.88em; vertical-align: middle; }
+.yts-table td.col-song { font-weight: 500; color: var(--text); }
+.yts-table td input[type=checkbox] { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+.yts-table td.col-blank { color: var(--text-muted); font-size: 0.8em; }
+.yts-del-btn {
+  background: none; border: none; color: var(--text-muted);
+  cursor: pointer; font-size: 1em; padding: 2px 6px;
+  border-radius: 4px; transition: color var(--transition), background var(--transition);
+}
+.yts-del-btn:hover { color: var(--danger); background: rgba(239,68,68,0.1); }
+
+/* ===== TIMETABLE PAGE ===== */
+.timetable-controls {
+  display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center;
+}
+.tt-label { font-size: 0.85em; color: var(--text-muted); }
+.tt-input {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text);
+  font-size: 0.88em; padding: 8px 12px; outline: none;
+  transition: border-color var(--transition);
+}
+.tt-input:focus { border-color: var(--accent); }
+.tt-table-wrap { overflow-x: auto; }
+.tt-table { width: 100%; border-collapse: collapse; min-width: 700px; }
+.tt-table thead { background: var(--surface); }
+.tt-table th {
+  padding: 12px 14px; text-align: left;
+  font-size: 0.75em; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-muted);
+  border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+.tt-table th:first-child { color: var(--text-soft); min-width: 100px; }
+.tt-table tbody tr { border-bottom: 1px solid var(--border); transition: background var(--transition); }
+.tt-table tbody tr:hover { background: var(--card-hover); }
+.tt-table td { padding: 10px 14px; font-size: 0.88em; vertical-align: middle; }
+.tt-table td:first-child { font-weight: 600; color: var(--text-soft); white-space: nowrap; }
+.tt-cell-input {
+  width: 100%; background: transparent; border: none;
+  color: var(--text); font-size: 0.88em; padding: 4px 6px;
+  border-radius: 4px; outline: none; font-family: inherit;
+  transition: background var(--transition);
+  min-width: 100px;
+}
+.tt-cell-input:focus { background: var(--surface); }
+.tt-cell-input::placeholder { color: var(--text-muted); font-size: 0.9em; }
+.tt-add-row-btn {
+  background: none; border: 1px dashed var(--border);
+  color: var(--text-muted); border-radius: var(--radius-sm);
+  padding: 8px 18px; font-size: 0.85em; cursor: pointer;
+  transition: all var(--transition); margin-top: 10px;
+}
+.tt-add-row-btn:hover { border-color: var(--accent); color: var(--accent-light); }

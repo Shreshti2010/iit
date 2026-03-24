@@ -45,6 +45,39 @@
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
           <span class="nav-label">AhaGuru</span>
         </button>
+
+        <!-- NAV GROUP: Syllabus -->
+        <div class="nav-group">
+          <button class="nav-group-header" data-group="syllabus">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span class="nav-label">Syllabus</span>
+            <span class="nav-group-arrow">▾</span>
+          </button>
+          <div class="nav-group-items" id="group-syllabus">
+            <button class="nav-btn nav-sub" data-page="syllabus-jee">JEE</button>
+            <button class="nav-btn nav-sub" data-page="syllabus-1st">1st Year</button>
+            <button class="nav-btn nav-sub" data-page="syllabus-2nd">2nd Year</button>
+            <button class="nav-btn nav-sub" data-page="syllabus-eapcet">EAPCET</button>
+          </div>
+        </div>
+
+        <!-- NAV GROUP: JEE Superset -->
+        <button class="nav-btn" data-page="jee-superset">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span class="nav-label">JEE Superset</span>
+        </button>
+
+        <!-- NAV GROUP: YTS -->
+        <button class="nav-btn" data-page="yts">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          <span class="nav-label">YTS</span>
+        </button>
+
+        <!-- NAV GROUP: Timetable -->
+        <button class="nav-btn" data-page="timetable">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8" y2="18"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="16" y1="14" x2="16" y2="18"/></svg>
+          <span class="nav-label">Timetable</span>
+        </button>
       </nav>
       <div class="sidebar-footer">
         <div class="batch-badge">BATCH: PRATHAM-II</div>
@@ -179,6 +212,113 @@
             <div class="aha-stats-mini" id="ahaStatsMini"></div>
           </div>
           <div id="ahaLessonList"></div>
+        </section>
+
+        <!-- SYLLABUS PAGES -->
+        <section id="syllabus-jeePage" class="page" style="display:none">
+          <div class="syllabus-placeholder"><div class="syl-icon">📋</div><p>JEE Syllabus — add content here</p></div>
+        </section>
+        <section id="syllabus-1stPage" class="page" style="display:none">
+          <div class="syllabus-placeholder"><div class="syl-icon">📗</div><p>1st Year Syllabus — add content here</p></div>
+        </section>
+        <section id="syllabus-2ndPage" class="page" style="display:none">
+          <div class="syllabus-placeholder"><div class="syl-icon">📘</div><p>2nd Year Syllabus — add content here</p></div>
+        </section>
+        <section id="syllabus-eapcetPage" class="page" style="display:none">
+          <div class="syllabus-placeholder"><div class="syl-icon">📙</div><p>EAPCET Syllabus — add content here</p></div>
+        </section>
+
+        <!-- JEE SUPERSET PAGE -->
+        <section id="jee-supersetPage" class="page" style="display:none">
+          <div class="superset-grid">
+            <div class="superset-col">
+              <div class="superset-col-title jee-title">JEE</div>
+              <div class="superset-body" id="supersetJeeBody"></div>
+              <div class="superset-add-row">
+                <input type="text" class="superset-add-input" id="supersetJeeInput" placeholder="Add topic…">
+                <button class="superset-add-btn" id="supersetJeeAdd">Add</button>
+              </div>
+            </div>
+            <div class="superset-col">
+              <div class="superset-col-title yr1-title">1st Year</div>
+              <div class="superset-body" id="superset1stBody"></div>
+              <div class="superset-add-row">
+                <input type="text" class="superset-add-input" id="superset1stInput" placeholder="Add topic…">
+                <button class="superset-add-btn" id="superset1stAdd">Add</button>
+              </div>
+            </div>
+            <div class="superset-col">
+              <div class="superset-col-title yr2-title">2nd Year</div>
+              <div class="superset-body" id="superset2ndBody"></div>
+              <div class="superset-add-row">
+                <input type="text" class="superset-add-input" id="superset2ndInput" placeholder="Add topic…">
+                <button class="superset-add-btn" id="superset2ndAdd">Add</button>
+              </div>
+            </div>
+            <div class="superset-col">
+              <div class="superset-col-title eapcet-title">EAPCET</div>
+              <div class="superset-body" id="supersetEapcetBody"></div>
+              <div class="superset-add-row">
+                <input type="text" class="superset-add-input" id="supersetEapcetInput" placeholder="Add topic…">
+                <button class="superset-add-btn" id="supersetEapcetAdd">Add</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- YTS PAGE -->
+        <section id="ytsPage" class="page" style="display:none">
+          <div class="yts-controls">
+            <input type="text" class="yts-add-input" id="ytsSongInput" placeholder="Add song title…">
+            <button class="btn-primary" id="ytsAddBtn">+ Add Song</button>
+          </div>
+          <div class="card" style="padding:0;overflow:hidden">
+            <div class="yts-table-wrap">
+              <table class="yts-table">
+                <thead>
+                  <tr>
+                    <th class="col-song">Song</th>
+                    <th class="col-blank"></th>
+                    <th class="col-recorded">Recorded?</th>
+                    <th class="col-uploaded">Uploaded?</th>
+                    <th class="col-yts">YTS</th>
+                    <th class="col-insta">Insta</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="ytsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- TIMETABLE PAGE -->
+        <section id="timetablePage" class="page" style="display:none">
+          <div class="timetable-controls">
+            <span class="tt-label">Time slots:</span>
+            <input type="text" class="tt-input" id="ttSlotInput" placeholder="e.g. 6:00 AM" style="width:130px">
+            <button class="btn-primary" id="ttAddSlotBtn">+ Add Slot</button>
+          </div>
+          <div class="card" style="padding:0;overflow:hidden">
+            <div class="tt-table-wrap">
+              <table class="tt-table">
+                <thead>
+                  <tr>
+                    <th>Time</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                  </tr>
+                </thead>
+                <tbody id="ttTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <button class="tt-add-row-btn" id="ttAddRowBtn">+ Add Time Slot</button>
         </section>
 
       </main>

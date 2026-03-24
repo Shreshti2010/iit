@@ -26,13 +26,28 @@ function saveUpdates() { localStorage.setItem(UPDATES_KEY, JSON.stringify(dailyU
 function saveAha() { localStorage.setItem(AHA_KEY, JSON.stringify(ahaCompleted)); }
 
 // ===== NAVIGATION =====
-const PAGES = { dashboard: 'Dashboard', planner: 'Course Planner', updates: 'Daily Updates', progress: 'Progress', ahaguru: 'AhaGuru – Maths' };
+const PAGES = {
+  dashboard: 'Dashboard', planner: 'Course Planner', updates: 'Daily Updates',
+  progress: 'Progress', ahaguru: 'AhaGuru – Maths',
+  'syllabus-jee': 'Syllabus – JEE', 'syllabus-1st': 'Syllabus – 1st Year',
+  'syllabus-2nd': 'Syllabus – 2nd Year', 'syllabus-eapcet': 'Syllabus – EAPCET',
+  'jee-superset': 'JEE Superset', yts: 'YTS', timetable: 'Timetable'
+};
 function initNav() {
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => switchPage(btn.dataset.page));
   });
   document.getElementById('topbarMenu').addEventListener('click', () => {
     document.getElementById('sidebar').classList.toggle('open');
+  });
+  // collapsible nav groups
+  document.querySelectorAll('.nav-group-header').forEach(hdr => {
+    hdr.addEventListener('click', () => {
+      const id = hdr.dataset.group;
+      const items = document.getElementById('group-' + id);
+      hdr.classList.toggle('open');
+      items.classList.toggle('open');
+    });
   });
 }
 function switchPage(page) {
@@ -46,6 +61,9 @@ function switchPage(page) {
   if (page === 'progress') renderProgress();
   if (page === 'planner') renderPlannerTable(getFilteredData());
   if (page === 'ahaguru') renderAhaGuru();
+  if (page === 'jee-superset') renderSuperset();
+  if (page === 'yts') renderYts();
+  if (page === 'timetable') renderTimetable();
 }
 
 // ===== HELPERS =====
@@ -436,6 +454,9 @@ initNav();
 initPlanner();
 initUpdates();
 setTopbarDate();
+initSuperset();
+initYts();
+initTimetable();
 
 fetch('courseplanner.json')
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
@@ -464,3 +485,175 @@ fetch('aha-maths.json')
     ahaData = window.AHA_MATHS_DATA || [];
     if (document.getElementById('ahaguruPage').style.display !== 'none') renderAhaGuru();
   });
+
+// ===== JEE SUPERSET =====
+const SUPERSET_KEY = 'iit_superset_v1';
+let supersetData = { jee: [], yr1: [], yr2: [], eapcet: [] };
+function loadSuperset() {
+  try { supersetData = JSON.parse(localStorage.getItem(SUPERSET_KEY)) || { jee: [], yr1: [], yr2: [], eapcet: [] }; } catch { supersetData = { jee: [], yr1: [], yr2: [], eapcet: [] }; }
+}
+function saveSuperset() { localStorage.setItem(SUPERSET_KEY, JSON.stringify(supersetData)); }
+
+function renderSupersetCol(bodyId, key, isChecklist) {
+  const body = document.getElementById(bodyId);
+  if (!body) return;
+  body.innerHTML = supersetData[key].length === 0
+    ? `<div style="padding:16px;color:var(--text-muted);font-size:0.85em">No items yet</div>`
+    : supersetData[key].map((item, i) => isChecklist
+      ? `<div class="superset-check-item">
+          <input type="checkbox" ${item.done ? 'checked' : ''} data-key="${key}" data-i="${i}">
+          <span style="${item.done ? 'text-decoration:line-through;opacity:0.5' : ''}">${item.text}</span>
+         </div>`
+      : `<div class="superset-jee-item">${item.text}</div>`
+    ).join('');
+  if (isChecklist) {
+    body.querySelectorAll('input[type=checkbox]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        supersetData[cb.dataset.key][cb.dataset.i].done = cb.checked;
+        saveSuperset();
+        renderSupersetCol(bodyId, key, true);
+      });
+    });
+  }
+}
+
+function renderSuperset() {
+  loadSuperset();
+  renderSupersetCol('supersetJeeBody', 'jee', false);
+  renderSupersetCol('superset1stBody', 'yr1', true);
+  renderSupersetCol('superset2ndBody', 'yr2', true);
+  renderSupersetCol('supersetEapcetBody', 'eapcet', true);
+}
+
+function initSuperset() {
+  [['supersetJeeAdd','supersetJeeInput','jee',false],
+   ['superset1stAdd','superset1stInput','yr1',true],
+   ['superset2ndAdd','superset2ndInput','yr2',true],
+   ['supersetEapcetAdd','supersetEapcetInput','eapcet',true]
+  ].forEach(([btnId, inputId, key, isChecklist]) => {
+    const btn = document.getElementById(btnId);
+    const inp = document.getElementById(inputId);
+    if (!btn || !inp) return;
+    const add = () => {
+      const val = inp.value.trim();
+      if (!val) return;
+      supersetData[key].push(isChecklist ? { text: val, done: false } : { text: val });
+      saveSuperset();
+      inp.value = '';
+      renderSupersetCol(
+        { jee:'supersetJeeBody', yr1:'superset1stBody', yr2:'superset2ndBody', eapcet:'supersetEapcetBody' }[key],
+        key, isChecklist
+      );
+    };
+    btn.addEventListener('click', add);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
+  });
+}
+
+// ===== YTS =====
+const YTS_KEY = 'iit_yts_v1';
+let ytsSongs = [];
+function loadYts() { try { ytsSongs = JSON.parse(localStorage.getItem(YTS_KEY)) || []; } catch { ytsSongs = []; } }
+function saveYts() { localStorage.setItem(YTS_KEY, JSON.stringify(ytsSongs)); }
+
+function renderYts() {
+  loadYts();
+  const tbody = document.getElementById('ytsTableBody');
+  tbody.innerHTML = ytsSongs.length === 0
+    ? `<tr><td colspan="7" style="padding:24px;text-align:center;color:var(--text-muted)">No songs yet. Add one above.</td></tr>`
+    : ytsSongs.map((s, i) => `
+      <tr>
+        <td class="col-song">${s.title}</td>
+        <td class="col-blank"></td>
+        <td><input type="checkbox" ${s.recorded?'checked':''} data-i="${i}" data-f="recorded"></td>
+        <td><input type="checkbox" ${s.uploaded?'checked':''} data-i="${i}" data-f="uploaded"></td>
+        <td><input type="checkbox" ${s.yts?'checked':''} data-i="${i}" data-f="yts"></td>
+        <td><input type="checkbox" ${s.insta?'checked':''} data-i="${i}" data-f="insta"></td>
+        <td><button class="yts-del-btn" data-i="${i}" title="Delete">✕</button></td>
+      </tr>`).join('');
+  tbody.querySelectorAll('input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      ytsSongs[cb.dataset.i][cb.dataset.f] = cb.checked;
+      saveYts();
+    });
+  });
+  tbody.querySelectorAll('.yts-del-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      ytsSongs.splice(btn.dataset.i, 1);
+      saveYts(); renderYts();
+    });
+  });
+}
+
+function initYts() {
+  const inp = document.getElementById('ytsSongInput');
+  const btn = document.getElementById('ytsAddBtn');
+  if (!btn || !inp) return;
+  const add = () => {
+    const val = inp.value.trim();
+    if (!val) return;
+    ytsSongs.push({ title: val, recorded: false, uploaded: false, yts: false, insta: false });
+    saveYts(); inp.value = ''; renderYts();
+  };
+  btn.addEventListener('click', add);
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
+}
+
+// ===== TIMETABLE =====
+const TT_KEY = 'iit_timetable_v1';
+const TT_DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+let ttRows = [];
+function loadTt() { try { ttRows = JSON.parse(localStorage.getItem(TT_KEY)) || []; } catch { ttRows = []; }
+  if (!ttRows.length) ttRows = [
+    { time: '6:00 AM', cells: Array(7).fill('') },
+    { time: '8:00 AM', cells: Array(7).fill('') },
+    { time: '10:00 AM', cells: Array(7).fill('') },
+    { time: '12:00 PM', cells: Array(7).fill('') },
+    { time: '2:00 PM', cells: Array(7).fill('') },
+    { time: '4:00 PM', cells: Array(7).fill('') },
+    { time: '6:00 PM', cells: Array(7).fill('') },
+    { time: '8:00 PM', cells: Array(7).fill('') },
+  ];
+}
+function saveTt() { localStorage.setItem(TT_KEY, JSON.stringify(ttRows)); }
+
+function renderTimetable() {
+  loadTt();
+  const tbody = document.getElementById('ttTableBody');
+  tbody.innerHTML = ttRows.map((row, ri) => `
+    <tr>
+      <td>${row.time}</td>
+      ${row.cells.map((cell, ci) => `
+        <td><input class="tt-cell-input" value="${cell}" data-ri="${ri}" data-ci="${ci}" placeholder="—"></td>
+      `).join('')}
+    </tr>`).join('');
+  tbody.querySelectorAll('.tt-cell-input').forEach(inp => {
+    inp.addEventListener('change', () => {
+      ttRows[inp.dataset.ri].cells[inp.dataset.ci] = inp.value;
+      saveTt();
+    });
+  });
+}
+
+function initTimetable() {
+  const inp = document.getElementById('ttSlotInput');
+  const btn = document.getElementById('ttAddSlotBtn');
+  const addRowBtn = document.getElementById('ttAddRowBtn');
+  if (btn && inp) {
+    const add = () => {
+      const val = inp.value.trim();
+      if (!val) return;
+      ttRows.push({ time: val, cells: Array(7).fill('') });
+      saveTt(); inp.value = ''; renderTimetable();
+    };
+    btn.addEventListener('click', add);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
+  }
+  if (addRowBtn) {
+    addRowBtn.addEventListener('click', () => {
+      ttRows.push({ time: 'New Slot', cells: Array(7).fill('') });
+      saveTt(); renderTimetable();
+    });
+  }
+}
+
