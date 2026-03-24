@@ -497,18 +497,20 @@ function saveSuperset() { localStorage.setItem(SUPERSET_KEY, JSON.stringify(supe
 function renderSupersetCol(bodyId, key, isChecklist) {
   const body = document.getElementById(bodyId);
   if (!body) return;
-  body.innerHTML = supersetData[key].length === 0
-    ? `<div style="padding:16px;color:var(--text-muted);font-size:0.85em">No items yet</div>`
-    : supersetData[key].map((item, i) => isChecklist
-      ? `<div class="superset-check-item${item.done ? ' done' : ''}">
-          <input type="checkbox" ${item.done ? 'checked' : ''} data-key="${key}" data-i="${i}">
-          <span>${item.text}</span>
-         </div>`
-      : `<div class="superset-jee-item">
-          <span class="superset-num">${i + 1}.</span>
-          <span>${item.text}</span>
-         </div>`
-    ).join('');
+  if (supersetData[key].length === 0) {
+    body.innerHTML = `<div style="padding:16px;color:var(--text-muted);font-size:0.85em">No items yet</div>`;
+    return;
+  }
+  body.innerHTML = supersetData[key].map((item, i) => isChecklist
+    ? `<div class="superset-check-item${item.done ? ' done' : ''}">
+        <input type="checkbox" ${item.done ? 'checked' : ''} data-key="${key}" data-i="${i}">
+        <span>${supersetData.jee[i] ? supersetData.jee[i].text : ''}</span>
+       </div>`
+    : `<div class="superset-jee-item">
+        <span class="superset-num">${i + 1}.</span>
+        <span>${item.text}</span>
+       </div>`
+  ).join('');
   if (isChecklist) {
     body.querySelectorAll('input[type=checkbox]').forEach(cb => {
       cb.addEventListener('change', () => {
@@ -523,34 +525,32 @@ function renderSupersetCol(bodyId, key, isChecklist) {
 function renderSuperset() {
   loadSuperset();
   renderSupersetCol('supersetJeeBody', 'jee', false);
+  // checklist cols mirror JEE topics
+  ['yr1','yr2','eapcet'].forEach(key => {
+    // sync: ensure same length as jee
+    while (supersetData[key].length < supersetData.jee.length) {
+      supersetData[key].push({ done: false });
+    }
+  });
   renderSupersetCol('superset1stBody', 'yr1', true);
   renderSupersetCol('superset2ndBody', 'yr2', true);
   renderSupersetCol('supersetEapcetBody', 'eapcet', true);
 }
 
 function initSuperset() {
-  [['supersetJeeAdd','supersetJeeInput','jee',false],
-   ['superset1stAdd','superset1stInput','yr1',true],
-   ['superset2ndAdd','superset2ndInput','yr2',true],
-   ['supersetEapcetAdd','supersetEapcetInput','eapcet',true]
-  ].forEach(([btnId, inputId, key, isChecklist]) => {
-    const btn = document.getElementById(btnId);
-    const inp = document.getElementById(inputId);
-    if (!btn || !inp) return;
-    const add = () => {
-      const val = inp.value.trim();
-      if (!val) return;
-      supersetData[key].push(isChecklist ? { text: val, done: false } : { text: val });
-      saveSuperset();
-      inp.value = '';
-      renderSupersetCol(
-        { jee:'supersetJeeBody', yr1:'superset1stBody', yr2:'superset2ndBody', eapcet:'supersetEapcetBody' }[key],
-        key, isChecklist
-      );
-    };
-    btn.addEventListener('click', add);
-    inp.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
-  });
+  const btn = document.getElementById('supersetJeeAdd');
+  const inp = document.getElementById('supersetJeeInput');
+  if (!btn || !inp) return;
+  const add = () => {
+    const val = inp.value.trim();
+    if (!val) return;
+    supersetData.jee.push({ text: val });
+    saveSuperset();
+    inp.value = '';
+    renderSuperset(); // re-render all cols so ticklists sync
+  };
+  btn.addEventListener('click', add);
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
 }
 
 // ===== YTS =====
