@@ -74,6 +74,18 @@ body {
   margin-bottom: 6px;
   margin-left: 8px;
 }
+.sub-nav {
+  margin-left: 18px;
+  font-size: 1em;
+  background: none;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding-left: 18px;
+}
+.sub-nav.active, .sub-nav:hover {
+  background: #17203a;
+  color: var(--accent);
+}
 /* Main area */
 .main {
   flex: 1;
@@ -270,4 +282,76 @@ body {
   .main { padding: 6px; }
   .page { padding: 0; }
   .card { padding: 12px 6px; }
+}
+/* JEE Superset Table */
+.superset-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  margin-top: 8px;
+}
+.superset-table th, .superset-table td {
+  padding: 10px 8px;
+  background: #1e293b;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 1em;
+}
+.superset-table th {
+  color: var(--accent);
+  font-weight: 600;
+}
+.superset-table td.check-col {
+  width: 60px;
+  text-align: center;
+}
+.superset-table input[type=checkbox] {
+  accent-color: var(--accent);
+  width: 18px;
+  height: 18px;
+}
+/* YTS Table */
+.yts-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  margin-top: 8px;
+}
+.yts-table th, .yts-table td {
+  padding: 10px 8px;
+  background: #1e293b;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 1em;
+}
+.yts-table th {
+  color: var(--accent);
+  font-weight: 600;
+}
+.yts-table td {
+  text-align: center;
+}
+.yts-table td:first-child {
+  text-align: left;
+}
+/* Timetable Sheet */
+.timetable-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  margin-top: 8px;
+}
+.timetable-table th, .timetable-table td {
+  padding: 10px 8px;
+  background: #1e293b;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1em;
+}
+.timetable-table th {
+  color: var(--accent);
+  font-weight: 600;
+}
+.timetable-table td {
+  min-width: 90px;
 }

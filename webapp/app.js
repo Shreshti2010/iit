@@ -17,17 +17,27 @@ const pageEls = {
   updates: document.getElementById('updatesPage'),
   progress: document.getElementById('progressPage'),
   ahaMaths: document.getElementById('ahaMathsPage'),
+  'syllabus-jee': document.getElementById('syllabus-jee'),
+  'syllabus-1st': document.getElementById('syllabus-1st'),
+  'syllabus-2nd': document.getElementById('syllabus-2nd'),
+  'syllabus-eapcet': document.getElementById('syllabus-eapcet'),
+  'jee-superset': document.getElementById('jee-superset'),
+  yts: document.getElementById('yts'),
+  timetable: document.getElementById('timetable'),
 };
 navBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     PAGES.forEach(p => {
-      pageEls[p].style.display = (btn.dataset.page === p) ? '' : 'none';
+      if(pageEls[p]) pageEls[p].style.display = (btn.dataset.page === p) ? '' : 'none';
     });
     navBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     if (btn.dataset.page === 'dashboard') renderDashboard();
     if (btn.dataset.page === 'progress') renderProgress();
     if (btn.dataset.page === 'ahaMaths') renderAhaMaths();
+    if (btn.dataset.page === 'jee-superset') renderJeeSuperset();
+    if (btn.dataset.page === 'yts') renderYtsTable();
+    if (btn.dataset.page === 'timetable') renderTimetable();
   });
 });
 // Default page
@@ -337,14 +347,57 @@ function renderAhaMaths() {
   `;
 }
 
-// --- Init ---
-loadCompletedLectures();
-loadDailyUpdates();
-loadPlanner().then(() => {
-  renderPlannerTable();
-  renderDailyUpdates();
-  renderDashboard();
-  renderProgress();
-});
-// Show daily updates on page load
-renderDailyUpdates();
+// --- JEE Superset Table ---
+function renderJeeSuperset() {
+  const el = document.getElementById('jeeSupersetTable');
+  // 20 empty rows for user to fill topics and checklists
+  let html = `<table class="superset-table"><thead><tr><th style="width:40px">#</th><th style="min-width:220px">JEE Topic</th><th>1st Year</th><th>2nd Year</th><th>EAPCET</th></tr></thead><tbody>`;
+  for(let i=1; i<=20; i++) {
+    html += `<tr><td>${i}.</td><td contenteditable="true" class="jee-topic-cell"></td>`;
+    ['y1','y2','eapcet'].forEach(() => {
+      html += `<td class="check-col"><input type="checkbox"></td>`;
+    });
+    html += `</tr>`;
+  }
+  html += `</tbody></table>`;
+  el.innerHTML = html;
+}
+
+// --- YTS Table ---
+function renderYtsTable() {
+  const el = document.getElementById('ytsTable');
+  // Example data, replace with your own
+  const rows = [
+    { song: 'Song 1', blank: '', recorded: true, uploaded: false, yts: true, insta: false },
+    { song: 'Song 2', blank: '', recorded: false, uploaded: false, yts: false, insta: false },
+    { song: 'Song 3', blank: '', recorded: true, uploaded: true, yts: true, insta: true },
+  ];
+  // Clear existing table
+  el.innerHTML = '';
+  // Create table rows
+  rows.forEach((row, idx) => {
+    const tr = document.createElement('tr');
+    // Song title
+    const tdSong = document.createElement('td');
+    tdSong.textContent = row.song;
+    tr.appendChild(tdSong);
+    // Blank column
+    const tdBlank = document.createElement('td');
+    tdBlank.textContent = row.blank;
+    tr.appendChild(tdBlank);
+    // Recorded, Uploaded, YTS, Insta columns as checkboxes
+    ['recorded', 'uploaded', 'yts', 'insta'].forEach(key => {
+      const td = document.createElement('td');
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = row[key];
+      checkbox.addEventListener('change', () => {
+        row[key] = checkbox.checked;
+        console.log(`${key} for "${row.song}" is now ${row[key]}`);
+      });
+      td.appendChild(checkbox);
+      tr.appendChild(td);
+    });
+    el.appendChild(tr);
+  });
+}
