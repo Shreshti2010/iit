@@ -15,7 +15,7 @@ for (let i = 1; i < lines.length; i++) {
     // Map CSV columns to JSON keys
     if (header === 'S.No') row.sno = parseInt(value) || i;
     else if (header === 'Song') row.song = value;
-    else if (header === 'Recorded') row.recorded = value.toLowerCase() === 'yes' ? 'yes' : '';
+    else if (header === 'Recoreded') row.recorded = value.toLowerCase() === 'yes' ? 'yes' : '';
     else if (header === 'Insta') row.insta = value;
     else if (header === 'YouTube') row.youtube = value;
   });
