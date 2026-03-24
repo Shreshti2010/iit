@@ -500,11 +500,14 @@ function renderSupersetCol(bodyId, key, isChecklist) {
   body.innerHTML = supersetData[key].length === 0
     ? `<div style="padding:16px;color:var(--text-muted);font-size:0.85em">No items yet</div>`
     : supersetData[key].map((item, i) => isChecklist
-      ? `<div class="superset-check-item">
+      ? `<div class="superset-check-item${item.done ? ' done' : ''}">
           <input type="checkbox" ${item.done ? 'checked' : ''} data-key="${key}" data-i="${i}">
-          <span style="${item.done ? 'text-decoration:line-through;opacity:0.5' : ''}">${item.text}</span>
+          <span>${item.text}</span>
          </div>`
-      : `<div class="superset-jee-item">${item.text}</div>`
+      : `<div class="superset-jee-item">
+          <span class="superset-num">${i + 1}.</span>
+          <span>${item.text}</span>
+         </div>`
     ).join('');
   if (isChecklist) {
     body.querySelectorAll('input[type=checkbox]').forEach(cb => {
