@@ -1,16 +1,15 @@
 {
   "files": {
     "main.css": "/iit/static/css/main.f855e6bc.css",
-    "main.js": "/iit/static/js/main.e87c3397.js",
+    "main.js": "/iit/static/js/main.b688e5eb.js",
     "static/js/453.06911bbf.chunk.js": "/iit/static/js/453.06911bbf.chunk.js",
-    "static/media/logo.svg": "/iit/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/iit/index.html",
     "main.f855e6bc.css.map": "/iit/static/css/main.f855e6bc.css.map",
-    "main.e87c3397.js.map": "/iit/static/js/main.e87c3397.js.map",
+    "main.b688e5eb.js.map": "/iit/static/js/main.b688e5eb.js.map",
     "453.06911bbf.chunk.js.map": "/iit/static/js/453.06911bbf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f855e6bc.css",
-    "static/js/main.e87c3397.js"
+    "static/js/main.b688e5eb.js"
   ]
 }
