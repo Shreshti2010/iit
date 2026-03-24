@@ -137,7 +137,7 @@ function App() {
                   <strong>Sessions:</strong> {planner.length}
                 </li>
                 <li style={{ paddingLeft: '8px' }}>
-                  <strong>Ready:</strong> <span style={{ color: 'var(--success)' }}>✓</span>
+                  <strong>Status:</strong> <span style={{ color: 'var(--success)' }}>Ready</span>
                 </li>
               </ul>
             </div>
@@ -166,7 +166,7 @@ function App() {
                     setFilterDropdown(false);
                   }}
                 >
-                  <span>✓</span> All Subjects
+                  All Subjects
                 </div>
                 {subjects.map(subject => (
                   <div
@@ -177,7 +177,7 @@ function App() {
                       setFilterDropdown(false);
                     }}
                   >
-                    <span>{subject === selectedSubject ? '✓' : '◯'}</span> {subject}
+                    {subject}
                   </div>
                 ))}
               </div>
@@ -272,17 +272,17 @@ function App() {
                       <td className="yts-song"><strong>{row.song}</strong></td>
                       <td className="yts-status">
                         <span className={`status-badge ${row.recorded === 'yes' ? 'status-yes' : 'status-no'}`}>
-                          {row.recorded === 'yes' ? '✓ Yes' : 'No'}
+                          {row.recorded === 'yes' ? 'Yes' : 'No'}
                         </span>
                       </td>
                       <td className="yts-status">
                         <span className={`status-badge ${row.insta === 'uploaded' ? 'status-uploaded' : 'status-pending'}`}>
-                          {row.insta === 'uploaded' ? '✓ Uploaded' : row.insta || '—'}
+                          {row.insta === 'uploaded' ? 'Uploaded' : row.insta || '—'}
                         </span>
                       </td>
                       <td className="yts-status">
                         <span className={`status-badge ${row.youtube === 'uploaded' ? 'status-uploaded' : 'status-pending'}`}>
-                          {row.youtube === 'uploaded' ? '✓ Uploaded' : row.youtube || '—'}
+                          {row.youtube === 'uploaded' ? 'Uploaded' : row.youtube || '—'}
                         </span>
                       </td>
                     </tr>
@@ -292,7 +292,7 @@ function App() {
             </div>
             <div style={{ marginTop: '20px', padding: '16px', backgroundColor: '#f3f4f6', borderRadius: 'var(--radius)', color: 'var(--muted)', fontSize: '0.95em' }}>
               📊 Total Songs: <strong style={{ color: 'var(--accent)' }}>{yts.length}</strong> | 
-              Recorded: <strong style={{ color: 'var(--success)' }}>{yts.filter(s => s.recorded === 'yes').length}</strong>
+              Recorded: <strong style={{ color: 'var(--success)' }}>{yts.filter(s => s.recorded === 'yes').length}</strong> | Status: <strong style={{ color: 'var(--success)' }}>Active</strong>
             </div>
           </div>
         </div>
