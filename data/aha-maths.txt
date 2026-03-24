@@ -1,0 +1,1516 @@
+header_logo
+Buy Course
+
+Dashboard
+Register for Live Online Class
+200gold_icon
+profile_pic
+Math Std 11 (IIT JEE+CBSE)
+Learn and Practice
+0%
+ Get Report
+ Bookmarks
+L1 Trigonometry I
+C1: Trigonometric Ratios
+
+1 slide
+C1: Solved Examples
+
+5 slides
+C2: Trigonometric Ratios and Complementary angles I
+
+1 slide
+C2: Trigonometric Ratios and Complementary angles II
+
+1 slide
+C2: Solved Examples
+
+5 slides
+C3: Sum of two angles I
+
+1 slide
+C3: Sum of two angles II
+
+1 slide
+C3: Sum of two angles III
+
+1 slide
+C3: Solved Examples
+
+4 slides
+C4: Sum Difference Identities
+
+1 slide
+C4: Solved Examples
+
+6 slides
+L1: Practice Exercise
+
+15 questions
+L2 Trigonometry II
+C1: Sum to Product Identities
+
+1 slide
+C1: Solved Examples
+
+8 slides
+C2: Double and Triple Angles
+
+1 slide
+C2: Solved Examples
+
+5 slides
+C3: Some Important Angles in Trigonometry
+
+1 slide
+C3: Solved Examples
+
+4 slides
+C4: Submultiple Angles
+
+1 slide
+C4: Solved Examples
+
+3 slides
+PE: Practice Exercise
+
+15 questions
+L3 Trigonometry Extra Practice
+PE: Practice Exercise
+
+25 questions
+L4 Trigonometry III
+C1: Trick 1: Angles in Arithmetic Progression
+
+1 slide
+C1: Solved Examples
+
+2 slides
+C2: Trick 2: Angles in Arithmetic Progression except for last term
+
+1 slide
+C2: Solved Example
+
+1 slide
+C3: Trick 3: Angles in Geometric Progression
+
+1 slide
+C3: Solved Examples
+
+3 slides
+C4: Trick 4: Angles in Geometric Progression except the last term I
+
+1 slide
+C4: Trick 4: Angles in Geometric Progression except the last term II
+
+1 slide
+C4: Solved Examples
+
+3 slides
+C5: Trick 5: To Solve Problems with tan
+
+1 slide
+C5: Solved Examples
+
+4 slides
+C6: Trick 6: Series with Powers
+
+1 slide
+C6: Solved Examples
+
+2 slides
+PE: Practice Exercise
+
+15 questions
+L5 Trigonometry IV
+C1: General Solution of Trigonometric Equations
+
+1 slide
+C1: Solved Examples
+
+4 slides
+C2: Equations of the form a cosθ + b sinθ = c
+
+1 slide
+C2: Solved Examples
+
+4 slides
+C3: General theorem using Tangent and Euler’s formula [JEE]
+
+1 slide
+C3: Solved Examples
+
+5 slides
+C4: Trigonometric Series [JEE]
+
+3 slides
+C4: Solved Examples
+
+3 slides
+PE: Practice Exercise
+
+15 questions
+L6 Solution of Triangles
+C1: Sine Rule
+
+1 slide
+C1: Solved Examples
+
+2 slides
+C2: Cosine Rule
+
+1 slide
+C2: Solved Examples
+
+2 slides
+C3: Sides angles triangles
+
+1 slide
+C3: Solved Examples
+
+2 slides
+PE: Practice Exercise
+
+4 questions
+L7 Logarithms
+C1: Review of Exponents
+
+2 slides
+C1: Solved Examples
+
+3 slides
+C2: Logarithms
+
+1 slide
+C2: Solved Examples
+
+6 slides
+C3: Change of Base in Log
+
+3 slides
+C3: Solved Examples
+
+14 slides
+PE: Practice Exercise
+
+22 questions
+L8 Sequence and Series
+C1: Introduction to Sequence and Series
+
+1 slide
+C1: Solved Examples
+
+2 slides
+C2: A.P. and G.P. Relation 1 – Lecture 1
+
+1 slide
+C2: A.P. and G.P. Relation 2 – Lecture 2
+
+1 slide
+C2: A.P. and G.P. – Lecture 3
+
+1 slide
+C2: A.P. and G.P. – Lecture 4
+
+1 slide
+C2: A.P, G.P and H.P – Lecture 5
+
+1 slide
+C2: Relationship between AM, GM and HM – Lecture 6
+
+1 slide
+C2: Solved Examples
+
+8 slides
+C3: Sum of n terms of an AP – Lecture 1
+
+1 slide
+C3: Sum of n terms of a GP – Lecture 2
+
+1 slide
+C3: Arithmetico Geometric Progression – Lecture 3
+
+1 slide
+C3: Telescopic Sums – Lecture 4
+
+1 slide
+C3: Sum to n, n2, n3 terms – Lecture 5
+
+1 slide
+C3: Solved Examples
+
+10 slides
+PE: Practice Exercise
+
+15 questions
+L9 Sequence and Series I – Arithmetic Progression
+Assignment Sheet
+
+1 slide
+C1: Introduction to Sequence
+
+1 slide
+C2: Rule of Sequence
+
+1 slide
+C3: Arithmetic Progression (A.P.) – A Special Sequence
+
+1 slide
+C4: Deriving Formulae in A.P.
+
+1 slide
+C5: Problems in A.P.
+
+15 slides
+PE: Practice Exercise
+
+15 questions
+L10 Sequence and Series II – Geometric Progression (Extra Lesson)
+Assignment Sheet
+
+1 slide
+C1: Introduction to Geometric Progression
+
+1 slide
+C2: Hexagonal Progression
+
+1 slide
+C3: Deriving Formulae in G.P.
+
+1 slide
+C4: Convergent and Divergent
+
+1 slide
+C5: Convergent G.P. and Divergent G.P.
+
+1 slide
+C6: Sum to infinite terms of a Convergent G.P.
+
+1 slide
+C6: Solved Example
+
+1 slide
+C7: Problems in G.P.
+
+14 slides
+PE: Practice Exercise
+
+15 questions
+L11 Sequence and Series III (Extra Lesson)
+C1: Introduction to Harmonic Progression
+
+1 slide
+C1: Solved Examples in H.P.
+
+4 slides
+C2: Convergent H.P. with Divergent Series
+
+1 slide
+C3: Harmonic Mean (H.M.)
+
+1 slide
+C4: A.G.P – A Special Sequence
+
+1 slide
+C4: Solved Examples in A.G.P.
+
+3 slides
+C5: Problems relating A.P., G.P. and H.P.
+
+8 slides
+PE: Practice Exercise
+
+15 questions
+L12 Complex Numbers I
+C1: Introduction to Complex Numbers I
+
+1 slide
+C1: Introduction to Complex Numbers II
+
+1 slide
+C1: Introduction to Complex Numbers III
+
+1 slide
+C1: Practice Exercise
+
+6 questions
+C2: Operations on Complex Numbers I
+
+1 slide
+C2: Operations on Complex Numbers II
+
+1 slide
+C2: Practice Exercise
+
+10 questions
+L13 Complex Numbers II
+C1: Vectors in the Argand Plane I
+
+1 slide
+C1: Vectors in the Argand Plane II
+
+1 slide
+C1: Practice Exercise
+
+5 questions
+C2: Complex Conjugates and Triangle Inequality Theorem I
+
+1 slide
+C2: Complex Conjugates and Triangle Inequality Theorem II
+
+1 slide
+C2: Practice Exercise
+
+12 questions
+L14 Complex Numbers III
+C1: Polar Form of Complex Numbers I
+
+1 slide
+C1: Polar Form of Complex Numbers II
+
+1 slide
+C1: Solved Examples
+
+5 slides
+C2: Unimodular Complex Numbers
+
+1 slide
+C2: Solved Examples
+
+2 slides
+C3: De Movire’s Theorem and Proof
+
+1 slide
+C3: Solved Examples
+
+3 slides
+C4: Complex Numbers and Euler’s Formula I
+
+1 slide
+C4: Complex Numbers and Euler’s Formula II
+
+1 slide
+C4: Solved Examples
+
+3 slides
+PE: Practice Exercise
+
+15 questions
+L15 Complex Numbers IV
+C1: Operations on Euler’s form I
+
+1 slide
+C1: Operations on Euler’s form II
+
+1 slide
+C1: Operations on Euler’s form III
+
+1 slide
+C1: Operations on Euler’s form IV
+
+1 slide
+C1: Solved Examples
+
+4 slides
+C2: Roots of Complex Numbers I
+
+1 slide
+C2: Roots of Complex Numbers II
+
+1 slide
+C2: Roots of Complex Numbers III
+
+1 slide
+C2: Solved Examples
+
+7 slides
+C3: Geometry and Complex Numbers I
+
+1 slide
+C3: Geometry and Complex Numbers II
+
+1 slide
+C3: Geometry and Complex Numbers III
+
+1 slide
+C3: Solved Examples
+
+2 slides
+PE: Practice Exercise
+
+15 questions
+L16 Quadratic Equations I
+C1: Introduction to Quadratic Equations I
+
+1 slide
+C1: Introduction to Quadratic Equations II
+
+1 slide
+C1: Solved Examples
+
+5 slides
+C2: Complex Roots I
+
+1 slide
+C2: Complex Roots II
+
+1 slide
+C2: Solved Examples
+
+6 slides
+C3: Sum and Product of Roots I
+
+1 slide
+C3: Sum and Product of Roots II
+
+1 slide
+C3: Solved Examples
+
+5 slides
+PE: Practice Exercise
+
+15 questions
+L17 Quadratic Equations II
+C1: Polynomials and Identities I
+
+1 slide
+C1: Polynomials and Identities II
+
+1 slide
+C1: Solved Examples
+
+7 slides
+C2: Nature of Roots using graphs I
+
+1 slide
+C2: Nature of Roots using graphs II
+
+1 slide
+C2: Nature of Roots using graphs III
+
+1 slide
+C2: Solved Examples
+
+3 slides
+C3: Location of Roots
+
+1 slide
+C3: Solved Examples
+
+3 slides
+C4: Descartes Rule of Signs
+
+1 slide
+C4: Solved Example
+
+1 slide
+C5: Modulus in Quadratic Equations
+
+1 slide
+C5: Solved Examples
+
+2 slides
+PE: Practice Exercise
+
+15 questions
+L18 Quadratic Equations III
+C1: Componendo and Dividendo
+
+1 slide
+C1: Solved Example
+
+1 slide
+C2: Condition for One Common Root
+
+1 slide
+C2: Solved Examples
+
+5 slides
+C3: Graph of a Polynomial I
+
+1 slide
+C3: Graph of a Polynomial II
+
+1 slide
+C3: Solved Examples
+
+2 slides
+C4: No Solution Intervals
+
+1 slide
+C4: Solved Example
+
+1 slide
+PE: Practice Exercise
+
+5 questions
+PE: Practice Exercise [Advanced]
+
+10 questions
+L19 Coordinate Geometry - Straight lines I
+C1: Introduction to Co-ordinate Geometry
+
+1 slide
+C1: Solved Examples
+
+4 slides
+C2: Midpoint and Section formula
+
+1 slide
+C2: Solved Examples
+
+5 slides
+C3: Locus of an Equation
+
+1 slide
+C3: Solved Examples
+
+3 slides
+SE: JEE Solved Example
+
+1 slide
+PE: Practice Exercise
+
+15 questions
+L20 Coordinate Geometry - Straight lines II
+C1: Slope and Equation of a line
+
+2 slides
+C1: Solved Examples
+
+4 slides
+C2: Intersection of two lines on a plane
+
+1 slide
+C2: Solved Examples
+
+2 slides
+C3: Equation of a line: Slope point
+
+1 slide
+C3: Solved Examples
+
+3 slides
+C4: Equation of a line: Two points
+
+1 slide
+C4: Solved Examples
+
+3 slides
+C5: Equation of a line: Intercept form
+
+1 slide
+C5: Solved Examples
+
+4 slides
+C6: Equation of a straight line: Recap
+
+1 slide
+C6: Solved Examples
+
+2 slides
+C7: Equation of a line: Perpendicular form
+
+1 slide
+C7: Solved Examples
+
+4 slides
+SE: JEE Solved Examples
+
+6 slides
+PE: Practice Exercise
+
+15 questions
+L21 Coordinate Geometry - Straight lines III
+C1: Length of perpendiculars
+
+3 slides
+C1: Solved Examples
+
+4 slides
+C2: Area of Polygons
+
+4 slides
+C2: Solved Examples
+
+5 slides
+C3: Foot of the perpendicular and Image of a point
+
+3 slides
+C3: Solved Examples
+
+2 slides
+C4: Condition for two points to lie on the same side of a line
+
+1 slide
+C4: Solved Examples
+
+2 slides
+C5: Angles between straight lines and bisectors of angles between straight lines
+
+2 slides
+C5: Solved Examples
+
+3 slides
+C6: Points in a triangle
+
+2 slides
+C6: Solved Examples
+
+4 slides
+PE: Practice Exercise
+
+14 questions
+L22 Binomial Theorem
+C1: Binomial Theorem
+
+1 slide
+C2: General Term and Middle Term
+
+2 slides
+C2: Solved Examples
+
+7 slides
+C3: Summation of Series including Binomial Co-efficient
+
+1 slide
+C3: Solved Examples
+
+6 slides
+C4: Binomial Theorem for any Index
+
+1 slide
+C4: Solved Examples
+
+4 slides
+C5: Some Important Results
+
+2 slides
+C5: Solved Examples
+
+2 slides
+PE: Practice Exercise
+
+15 questions
+L23 Inequalities
+C1: Rules of Inequalities
+
+1 slide
+C1: Solved Examples
+
+6 slides
+C1: Practice Exercise
+
+5 questions
+C2: Useful Results in Inequalities
+
+1 slide
+C2: Solved Examples
+
+3 slides
+C2: Practice Exercise
+
+3 questions
+L24 Linear Inequalities
+C1: Solution of Linear Inequality in one variable
+
+1 slide
+C1: Solved Examples
+
+6 slides
+C2: Graphical Solution of system of Linear Inequalities in two variables
+
+1 slide
+C2: Solved Examples
+
+4 slides
+PE: Practice Exercise
+
+6 questions
+L25 Mathematical Induction
+C1: What is Mathematical Induction?
+
+1 slide
+C1: Solved Examples
+
+15 slides
+PE: Practice Exercise
+
+10 questions
+L26 Mathematical Reasoning
+C1: Introduction to Mathematical Reasoning
+
+1 slide
+C1: Solved Examples
+
+6 slides
+C2: Validating Statements
+
+1 slide
+C2: Solved Examples
+
+4 slides
+L27 Limits I
+Introduction to Limits
+
+1 slide
+From Indeterminate Quantities to Limits
+
+1 slide
+Approximations and Errors (Why is 0 so special?)
+
+1 slide
+Zeroes and Infinities
+
+1 slide
+Indeterminate and well defined forms
+
+1 slide
+Practice Exercise
+
+3 questions
+Limits of Functions
+
+1 slide
+Practice Exercise
+
+3 questions
+Orders of Zeroes
+
+1 slide
+Orders of Infinities
+
+1 slide
+Limits using orders of zeroes and infinities
+
+1 slide
+Practice Exercise
+
+4 questions
+Algebraic Limits I
+
+1 slide
+Algebraic Limits II
+
+1 slide
+Algebraic Limits III
+
+1 slide
+Algebraic Limits IV
+
+1 slide
+Algebraic Limits V
+
+1 slide
+Algebraic Limits VI
+
+1 slide
+Practice Exercise
+
+13 questions
+Using limits for Approximation
+
+1 slide
+Complicated Calculations using Approximations
+
+1 slide
+Practice Exercise
+
+3 questions
+L28 Limits II
+Trigonometric Limits I
+
+1 slide
+Trigonometric Limits II
+
+1 slide
+Trigonometric Limits III
+
+1 slide
+Practice Exercise
+
+11 questions
+Sandwich Theorem I
+
+1 slide
+Sandwich Theorem II
+
+1 slide
+Practice Exercise
+
+2 questions
+Exponential and Logarithmic Functions I
+
+1 slide
+Exponential and Logarithmic Functions II
+
+1 slide
+Exponential and Logarithmic Functions III
+
+1 slide
+Graph for various functions
+
+1 slide
+Practice Exercise
+
+2 questions
+Exponential limits - cases
+
+1 slide
+More Exponential and logarithmic limits
+
+1 slide
+Practice Exercise
+
+15 questions
+L29 Differentiation in Limits
+C1: Approximation
+
+1 slide
+C2: Introduction to Derivatives
+
+1 slide
+C2: Solved Example
+
+1 slide
+C3: Slope of a curve
+
+1 slide
+C3: Solved Examples
+
+3 slides
+C4: Rules of derivatives
+
+1 slide
+C5: Chain Rule
+
+1 slide
+C5: Solved Examples
+
+2 slides
+C6: Recap
+
+1 slide
+C6: Solved Examples
+
+4 slides
+PE: Practice Exercise
+
+10 questions
+L30 Fun with Differentiation I
+C1: Basic Differentiation I
+
+1 slide
+C1: Basic Differentiation II
+
+1 slide
+C1: Basic Differentiation III
+
+1 slide
+C1: Solved Examples
+
+5 slides
+C2: Chain Rule I
+
+1 slide
+C2: Chain Rule II
+
+1 slide
+C2: Chain Rule III
+
+1 slide
+C2: Solved Examples
+
+2 slides
+C3: Useful Differentiation Formulas I
+
+1 slide
+C3: Useful Differentiation Formulas II
+
+1 slide
+C3: Solved Examples
+
+3 slides
+PE: Practice Exercise
+
+10 questions
+L31 Fun with Differentiation II
+C1: u/v method
+
+1 slide
+C2: Differentiation of Inverse Trigonometric Functions I
+
+1 slide
+C2: Differentiation of Inverse Trigonometric Functions II
+
+1 slide
+C2: Solved Examples
+
+2 slides
+C3: Complex Differentiation I – Lecture 1
+
+1 slide
+C3: Complex Differentiation I – Lecture 2
+
+1 slide
+C3: Solved Examples
+
+4 slides
+C4: Complex Differentiation II – Lecture 1
+
+1 slide
+C4: Complex Differentiation II – Lecture 2
+
+1 slide
+C4: Complex Differentiation II – Lecture 3
+
+1 slide
+C4: Complex Differentiation II – Lecture 4
+
+1 slide
+C4: Solved Examples
+
+10 slides
+PE: Practice Exercise
+
+15 questions
+L32 Sets
+C1: Introduction to Sets
+
+1 slide
+C1: Solved Examples
+
+2 slides
+C2: Types of Sets
+
+1 slide
+C2: Solved Examples
+
+3 slides
+C3: Sets containing other sets
+
+1 slide
+C3: Solved Example
+
+1 slide
+C4: Operations on Sets
+
+1 slide
+C4: Solved Examples
+
+4 slides
+C5: Laws of Operations on Sets
+
+1 slide
+C5: Solved Examples
+
+2 slides
+C6: Difference of Sets
+
+1 slide
+C6: Solved Examples
+
+2 slides
+C7: Number of elements and Operations on Sets
+
+1 slide
+C7: Solved Examples
+
+2 slides
+Practice Exercise
+
+13 questions
+L33 Relations
+C1: Cartesian Product of Sets
+
+1 slide
+C1: Solved Examples
+
+3 slides
+C2: Relations
+
+1 slide
+C2: Solved Examples
+
+2 slides
+C3: Domain and Range of a Relation
+
+1 slide
+Solved Examples
+
+5 slides
+Practice Exercise
+
+10 questions
+L34 Functions
+C1: Functions
+
+1 slide
+C2: Domain of real valued functions
+
+1 slide
+C3: Types of Functions
+
+1 slide
+Solved Examples
+
+6 slides
+C4: Range of a functions
+
+1 slide
+Solved Examples
+
+4 slides
+C5: Operations on Functions, Rational and Trigonometric Functions
+
+1 slide
+Solved Example
+
+1 slide
+Practice Exercise
+
+12 questions
+L35 Sets, Relations and Functions (Extra Lesson)
+C1: Introduction to Set Theory
+
+4 slides
+C2: Subsets
+
+4 slides
+C2: Solved Example
+
+1 slide
+C3: Types and Operations of Sets
+
+7 slides
+C3: Solved Examples
+
+3 slides
+C4: Cartesian Product of Sets
+
+1 slide
+C4: Solved Example
+
+1 slide
+C5: Domain, Co-domain and Range of a Relation
+
+1 slide
+C5: Solved Examples
+
+3 slides
+C6: Types of Relations
+
+2 slides
+C7: Functions
+
+7 slides
+C7: Solved Examples
+
+9 slides
+SE: JEE Solved Examples
+
+7 slides
+PE: Practice Exercise
+
+16 questions
+L36 Permutations
+C1: Factorial
+
+1 slide
+C1: Solved Examples
+
+4 slides
+C2: Fundamental Principle of Counting
+
+1 slide
+C2: Solved Examples
+
+3 slides
+C3: Arrangement of Objects
+
+1 slide
+C3: Solved Example
+
+1 slide
+C4: Arrangement of r out of n Objects
+
+1 slide
+C4: Solved Example
+
+1 slide
+C5: Arrangement of objects with ‘n’ number of repetitions
+
+1 slide
+C5: Solved Examples
+
+2 slides
+C6: Arrangement of n objects, with P1 of one kind and P2 of another kind
+
+1 slide
+C6: Solved Example
+
+1 slide
+C7: Arrangement with condition
+
+1 slide
+C7: Solved Example
+
+1 slide
+Practice Exercise
+
+10 questions
+L37 Combinations
+C1: Combinations
+
+1 slide
+Solved Example
+
+1 slide
+C2: Properties of nCr
+
+1 slide
+Solved Examples
+
+8 slides
+C3: Selection and Arrangement with Repetition
+
+1 slide
+Solved Examples
+
+2 slides
+Practice Exercise
+
+10 questions
+L38 Permutations and Combinations I (Extra Lesson)
+C1: Counting Tip 1
+
+6 slides
+C2: Counting Tip 2
+
+4 slides
+C3: Counting Tip 3
+
+14 slides
+C4: Counting Tip 4, 5, 6, 7
+
+7 slides
+C5: Counting Tip 8, 9, 10
+
+9 slides
+SE: Solved Examples
+
+15 slides
+PE: Practice Exercise
+
+15 questions
+L39 Permutations and Combinations II (Extra Lesson)
+C1: Introduction to Linear Permutation
+
+3 slides
+C2: Introduction to Circular Permutation
+
+4 slides
+C3: General Formula
+
+1 slide
+SE: Solved Examples
+
+24 slides
+PE: Practice Exercise
+
+20 questions
+L40 Permutations and Combinations III (Extra Lesson)
+C1: Forming/Grouping
+
+7 slides
+C2: Inclusion – Exclusion Principle
+
+5 slides
+C3: Rank
+
+4 slides
+C4: Group Selection
+
+7 slides
+C5: Number of distinct figures in a specific configuration
+
+4 slides
+Practice Exercise
+
+28 questions
+L41 Circles I
+C1: Equation of Circle
+
+1 slide
+C1: Solved Examples
+
+5 slides
+C2: Review of properties in Circles
+
+1 slide
+C3: Other ways to find the equation of circle
+
+1 slide
+C3: Solved Examples
+
+3 slides
+C4: Circles with special properties
+
+1 slide
+C4: Solved Examples
+
+3 slides
+C5: Intercepts made by a circle on axes
+
+1 slide
+C5: Solved Examples
+
+3 slides
+PE: Practice Exercise
+
+8 questions
+L42 Circles II
+C1: Point and line of a circle
+
+1 slide
+C1: Solved Example
+
+1 slide
+C2: Tangents to a circle
+
+1 slide
+C2: Solved Examples
+
+2 slides
+C3: Tangent at a point on a circle
+
+1 slide
+C3: Solved Examples
+
+3 slides
+C4: Tangents from an external point of the circle
+
+1 slide
+C4: Solved Examples
+
+3 slides
+C5: Systems of circles
+
+1 slide
+C5: Solved Examples
+
+4 slides
+C6: Common Tangents of a Circles
+
+1 slide
+C6: Solved Examples
+
+4 slides
+C7: Orthogonal Circles
+
+1 slide
+C7: Solved Examples
+
+3 slides
+PE: Practice Exercise
+
+8 questions
+L43 Conics I
+C1: Basics of Conic sections
+
+2 slides
+C1: Solved Examples
+
+3 slides
+C2: Parabola
+
+1 slide
+C2: Solved Examples
+
+2 slides
+C3: Tangents to a Parabola
+
+1 slide
+C3: Solved Examples
+
+5 slides
+C4: Normal to a Parabola
+
+1 slide
+C4: Solved Examples
+
+2 slides
+PE: Practice Exercise
+
+8 questions
+L44 Conics II
+C1: Introduction to Ellipse
+
+1 slide
+C2: Parametric Forms of Ellipse
+
+1 slide
+SE: Solved Examples
+
+6 slides
+C3: Tangents to an Ellipse
+
+1 slide
+SE: Solved Examples
+
+4 slides
+C4: Hyperbola
+
+1 slide
+SE: Solved Examples
+
+3 slides
+C5: Condition to be a tangent for hyperbola
+
+1 slide
+SE: Solved Examples
+
+2 slides
+C6: Rectangular Hyperbola
+
+1 slide
+SE: Solved Examples
+
+2 slides
+PE: Practice Exercise
+
+8 questions
+L45 Conics (Extra Lesson)
+C1: Introduction to Conic Section
+
+3 slides
+C2: Parabola
+
+6 slides
+C2: Solved Examples
+
+4 slides
+C3: Recap
+
+1 slide
+C4: Ellipse
+
+7 slides
+C5: Hyperbola
+
+2 slides
+C6: Analysing Conic Section
+
+2 slides
+PE: Practice Exercise
+
+5 questions
+L46 Introduction to 3D Geometry
+C1: Introduction to 3D Geometry
+
+1 slide
+C1: Solved Examples
+
+6 slides
+C2: Direction cosines of a line
+
+1 slide
+C2: Solved Examples
+
+3 slides
+C3: Direction ratios of a line
+
+1 slide
+C3: Solved Example
+
+1 slide
+C4: Angle between directions
+
+1 slide
+C4: Solved Examples
+
+5 slides
+PE: Practice Exercise
+
+16 questions
+L47 Probability
+C1: Probability of an event
+
+1 slide
+C1: Solved Examples
+
+3 slides
+C2: Rules of Probability
+
+2 slides
+C2: Solved Examples
+
+7 slides
+PE: Practice Exercise
+
+8 questions
+L48 Theory of Equations
+C1: Solving Quadratic Equations
+
+1 slide
+C2: Complex roots of Quadratic Equations
+
+1 slide
+SE: Solved Examples
+
+8 slides
+C3: Plotting graph of Quadratic Equation
+
+1 slide
+C4: Solving Quadratic Inequalities
+
+1 slide
+C5: Range of Quadratic Expressions
+
+1 slide
+SE: Solved Examples
+
+6 slides
+C6: Solution of other types of equations
+
+1 slide
+C7: Equations with absolute value
+
+1 slide
+C8: Solving special fourth degree equations
+
+1 slide
+SE: Solved Examples
+
+7 slides
+PE: Practice Exercise
+
+13 questions
+L49 Statistics
+C1: Mean deviation about Mean and Median
+
+1 slide
+C1: Solved Examples
+
+6 slides
+C2: Variance and Standard Deviation
+
+1 slide
+C2: Solved Examples
+
+8 slides
+C3: Coefficient of Variation
+
+1 slide
+C3: Solved Examples
+
+3 slides
+PE: Practice Exercise
+
+7 questions
+footer_logo
+Bhim Sena building, New no: 3, Murrays gate road,
+First Floor, Venus Colony, Alwarpet, Chennai, 600018.
+learn@ahaguru.com
++91 96001 00090 +91 96001 98493
+© AhaGuru, All rights reserved. This site is best viewed in Google Chrome. Terms & Conditions | Privacy | Disclaimer
