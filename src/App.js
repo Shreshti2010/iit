@@ -220,27 +220,36 @@ function App() {
         {/* Aha Maths Page */}
         <div className={`page ${activePage === 'maths' ? 'active' : ''}`}>
           <h1>📐 Aha Guru Mathematics</h1>
+          <div style={{ marginBottom: '20px', padding: '16px', backgroundColor: '#dbeafe', borderRadius: 'var(--radius)', borderLeft: '4px solid var(--accent)', color: '#0c2d6b' }}>
+            <strong>{maths.length} Comprehensive Lessons</strong> with {maths.reduce((sum, l) => sum + l.chapters.length, 0)} chapters covering all topics
+          </div>
           
-          {maths.map(lesson => (
+          {maths.map((lesson, idx) => (
             <div key={lesson.id} className="expandable-section">
               <div
                 className={`expandable-header ${expandedLessons[lesson.id] ? 'expanded' : ''}`}
                 onClick={() => toggleExpanded(lesson.id)}
               >
-                <span>{lesson.title}</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ fontSize: '1.2em' }}>L{idx + 1}</span>
+                  <span>{lesson.title}</span>
+                </span>
                 <span className="expandable-toggle">▼</span>
               </div>
               <div className={`expandable-content ${expandedLessons[lesson.id] ? 'expanded' : ''}`}>
                 <ul className="chapter-list">
-                  {lesson.chapters.map(chap => (
+                  {lesson.chapters.map((chap, chapIdx) => (
                     <li key={chap.id} className="chapter-item">
                       <div className="chapter-name">
+                        <span style={{ color: 'var(--muted)', marginRight: '12px', fontSize: '0.9em' }}>
+                          C{chapIdx + 1}
+                        </span>
                         {chap.title}
                       </div>
                       <div className="chapter-meta">
                         {chap.slides && `${chap.slides} slides`}
-                        {chap.questions && `${chap.questions} Q`}
-                        {!chap.slides && !chap.questions && 'Content'}
+                        {chap.questions && `${chap.questions} Qs`}
+                        {!chap.slides && !chap.questions && '∀'}
                       </div>
                     </li>
                   ))}
