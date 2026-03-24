@@ -22,13 +22,6 @@ function App() {
       .then(setYts);
   }, []);
 
-  const toggleLesson = (lessonId) => {
-    setExpandedLessons(prev => ({
-      ...prev,
-      [lessonId]: !prev[lessonId]
-    }));
-  };
-
   const toggleExpanded = (lessonId) => {
     setExpandedLessons(prev => ({
       ...prev,
