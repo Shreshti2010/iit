@@ -1,19 +1,15 @@
 #!/bin/bash
 set -e
 
-echo "🔨 Starting Cloudflare Pages Build..."
-echo ""
+echo "🔨 Cloudflare Pages Build Started"
 
-echo "📦 Installing dependencies with npm install (ignoring lock)..."
-npm install --no-package-lock --prefer-offline
+echo "📦 Installing dependencies..."
+npm install --prefer-offline --no-audit
 
-echo ""
-echo "🏗️  Building React app..."
+echo "🏗️  Building React application..."
 npm run build
 
+echo "✅ Build successful!"
 echo ""
-echo "✅ Build complete!"
-echo "📁 Build folder size:"
-du -sh build/
+ls -lah build/ | head -5
 
-exit 0

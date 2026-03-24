@@ -27,16 +27,13 @@ Update these fields:
 
 | Setting | Value |
 |---------|-------|
-| **Build command** | `bash cloudflare-build.sh` |
+| **Build command** | `npm install --prefer-offline && npm run build` |
 | **Build output directory** | `build` |
 | **Root directory** | `/` |
 
-**Screenshot example:**
+**Copy this exact build command:**
 ```
-Build command:        bash cloudflare-build.sh
-Build output dir:     build
-Root directory:       /
-Framework preset:     None
+npm install --prefer-offline && npm run build
 ```
 
 ### Step 3: Clear Environment Variables
@@ -76,15 +73,14 @@ You should see in the build logs:
 
 ---
 
-## 🎯 What the Custom Build Script Does
+## 🎯 Why This Works
 
-The `cloudflare-build.sh` script:
-- ✅ Installs dependencies with `npm install --no-package-lock`
-- ✅ Resolves dependencies flexibly (no lock file constraint)
-- ✅ Uses `--prefer-offline` for faster builds
-- ✅ Runs the full build process
-- ✅ Verifies build folder was created
-- ✅ Reports build success
+The build command uses:
+- ✅ `npm install --prefer-offline` - Installs from cache when possible, skips lock file strict checks
+- ✅ `npm run build` - Runs the standard React build script
+- ✅ Works directly without needing a separate script file
+
+This bypasses the `npm ci` strict lock file checking that was causing the `yaml@2.8.3` error.
 
 ---
 
@@ -127,8 +123,9 @@ Try manually triggering a rebuild:
 
 ## ✅ Verified & Working
 
-- [x] Custom bash build script created
-- [x] npm install with --no-package-lock configured
+- [x] Direct npm commands configured (no script files needed)
+- [x] Build command: `npm install --prefer-offline && npm run build`
+- [x] npm install uses flexible dependency resolution
 - [x] Build output directory set to `build`
 - [x] SPA routing (_redirects) included
 - [x] Ready for Cloudflare Pages deployment
