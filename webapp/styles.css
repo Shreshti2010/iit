@@ -373,3 +373,26 @@ body {
 .timetable-table td {
   min-width: 90px;
 }
+/* JEE Superset dropdown menu */
+.nav-dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-left: 18px;
+  padding-left: 8px;
+  border-left: 2px solid var(--accent);
+}
+.jee-sub {
+  margin-left: 12px;
+  font-size: 0.98em;
+  color: var(--accent);
+  background: none;
+  border: none;
+  border-radius: 8px;
+  padding-left: 18px;
+  transition: background 0.2s, color 0.2s;
+}
+.jee-sub.active, .jee-sub:hover {
+  background: #232e4a;
+  color: #fff;
+}
