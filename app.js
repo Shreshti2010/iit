@@ -487,24 +487,38 @@ fetch('aha-maths.json')
   });
 
 // ===== JEE SUPERSET =====
-const SUPERSET_KEY = 'iit_superset_v1';
-let supersetData = { jee: [], yr1: [], yr2: [], eapcet: [] };
+const SUPERSET_KEY = 'iit_superset_v2';
+const SUPERSET_SUBJECTS = [
+  { key: 'maths',     label: 'Maths',     color: 'var(--math)' },
+  { key: 'physics',   label: 'Physics',   color: 'var(--physics)' },
+  { key: 'chemistry', label: 'Chemistry', color: 'var(--ochem)' },
+];
+const EMPTY_SUPERSET = () => ({
+  maths:     { jee: [], yr1: [], yr2: [], eapcet: [] },
+  physics:   { jee: [], yr1: [], yr2: [], eapcet: [] },
+  chemistry: { jee: [], yr1: [], yr2: [], eapcet: [] },
+});
+let supersetData = EMPTY_SUPERSET();
 function loadSuperset() {
-  try { supersetData = JSON.parse(localStorage.getItem(SUPERSET_KEY)) || { jee: [], yr1: [], yr2: [], eapcet: [] }; } catch { supersetData = { jee: [], yr1: [], yr2: [], eapcet: [] }; }
+  try { supersetData = JSON.parse(localStorage.getItem(SUPERSET_KEY)) || EMPTY_SUPERSET(); } catch { supersetData = EMPTY_SUPERSET(); }
+  // ensure all keys exist
+  SUPERSET_SUBJECTS.forEach(s => { if (!supersetData[s.key]) supersetData[s.key] = { jee: [], yr1: [], yr2: [], eapcet: [] }; });
 }
 function saveSuperset() { localStorage.setItem(SUPERSET_KEY, JSON.stringify(supersetData)); }
 
-function renderSupersetCol(bodyId, key, isChecklist) {
+function renderSupersetCol(bodyId, subjKey, colKey, isChecklist) {
   const body = document.getElementById(bodyId);
   if (!body) return;
-  if (supersetData[key].length === 0) {
+  const items = supersetData[subjKey][colKey];
+  const jeeItems = supersetData[subjKey].jee;
+  if (items.length === 0) {
     body.innerHTML = `<div style="padding:16px;color:var(--text-muted);font-size:0.85em">No items yet</div>`;
     return;
   }
-  body.innerHTML = supersetData[key].map((item, i) => isChecklist
+  body.innerHTML = items.map((item, i) => isChecklist
     ? `<div class="superset-check-item${item.done ? ' done' : ''}">
-        <input type="checkbox" ${item.done ? 'checked' : ''} data-key="${key}" data-i="${i}">
-        <span>${supersetData.jee[i] ? supersetData.jee[i].text : ''}</span>
+        <input type="checkbox" ${item.done ? 'checked' : ''} data-subj="${subjKey}" data-col="${colKey}" data-i="${i}">
+        <span>${jeeItems[i] ? jeeItems[i].text : ''}</span>
        </div>`
     : `<div class="superset-jee-item">
         <span class="superset-num">${i + 1}.</span>
@@ -514,43 +528,47 @@ function renderSupersetCol(bodyId, key, isChecklist) {
   if (isChecklist) {
     body.querySelectorAll('input[type=checkbox]').forEach(cb => {
       cb.addEventListener('change', () => {
-        supersetData[cb.dataset.key][cb.dataset.i].done = cb.checked;
+        supersetData[cb.dataset.subj][cb.dataset.col][cb.dataset.i].done = cb.checked;
         saveSuperset();
-        renderSupersetCol(bodyId, key, true);
+        renderSupersetCol(bodyId, subjKey, colKey, true);
       });
     });
   }
 }
 
+function renderSupersetSubject(subjKey) {
+  const d = supersetData[subjKey];
+  // sync checklist lengths to jee
+  ['yr1','yr2','eapcet'].forEach(col => {
+    while (d[col].length < d.jee.length) d[col].push({ done: false });
+  });
+  renderSupersetCol(`ss-${subjKey}-jee`,   subjKey, 'jee',   false);
+  renderSupersetCol(`ss-${subjKey}-yr1`,   subjKey, 'yr1',   true);
+  renderSupersetCol(`ss-${subjKey}-yr2`,   subjKey, 'yr2',   true);
+  renderSupersetCol(`ss-${subjKey}-eapcet`,subjKey, 'eapcet',true);
+}
+
 function renderSuperset() {
   loadSuperset();
-  renderSupersetCol('supersetJeeBody', 'jee', false);
-  // checklist cols mirror JEE topics
-  ['yr1','yr2','eapcet'].forEach(key => {
-    // sync: ensure same length as jee
-    while (supersetData[key].length < supersetData.jee.length) {
-      supersetData[key].push({ done: false });
-    }
-  });
-  renderSupersetCol('superset1stBody', 'yr1', true);
-  renderSupersetCol('superset2ndBody', 'yr2', true);
-  renderSupersetCol('supersetEapcetBody', 'eapcet', true);
+  SUPERSET_SUBJECTS.forEach(s => renderSupersetSubject(s.key));
 }
 
 function initSuperset() {
-  const btn = document.getElementById('supersetJeeAdd');
-  const inp = document.getElementById('supersetJeeInput');
-  if (!btn || !inp) return;
-  const add = () => {
-    const val = inp.value.trim();
-    if (!val) return;
-    supersetData.jee.push({ text: val });
-    saveSuperset();
-    inp.value = '';
-    renderSuperset(); // re-render all cols so ticklists sync
-  };
-  btn.addEventListener('click', add);
-  inp.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
+  SUPERSET_SUBJECTS.forEach(({ key }) => {
+    const btn = document.getElementById(`ss-${key}-add-btn`);
+    const inp = document.getElementById(`ss-${key}-add-inp`);
+    if (!btn || !inp) return;
+    const add = () => {
+      const val = inp.value.trim();
+      if (!val) return;
+      supersetData[key].jee.push({ text: val });
+      saveSuperset();
+      inp.value = '';
+      renderSupersetSubject(key);
+    };
+    btn.addEventListener('click', add);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
+  });
 }
 
 // ===== YTS =====

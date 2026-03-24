@@ -590,6 +590,15 @@ body {
 .syllabus-placeholder p { font-size: 0.95em; }
 
 /* ===== JEE SUPERSET PAGE ===== */
+.superset-subject-block { margin-bottom: 32px; }
+.superset-subject-heading {
+  font-size: 1em; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; padding: 10px 4px 12px;
+  border-bottom: 2px solid var(--border); margin-bottom: 14px;
+}
+.superset-subject-heading.math-heading    { color: var(--math);    border-color: var(--math); }
+.superset-subject-heading.physics-heading { color: var(--physics); border-color: var(--physics); }
+.superset-subject-heading.chem-heading    { color: var(--ochem);   border-color: var(--ochem); }
 .superset-grid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
