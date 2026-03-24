@@ -35,6 +35,9 @@ navBtns.forEach(btn => {
     if (btn.dataset.page === 'dashboard') renderDashboard();
     if (btn.dataset.page === 'progress') renderProgress();
     if (btn.dataset.page === 'ahaMaths') renderAhaMaths();
+    if (btn.dataset.page === 'jee-superset-maths') renderJeeSupersetTable('jeeSupersetTableMaths');
+    if (btn.dataset.page === 'jee-superset-physics') renderJeeSupersetTable('jeeSupersetTablePhysics');
+    if (btn.dataset.page === 'jee-superset-chemistry') renderJeeSupersetTable('jeeSupersetTableChemistry');
     if (btn.dataset.page === 'jee-superset') renderJeeSuperset();
     if (btn.dataset.page === 'yts') renderYtsTable();
     if (btn.dataset.page === 'timetable') renderTimetable();
@@ -345,6 +348,46 @@ function renderAhaMaths() {
       <li class="aha-topic">PE: Practice Exercise (7 questions)</li>
     </ul>
   `;
+}
+
+// Dropdown logic for JEE Superset
+const jeeDropdown = document.getElementById('jeeSupersetDropdown');
+const jeeDropdownMenu = document.getElementById('jeeSupersetDropdownMenu');
+const jeeCaret = document.getElementById('jeeSupersetCaret');
+jeeDropdown.addEventListener('click', () => {
+  const isClosed = jeeDropdownMenu.style.display === 'none';
+  jeeDropdownMenu.style.display = isClosed ? '' : 'none';
+  jeeCaret.innerHTML = isClosed ? '&#9660;' : '&#9654;'; // ▼ or ▶
+  jeeDropdown.classList.toggle('closed', !isClosed);
+});
+// Start closed
+jeeDropdownMenu.style.display = 'none';
+jeeCaret.innerHTML = '&#9654;';
+jeeDropdown.classList.add('closed');
+
+function renderJeeSupersetTable(tableId) {
+  const el = document.getElementById(tableId);
+  // Example topics for each subject
+  let topics = [];
+  if (tableId === 'jeeSupersetTableMaths') topics = [
+    'Quadratic Equations','Complex Numbers','Binomial Theorem','Probability','Matrices','Determinants','Sequences & Series','Limits','Continuity','Differentiability','Integration','Differential Equations','Vectors','3D Geometry','Straight Lines','Circles','Conic Sections','Statistics','Mathematical Reasoning','Relations & Functions','Trigonometry'
+  ];
+  if (tableId === 'jeeSupersetTablePhysics') topics = [
+    'Kinematics','Laws of Motion','Work, Energy & Power','Rotational Motion','Gravitation','Properties of Matter','Thermodynamics','Kinetic Theory','Oscillations','Waves','Electrostatics','Current Electricity','Magnetism','Electromagnetic Induction','Alternating Current','Optics','Dual Nature','Atoms & Nuclei','Electronic Devices','Communication Systems'
+  ];
+  if (tableId === 'jeeSupersetTableChemistry') topics = [
+    'Basic Concepts','Atomic Structure','Chemical Bonding','States of Matter','Thermodynamics','Equilibrium','Redox Reactions','Electrochemistry','Chemical Kinetics','Surface Chemistry','Periodic Table','Hydrogen','s-Block','p-Block','d & f Block','Coordination Compounds','Organic Chemistry Basics','Hydrocarbons','Haloalkanes & Haloarenes','Alcohols, Phenols, Ethers','Aldehydes, Ketones, Carboxylic Acids'
+  ];
+  let html = `<table class="superset-table"><thead><tr><th style="min-width:220px">JEE Topic</th><th>1st Year</th><th>2nd Year</th><th>EAPCET</th></tr></thead><tbody>`;
+  topics.forEach(topic => {
+    html += `<tr><td>${topic}</td>`;
+    ['y1','y2','eapcet'].forEach(() => {
+      html += `<td class="check-col"><input type="checkbox"></td>`;
+    });
+    html += `</tr>`;
+  });
+  html += `</tbody></table>`;
+  el.innerHTML = html;
 }
 
 // --- JEE Superset Table ---

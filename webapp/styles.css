@@ -81,10 +81,28 @@ body {
   border-left: 3px solid var(--accent);
   border-radius: 0 12px 12px 0;
   padding-left: 18px;
+  transition: background 0.2s, color 0.2s;
 }
 .sub-nav.active, .sub-nav:hover {
   background: #17203a;
   color: var(--accent);
+}
+/* Dropdown caret for nav-group-title */
+.nav-group-title.dropdown {
+  cursor: pointer;
+  position: relative;
+}
+.nav-group-title.dropdown:after {
+  content: '▼';
+  font-size: 0.7em;
+  position: absolute;
+  right: -18px;
+  top: 2px;
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+.nav-group-title.dropdown.closed:after {
+  transform: rotate(-90deg);
 }
 /* Main area */
 .main {
