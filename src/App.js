@@ -141,17 +141,18 @@ function DailyTimetable() {
     { time: '8:00 - 10:00 AM', activity: '📐 Mathematics', details: 'AhaGuru Lessons - Concepts & Theory', color: '#dbeafe', icon: '✍️', subject: 'math', hours: 2 },
     { time: '10:00 - 10:15 AM', activity: '☕ Short Break', details: 'Stretch, hydrate, prepare for next session', color: '#dcfce7', icon: '💧' },
     { time: '10:15 - 11:45 AM', activity: '📐 Mathematics', details: 'Examples, Practice Problems', color: '#dbeafe', icon: '🔢', subject: 'math', hours: 1.5 },
-    { time: '11:45 AM - 12:30 PM', activity: '⚡ Physics', details: 'AhaGuru Lessons - Concepts', color: '#fef3c7', icon: '⚛️', subject: 'physics', hours: 0.75 },
-    { time: '12:30 - 1:15 PM', activity: '🍽️ Lunch', details: 'Meal time + Rest', color: '#fecaca', icon: '🍴' },
-    { time: '1:15 - 2:45 PM', activity: '⚡ Physics', details: 'Problems, Applications, Practice', color: '#fef3c7', icon: '🔬', subject: 'physics', hours: 1.5 },
-    { time: '2:45 - 3:00 PM', activity: '☕ Short Break', details: 'Quick break, refresh', color: '#dcfce7', icon: '🚶' },
-    { time: '3:00 - 4:15 PM', activity: '🧪 Chemistry', details: 'AhaGuru Lessons - Concepts, Reactions, Calculations', color: '#f5e6ff', icon: '🧫', subject: 'chemistry', hours: 1.25 },
-    { time: '4:15 PM+', activity: '🎯 Evening Time', details: 'Personal time, recreation, revision notes', color: '#fef08a', icon: '🌆' },
+    { time: '11:45 AM - 12:00 PM', activity: '☕ Break after Maths', details: 'Rest & refresh after completing mathematics', color: '#dcfce7', icon: '💧' },
+    { time: '12:00 - 12:30 PM', activity: '⚡ Physics', details: 'AhaGuru Lessons - Concepts', color: '#fef3c7', icon: '⚛️', subject: 'physics', hours: 0.5 },
+    { time: '12:30 - 1:00 PM', activity: '🍽️ Lunch', details: 'Meal time + Quick Rest', color: '#fecaca', icon: '🍴' },
+    { time: '1:00 - 2:00 PM', activity: '⚡ Physics', details: 'Problems, Applications, Practice', color: '#fef3c7', icon: '🔬', subject: 'physics', hours: 1 },
+    { time: '2:00 - 2:15 PM', activity: '☕ Short Break', details: 'Quick break, refresh', color: '#dcfce7', icon: '🚶' },
+    { time: '2:15 - 4:30 PM', activity: '🧪 Chemistry', details: 'AhaGuru Lessons - Concepts, Reactions, Calculations, Deep Dive & Applications', color: '#f5e6ff', icon: '🧫', subject: 'chemistry', hours: 2.25 },
+    { time: '4:30 PM+', activity: '🎯 Evening Time', details: 'Personal time, recreation, revision notes', color: '#fef08a', icon: '🌆' },
   ];
 
   const mathTotal = 3.5;
-  const physicsTotal = 2.25;
-  const chemistryTotal = 1.25;
+  const physicsTotal = 1.5;
+  const chemistryTotal = 2.25;
 
   return (
     <div>
@@ -165,19 +166,19 @@ function DailyTimetable() {
         </div>
         <div className="card" style={{ backgroundColor: '#fef3c7', borderLeft: '4px solid #f59e0b' }}>
           <div style={{ fontSize: '0.9em', color: '#064e3b' }}>Physics</div>
-          <div style={{ fontSize: '2em', fontWeight: 'bold', color: '#f59e0b', marginTop: '4px' }}>{physicsTotal} hrs</div>
-          <div style={{ fontSize: '0.85em', color: 'var(--muted)', marginTop: '8px' }}>Ratio: 3 parts</div>
+          <div style={{ fontSize: '2em', fontWeight: 'bold', color: '#f59e0b', marginTop: '4px' }}>1.5 hrs</div>
+          <div style={{ fontSize: '0.85em', color: 'var(--muted)', marginTop: '8px' }}>Reduced for Chemistry focus</div>
         </div>
         <div className="card" style={{ backgroundColor: '#f5e6ff', borderLeft: '4px solid #a855f7' }}>
           <div style={{ fontSize: '0.9em', color: '#064e3b' }}>Chemistry</div>
           <div style={{ fontSize: '2em', fontWeight: 'bold', color: '#a855f7', marginTop: '4px' }}>{chemistryTotal} hrs</div>
-          <div style={{ fontSize: '0.85em', color: 'var(--muted)', marginTop: '8px' }}>Ratio: 3 parts</div>
+          <div style={{ fontSize: '0.85em', color: 'var(--muted)', marginTop: '8px' }}>+1 hour extra (extended study)</div>
         </div>
       </div>
 
       <div className="card" style={{ marginBottom: '24px', padding: '20px', backgroundColor: '#f3f4f6' }}>
-        <p><strong>⏰ Study Duration:</strong> 8 AM to 4 PM (8 hours with 1 hour lunch)</p>
-        <p style={{ marginTop: '8px', fontSize: '0.9em', color: 'var(--muted)' }}>Daily active study time: 7 hours | Total subjects: 7 hours</p>
+        <p><strong>⏰ Study Duration:</strong> 8 AM to 4:30 PM (8.5 hours with 30-min lunch + breaks)</p>
+        <p style={{ marginTop: '8px', fontSize: '0.9em', color: 'var(--muted)' }}>Daily active study time: 7.25 hours (Math 3.5h + Physics 1.5h + Chemistry 2.25h) | Breaks: 45 mins</p>
       </div>
 
       <h2 style={{ marginTop: '32px', marginBottom: '20px' }}>📊 Hour-by-Hour Schedule</h2>
