@@ -151,7 +151,6 @@ function DailyTimetable() {
   ];
 
   const mathTotal = 3.5;
-  const physicsTotal = 1.5;
   const chemistryTotal = 2.25;
 
   return (
