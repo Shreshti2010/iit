@@ -2,4 +2,7 @@
 name = "iit"
 pages_build_output_dir = "build"
 
+[build]
+command = "npm run build"
+
 [env.production]
