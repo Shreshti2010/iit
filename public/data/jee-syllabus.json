@@ -1,0 +1,200 @@
+[
+  {
+    "id": "physics",
+    "title": "Physics",
+    "topics": [
+      {
+        "id": "p1",
+        "name": "Mechanics",
+        "subtopics": "Kinematics, Newtons laws, Work-Energy theorem, Rotational dynamics, Rigid body mechanics, Simple harmonic motion, Waves"
+      },
+      {
+        "id": "p2",
+        "name": "Thermal Physics",
+        "subtopics": "Heat and temperature, Laws of thermodynamics, Kinetic theory, Phase transitions, Transport phenomena"
+      },
+      {
+        "id": "p3",
+        "name": "Electrostatics",
+        "subtopics": "Coulombs law, Electric field, Gauss law, Electric potential, Conductors, Capacitors, Dielectrics"
+      },
+      {
+        "id": "p4",
+        "name": "Current Electricity",
+        "subtopics": "Electric current, Ohms law, EMF, Kirchhoffs laws, Circuits, Resistivity, Power dissipation"
+      },
+      {
+        "id": "p5",
+        "name": "Magnetism",
+        "subtopics": "Magnetic field, Lorentz force, Biot-Savart law, Amperes law, Torque on dipole, Earth's magnetism"
+      },
+      {
+        "id": "p6",
+        "name": "Electromagnetic Induction",
+        "subtopics": "Faraday's law, Lenz's law, Motional EMF, Inductance, Transformers, Energy in magnetic field"
+      },
+      {
+        "id": "p7",
+        "name": "Ray Optics",
+        "subtopics": "Reflection, Refraction, Lens formula, Optical instruments, Dispersion, Prism"
+      },
+      {
+        "id": "p8",
+        "name": "Wave Optics",
+        "subtopics": "Interference, Diffraction, Polarization, Young's double slit, Single slit, Diffraction grating"
+      },
+      {
+        "id": "p9",
+        "name": "Modern Physics",
+        "subtopics": "Photoelectric effect, X-rays, Matter waves, Bohr's model, Hydrogen spectrum, Radioactivity, Nuclear reactions"
+      }
+    ]
+  },
+  {
+    "id": "chemistry",
+    "title": "Chemistry",
+    "topics": [
+      {
+        "id": "c1",
+        "name": "Atomic Structure and Periodicity",
+        "subtopics": "Bohr model, Quantum numbers, Orbitals, Periodic table, Periodic properties, Screening effect"
+      },
+      {
+        "id": "c2",
+        "name": "Chemical Bonding",
+        "subtopics": "Ionic bonding, Covalent bonding, Metallic bonding, VBT, LCAO, Hybridization, Bond polarity"
+      },
+      {
+        "id": "c3",
+        "name": "States of Matter",
+        "subtopics": "Gas laws, Kinetic theory, Ideal and real gases, Liquid properties, Solid structures, Phase diagrams"
+      },
+      {
+        "id": "c4",
+        "name": "Thermodynamics and Kinetics",
+        "subtopics": "First law, Enthalpy, Hess's law, Entropy, Gibbs energy, Rate laws, Activation energy, Reaction mechanisms"
+      },
+      {
+        "id": "c5",
+        "name": "Equilibrium",
+        "subtopics": "Chemical equilibrium, Equilibrium constant, Le Chatelier principle, Ionic equilibrium, pH, Buffer solutions"
+      },
+      {
+        "id": "c6",
+        "name": "Electrochemistry",
+        "subtopics": "Galvanic cells, EMF, Nernst equation, Faraday laws, Electroplating, Corrosion"
+      },
+      {
+        "id": "c7",
+        "name": "s, p, d and f Block Elements",
+        "subtopics": "Group trends, Alkali metals, Halogens, Transition metals, Lanthanides, Actinides, Coordination complexes"
+      },
+      {
+        "id": "c8",
+        "name": "Organic Chemistry",
+        "subtopics": "Alkanes, Alkenes, Alkynes, Aromatic compounds, Mechanism of reactions, Isomerism, Substitution, Elimination, Addition"
+      },
+      {
+        "id": "c9",
+        "name": "Functional Groups",
+        "subtopics": "Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic acids, Amines, Esters, Acid derivatives"
+      },
+      {
+        "id": "c10",
+        "name": "Polymers and Biomolecules",
+        "subtopics": "Polymerization, Plastics, Synthetic fibers, Carbohydrates, Proteins, Enzymes, Nucleic acids"
+      }
+    ]
+  },
+  {
+    "id": "mathematics",
+    "title": "Mathematics",
+    "topics": [
+      {
+        "id": "m1",
+        "name": "Sets, Relations and Functions",
+        "subtopics": "Set theory, Relations, Functions, Compositions, Inverse functions, Binary operations"
+      },
+      {
+        "id": "m2",
+        "name": "Complex Numbers",
+        "subtopics": "Algebra of complex numbers, Modulus and argument, Conjugate, De Moivre's theorem, Roots, Locus"
+      },
+      {
+        "id": "m3",
+        "name": "Quadratic Functions and Equations",
+        "subtopics": "Quadratic functions, Standard form, Vertex form, Solving quadratic equations, Nature of roots, Graphs, Quadratic inequalities, Maximum and minimum values, Applications"
+      },
+      {
+        "id": "m4",
+        "name": "Progressions",
+        "subtopics": "Arithmetic progression, Geometric progression, Harmonic progression, Sum formulas, Applications"
+      },
+      {
+        "id": "m5",
+        "name": "Permutations and Combinations",
+        "subtopics": "Factorials, Permutations, Combinations, Circular arrangements, Binomial theorem, Multinomial theorem"
+      },
+      {
+        "id": "m6",
+        "name": "Binomial Theorem",
+        "subtopics": "Expansion, General term, Middle term, Binomial coefficients, Applications"
+      },
+      {
+        "id": "m7",
+        "name": "Trigonometry",
+        "subtopics": "Trigonometric ratios, Identities, Equations, Inverse functions, Hyperbolic functions, Heights and distances"
+      },
+      {
+        "id": "m8",
+        "name": "Coordinate Geometry",
+        "subtopics": "Straight lines, Circles, Conic sections, Parabola, Ellipse, Hyperbola, Transformation of axes"
+      },
+      {
+        "id": "m9",
+        "name": "3D Geometry",
+        "subtopics": "Coordinate system, Direction cosines, Lines and planes, Distances, Angles, Skew lines"
+      },
+      {
+        "id": "m10",
+        "name": "Vectors",
+        "subtopics": "Vector algebra, Scalar and vector products, Triple products, Applications to geometry"
+      },
+      {
+        "id": "m11",
+        "name": "Limits, Continuity and Differentiability",
+        "subtopics": "Limits, Continuity, Differentiability, L'Hopital rule, Composite and implicit differentiation"
+      },
+      {
+        "id": "m12",
+        "name": "Applications of Derivatives",
+        "subtopics": "Monotonicity, Extrema, Concavity, Inflection points, Rate of change, Optimization, Tangents and normals"
+      },
+      {
+        "id": "m13",
+        "name": "Integration",
+        "subtopics": "Antiderivatives, Indefinite integration, Definite integration, Properties, Fundamental theorem"
+      },
+      {
+        "id": "m14",
+        "name": "Applications of Integration",
+        "subtopics": "Area under curves, Area between curves, Volume, Arc length, Surface area, Differential equations"
+      },
+      {
+        "id": "m15",
+        "name": "Differential Equations",
+        "subtopics": "Order and degree, Variable separable, Homogeneous equations, Linear equations, Bernoulli equations"
+      },
+      {
+        "id": "m16",
+        "name": "Probability and Statistics",
+        "subtopics": "Sample space, Probability, Conditional probability, Bayes theorem, Random variables, Distributions, Mean, Variance"
+      },
+      {
+        "id": "m17",
+        "name": "Mathematical Reasoning",
+        "subtopics": "Statements, Logical operators, Quantifiers, Implications, Validating statements"
+      }
+    ]
+  }
+]

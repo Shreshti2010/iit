@@ -1,0 +1,90 @@
+[
+  {
+    "id": "physics",
+    "title": "Physics",
+    "topics": [
+      {
+        "id": "p1",
+        "name": "Mechanics",
+        "subtopics": "Kinematics, Dynamics, Work-Energy, Rotational motion, Gravitation, Simple Harmonic Motion, Waves"
+      },
+      {
+        "id": "p2",
+        "name": "Thermal Physics",
+        "subtopics": "Heat and temperature, Thermal properties, Thermodynamics, Kinetic theory of gases, Laws of thermodynamics"
+      },
+      {
+        "id": "p3",
+        "name": "Electricity and Magnetism",
+        "subtopics": "Electrostatics, Current electricity, Magnetic effects, Electromagnetic induction, AC circuits, Electromagnetic waves"
+      },
+      {
+        "id": "p4",
+        "name": "Optics",
+        "subtopics": "Geometrical optics, Reflection and refraction, Lens formula, Optical instruments, Wave optics, Interference, Diffraction"
+      },
+      {
+        "id": "p5",
+        "name": "Modern Physics",
+        "subtopics": "Photoelectric effect, Bohr's model, X-rays, Spectra, Matter waves, De Broglie relation, Radioactivity, Nuclear physics"
+      }
+    ]
+  },
+  {
+    "id": "chemistry",
+    "title": "Chemistry",
+    "topics": [
+      {
+        "id": "c1",
+        "name": "Inorganic Chemistry",
+        "subtopics": "Atomic structure, Periodic table, Bonding, s-block elements, p-block elements, d-block elements, Coordination compounds"
+      },
+      {
+        "id": "c2",
+        "name": "Physical Chemistry",
+        "subtopics": "Stoichiometry, Thermodynamics, Equilibrium, Ionic equilibrium, Electrochemistry, Kinetics, Surface chemistry"
+      },
+      {
+        "id": "c3",
+        "name": "Organic Chemistry",
+        "subtopics": "Hydrocarbons, Halogenated hydrocarbons, Alcohols, Ethers, Phenols, Aldehydes, Ketones, Carboxylic acids, Amines"
+      },
+      {
+        "id": "c4",
+        "name": "Biochemistry",
+        "subtopics": "Carbohydrates, Proteins, Lipids, Nucleic acids, Enzymes, Metabolism, Molecular biology"
+      }
+    ]
+  },
+  {
+    "id": "mathematics",
+    "title": "Mathematics",
+    "topics": [
+      {
+        "id": "m1",
+        "name": "Algebra",
+        "subtopics": "Sets and relations, Functions, Quadratic equations, Inequalities, Permutations and combinations, Binomial theorem, Probability"
+      },
+      {
+        "id": "m2",
+        "name": "Trigonometry",
+        "subtopics": "Trigonometric functions, Identities, Equations, Inverse functions, Heights and distances, Hyperbolic functions"
+      },
+      {
+        "id": "m3",
+        "name": "Coordinate Geometry",
+        "subtopics": "Straight lines, Circles, Conic sections, Vectors, 3D geometry, Lines and planes"
+      },
+      {
+        "id": "m4",
+        "name": "Calculus",
+        "subtopics": "Limits and continuity, Derivatives, Applications of derivatives, Integration, Definite integrals, Differential equations"
+      },
+      {
+        "id": "m5",
+        "name": "Statistics and Linear Programming",
+        "subtopics": "Mean, Variance, Standard deviation, Regression, Linear programming, Probability distributions"
+      }
+    ]
+  }
+]

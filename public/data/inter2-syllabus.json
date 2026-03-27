@@ -1,0 +1,140 @@
+[
+  {
+    "id": "physics2",
+    "title": "Physics",
+    "topics": [
+      {
+        "id": "p1",
+        "name": "Electrostatics",
+        "subtopics": "Electric charge, Coulomb's law, Electric field, Electric potential, Capacitor, Dielectrics"
+      },
+      {
+        "id": "p2",
+        "name": "Current Electricity",
+        "subtopics": "Electric current, Ohm's law, EMF and internal resistance, Kirchhoff's laws, Power and energy, Thermoelectric effects"
+      },
+      {
+        "id": "p3",
+        "name": "Magnetic Effects of Electric Current",
+        "subtopics": "Magnetic field, Lorentz force, Ampere's law, Cyclotron motion, Torque on magnetic dipole, Solenoid"
+      },
+      {
+        "id": "p4",
+        "name": "Electromagnetic Induction",
+        "subtopics": "Faraday's laws, Lenz's law, Motional EMF, Transformers, Eddy currents, Inductance"
+      },
+      {
+        "id": "p5",
+        "name": "Alternating Current",
+        "subtopics": "AC generation, AC circuits, Impedance, Power factor, Resonance, Transformer applications"
+      },
+      {
+        "id": "p6",
+        "name": "Electromagnetic Waves",
+        "subtopics": "Maxwell's equations, Properties, Speed of light, Poynting vector, Polarization, Spectrum"
+      },
+      {
+        "id": "p7",
+        "name": "Optics",
+        "subtopics": "Reflection and refraction, Lens formula, Optical instruments, Interference, Diffraction, Polarization"
+      },
+      {
+        "id": "p8",
+        "name": "Modern Physics",
+        "subtopics": "Photoelectric effect, Bohr's model, X-rays, Radioactivity, Nuclear reactions, Fission and fusion"
+      }
+    ]
+  },
+  {
+    "id": "chemistry2",
+    "title": "Chemistry",
+    "topics": [
+      {
+        "id": "c1",
+        "name": "d and f Block Elements",
+        "subtopics": "Transition elements, Electronic configuration, Oxidation states, Complex compounds, Coordination chemistry"
+      },
+      {
+        "id": "c2",
+        "name": "Coordination Compounds",
+        "subtopics": "Ligands, Coordination number, Nomenclature, Isomerism, Bonding, Crystal field theory, Applications"
+      },
+      {
+        "id": "c3",
+        "name": "Organic Chemistry",
+        "subtopics": "Hydrocarbons, Alkanes, Alkenes, Alkynes, Aromatic compounds, Reactions and mechanisms"
+      },
+      {
+        "id": "c4",
+        "name": "Haloalkanes and Haloarenes",
+        "subtopics": "Nomenclature, Synthesis, Properties, Reactions, Substitution reactions, Elimination reactions"
+      },
+      {
+        "id": "c5",
+        "name": "Alcohols, Phenols and Ethers",
+        "subtopics": "Classification, Preparation, Properties, Reactions, Oxidation, Esterification, Uses"
+      },
+      {
+        "id": "c6",
+        "name": "Carbonyl Compounds",
+        "subtopics": "Aldehydes and ketones, Carboxylic acids, Preparation, Properties, Reactions, Nucleophilic addition"
+      },
+      {
+        "id": "c7",
+        "name": "Amines and Diazonium Compounds",
+        "subtopics": "Classification, Preparation, Properties, Basicity, Reactions, Diazonium salts, Reactions"
+      },
+      {
+        "id": "c8",
+        "name": "Polymers and Biomolecules",
+        "subtopics": "Polymer types, Synthesis, Properties, Plastics, Proteins, Carbohydrates, Nucleic acids"
+      }
+    ]
+  },
+  {
+    "id": "mathematics2",
+    "title": "Mathematics",
+    "topics": [
+      {
+        "id": "m1",
+        "name": "Differentiation",
+        "subtopics": "Derivatives, Power rule, Chain rule, Product and quotient rules, Implicit differentiation, Logarithmic differentiation"
+      },
+      {
+        "id": "m2",
+        "name": "Applications of Derivatives",
+        "subtopics": "Rate of change, Maximum and minimum, Monotonicity, Concavity, Inflection points, Optimization problems"
+      },
+      {
+        "id": "m3",
+        "name": "Integration",
+        "subtopics": "Antiderivatives, Indefinite integration, Definite integration, Substitution method, Integration by parts, Partial fractions"
+      },
+      {
+        "id": "m4",
+        "name": "Applications of Integration",
+        "subtopics": "Area under curves, Area between curves, Volume of solids, Arc length, Surface area, Differential equations"
+      },
+      {
+        "id": "m5",
+        "name": "Differential Equations",
+        "subtopics": "Order and degree, Variable separable, Homogeneous equations, Linear equations, Applications, Solution methods"
+      },
+      {
+        "id": "m6",
+        "name": "Probability and Statistics",
+        "subtopics": "Random variables, Probability distributions, Binomial distribution, Normal distribution, Mean and variance, Hypothesis testing"
+      },
+      {
+        "id": "m7",
+        "name": "Vectors",
+        "subtopics": "Vector algebra, Dot product, Cross product, Triple products, Lines and planes, Distances"
+      },
+      {
+        "id": "m8",
+        "name": "Linear Programming",
+        "subtopics": "Linear inequalities, Feasible region, Objective function, Graphical method, Simplex method, Applications"
+      }
+    ]
+  }
+]

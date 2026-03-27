@@ -1,0 +1,140 @@
+[
+  {
+    "id": "physics1",
+    "title": "Physics",
+    "topics": [
+      {
+        "id": "p1",
+        "name": "Motion in a Straight Line",
+        "subtopics": "Rest and motion, Reference frame, Distance and displacement, Speed and velocity, Acceleration, Equations of motion"
+      },
+      {
+        "id": "p2",
+        "name": "Motion in a Plane",
+        "subtopics": "Scalars and vectors, Vector addition and subtraction, Resolution of vectors, Projectile motion, Circular motion"
+      },
+      {
+        "id": "p3",
+        "name": "Laws of Motion",
+        "subtopics": "Newton's first law, Second law and momentum, Third law, Friction, Applications of Newton's laws"
+      },
+      {
+        "id": "p4",
+        "name": "Work, Energy and Power",
+        "subtopics": "Work done by a force, Energy, Kinetic energy, Potential energy, Conservation of energy, Power"
+      },
+      {
+        "id": "p5",
+        "name": "Rotational Motion",
+        "subtopics": "Angular displacement, Angular velocity, Angular acceleration, Moment of inertia, Torque, Angular momentum"
+      },
+      {
+        "id": "p6",
+        "name": "Gravitation",
+        "subtopics": "Newton's law of gravitation, Acceleration due to gravity, Gravitational potential, Orbital motion, Satellite motion"
+      },
+      {
+        "id": "p7",
+        "name": "Oscillations",
+        "subtopics": "Simple harmonic motion, Equation of SHM, Energy in SHM, Damped oscillations, Forced oscillations"
+      },
+      {
+        "id": "p8",
+        "name": "Waves",
+        "subtopics": "Wave motion, Speed of wave, Kinds of waves, Interference, Diffraction, Doppler effect, Sound waves"
+      }
+    ]
+  },
+  {
+    "id": "chemistry1",
+    "title": "Chemistry",
+    "topics": [
+      {
+        "id": "c1",
+        "name": "Atomic Structure",
+        "subtopics": "Subatomic particles, Bohr's model, Quantum numbers, Orbitals, Electronic configuration, Aufbau principle"
+      },
+      {
+        "id": "c2",
+        "name": "Classification of Elements",
+        "subtopics": "Periodic table, Periodicity, Periodic properties, Atomic radius, Ionization energy, Electronegativity"
+      },
+      {
+        "id": "c3",
+        "name": "Chemical Bonding",
+        "subtopics": "Ionic bonding, Covalent bonding, Metallic bonding, Intermolecular forces, Bond polarity, Hybridization"
+      },
+      {
+        "id": "c4",
+        "name": "States of Matter",
+        "subtopics": "Gaseous state, Liquid state, Solid state, Gas laws, Kinetic theory, Phase transitions"
+      },
+      {
+        "id": "c5",
+        "name": "Stoichiometry",
+        "subtopics": "Atomic mass, Molecular mass, Mole concept, Chemical equations, Limitng reagent, Calculations"
+      },
+      {
+        "id": "c6",
+        "name": "Thermodynamics",
+        "subtopics": "First law of thermodynamics, Enthalpy, Heat capacity, Hess's law, Entropy, Gibbs energy"
+      },
+      {
+        "id": "c7",
+        "name": "Equilibrium",
+        "subtopics": "Chemical equilibrium, Equilibrium constant, Le Chatelier's principle, Homogeneous and heterogeneous equilibrium"
+      },
+      {
+        "id": "c8",
+        "name": "Hydrogen and Its Compounds",
+        "subtopics": "Electronic configuration of hydrogen, Isotopes, Hydrogen compounds, Water, Hydrogen peroxide"
+      }
+    ]
+  },
+  {
+    "id": "mathematics1",
+    "title": "Mathematics",
+    "topics": [
+      {
+        "id": "m1",
+        "name": "Functions",
+        "subtopics": "Notation, Domain and range, Types of functions, Composition, Inverse functions, Graphing"
+      },
+      {
+        "id": "m2",
+        "name": "Quadratic Functions and Equations",
+        "subtopics": "Standard form, Vertex form, Solving quadratic equations, Nature of roots, Quadratic inequalities"
+      },
+      {
+        "id": "m3",
+        "name": "Trigonometry",
+        "subtopics": "Trigonometric ratios, Identities, Equations, Inverse trigonometric functions, Applications, Heights and distances"
+      },
+      {
+        "id": "m4",
+        "name": "Complex Numbers",
+        "subtopics": "Algebra of complex numbers, Modulus and argument, De Moivre's theorem, Roots of complex numbers"
+      },
+      {
+        "id": "m5",
+        "name": "Progressions",
+        "subtopics": "Arithmetic progression, Geometric progression, Arithmetic mean, Geometric mean, Sum formulas"
+      },
+      {
+        "id": "m6",
+        "name": "Permutations and Combinations",
+        "subtopics": "Factorials, Permutations, Combinations, Binomial theorem, Probability fundamentals"
+      },
+      {
+        "id": "m7",
+        "name": "Coordinate Geometry",
+        "subtopics": "Straight lines, Circle, Parabola, Ellipse, Hyperbola, Distance and section formulas"
+      },
+      {
+        "id": "m8",
+        "name": "Limits and Continuity",
+        "subtopics": "Definition of limit, Algebra of limits, Continuity, Discontinuity, L'Hôpital's rule"
+      }
+    ]
+  }
+]
